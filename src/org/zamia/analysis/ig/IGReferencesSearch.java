@@ -57,7 +57,7 @@ public class IGReferencesSearch {
 
 	 /* NB! no debug removes tiles from search results and breaks their comparison (if different signals assigned in the
 	  * same place, second will overwrite the first)!*/
-	static boolean debug = true;
+	static boolean debug = false;
 
 	public final static ZamiaLogger logger = ZamiaLogger.getInstance();
 
