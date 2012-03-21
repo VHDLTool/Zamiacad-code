@@ -176,26 +176,21 @@ public class IGAssignmentsSearch extends IGReferencesSearch {
 	@Override 
 	protected boolean createEntryResult(IGObject obj, ToplevelPath aPath) {
 
-		RootResult root = doingAssignment.keyResult = completed.get(obj.getDBID());
-		if (root != null) {
+		doingAssignment.keyResult = completed.get(obj.getDBID());
+		if (doingAssignment.keyResult != null) {
 			if (debug) logger.info("will not search assignments of " + doingObject + ". It already has a result, " + obj);
-			if (!root.skippedDueToDepth) 
+			if (!doingAssignment.keyResult.skippedDueToDepth) 
 				return false;
 		} else {
 
-			root = new RootResult(completed.size()+1, obj, aPath); 
-			
-			// grandfa is not shown in results - fix by one more level
-			doingAssignment.keyResult = new RootResult(completed.size()+1, obj, aPath);
-			root.add(doingAssignment.keyResult);
-			
+			doingAssignment.keyResult = new RootResult(completed.size()+1, obj, aPath); 
 			completed.put(obj.getDBID(), doingAssignment.keyResult);
 		}
 		
-		root.skippedDueToDepth = doingAssignment.keyResult.skippedDueToDepth = 
+		doingAssignment.keyResult.skippedDueToDepth = 
 				doingAssignment.fDepth == maxDepth;
 		
-		return !root.skippedDueToDepth;
+		return !doingAssignment.keyResult.skippedDueToDepth;
 	}
 
 	public static class RootResult extends ReferenceSite {
