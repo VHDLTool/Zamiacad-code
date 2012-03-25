@@ -65,7 +65,7 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
 
     private long getLocation(Token token_) {
 
-        return token_ == null ? 0 : (long) token_.beginLine | ((long) token_.beginColumn) << 32;
+        return token_ == null ? 0 : VHDLNode.toLineCol(token_.beginLine, token_.beginColumn);
     }
 
     private long getLocation () {
@@ -2970,7 +2970,7 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
         t = jj_consume_token(TYPE);
         id = identifier();
         jj_consume_token(SEMICOLON);
-                        td = new TypeDeclaration(id.getImage(), new TypeDefinitionIncomplete(null, getLocation(t)), null, getLocation(t));
+                        td = new TypeDeclaration(id.getImage(), new TypeDefinitionIncomplete(null, id.getLineCol()), null, id.getLineCol());
         break;
       default:
         jj_la1[117] = jj_gen;
@@ -2991,7 +2991,7 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     jj_consume_token(IS);
     td = type_definition();
     jj_consume_token(SEMICOLON);
-          {if (true) return new TypeDeclaration (id.getImage(), td, null, getLocation(t));}
+          {if (true) return new TypeDeclaration (id.getImage(), td, null, id.getLineCol());}
     throw new Error("Missing return statement in function");
   }
 
@@ -3004,7 +3004,7 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     jj_consume_token(IS);
     type = subtype_indication();
     jj_consume_token(SEMICOLON);
-          {if (true) return new TypeDeclaration (id.getImage(), type, null, getLocation(t));}
+          {if (true) return new TypeDeclaration (id.getImage(), type, null, id.getLineCol());}
     throw new Error("Missing return statement in function");
   }
 
@@ -5778,7 +5778,7 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
         jj_la1[220] = jj_gen;
         ;
       }
-                  sub= new SubProgram (id.getImage(), interfaces        , null, false, null, getLocation(t));
+                  sub= new SubProgram (id.getImage(), interfaces        , null, false, null, id.getLineCol());
       break;
     case PURE:
     case IMPURE:
@@ -5910,7 +5910,7 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
       ;
     }
     jj_consume_token(SEMICOLON);
-                {if (true) return new AliasDeclaration(id.getImage(), td, n, s, getLocation(t));}
+                {if (true) return new AliasDeclaration(id.getImage(), td, n, s, id.getLineCol());}
     throw new Error("Missing return statement in function");
   }
 

@@ -33,8 +33,9 @@ public class SourceLocation implements Serializable, Comparable<SourceLocation> 
 
 	public SourceLocation(SourceFile aSF, long aLocation) {
 		fSF = aSF;
-		fLine = (int) aLocation & 0xffffffff;
-		fCol = (int) (aLocation >> 32);
+		
+		fCol = ASTNode.col(aLocation);
+		fLine = ASTNode.line(aLocation);
 	}
 
 	static public SourceFile dummyFile() {return new SourceFile(new File("unknown"));}

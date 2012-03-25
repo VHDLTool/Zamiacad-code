@@ -43,8 +43,8 @@ public abstract class Operation extends VHDLNode {
 
 	public Operation(VHDLNode aParent, long aLocation, long aOperatorLocation) {
 		super(aParent, aLocation);
-		fOpLine = extractLine(aOperatorLocation);
-		fOpCol = extractCol(aOperatorLocation);
+		fOpLine = line(aOperatorLocation);
+		fOpCol = col(aOperatorLocation);
 	}
 
 	public SourceLocation getOperatorLocation() {

@@ -11,6 +11,7 @@ package org.zamia.vhdl.ast;
 
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.zamia.ErrorReport;
 import org.zamia.ToplevelPath;
@@ -488,4 +489,5 @@ public class Block extends ConcurrentStatement {
 
 		return buf.toString();
 	}
+
 }

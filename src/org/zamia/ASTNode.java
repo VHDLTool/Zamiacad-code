@@ -264,6 +264,32 @@ public abstract class ASTNode implements Serializable, ZDBIIDSaver {
 		fStartCol = aStartCol;
 	}
 
+	public long getLineCol() {
+
+		long location = ((long) getStartLine() << 32);
+		location = location | getStartCol();
+
+		return location;
+	}
+	
+	public static long toLineCol(int line, int col) {
+
+		long location = ((long) line << 32);
+		location =  location | col;
+
+		return location;
+	}
+	
+	public static int line(long aLocation) {
+		return (int) (aLocation >> 32);
+	}
+
+	public static int col(long aLocation) {
+		return (int) (aLocation & 0xFFFFFFFF);
+	}
+
+	
+	
 	public int getStartLine() {
 		return fStartLine;
 	}

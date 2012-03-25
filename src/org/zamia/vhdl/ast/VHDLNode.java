@@ -14,6 +14,7 @@ import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.log4j.Level;
@@ -58,16 +59,8 @@ public abstract class VHDLNode extends ASTNode {
 
 		super(aParent);
 
-		setStartLine(extractLine(aLocation));
-		setStartCol(extractCol(aLocation));
-	}
-
-	protected int extractLine(long aLocation) {
-		return (int) (aLocation & 0xFFFFFFFF);
-	}
-
-	protected int extractCol(long aLocation) {
-		return (int) (aLocation >> 32);
+		setStartLine(line(aLocation));
+		setStartCol(col(aLocation));
 	}
 
 	public VHDLNode(long aLocation) {
@@ -308,10 +301,7 @@ public abstract class VHDLNode extends ASTNode {
 
 	public long getLineCol() {
 
-		long location = getStartLine();
-		location = ((long) getStartCol() << 32) | location;
-
-		return location;
+		return toLineCol(getStartLine(), getStartCol());
 	}
 
 	// convenience
@@ -449,5 +439,5 @@ public abstract class VHDLNode extends ASTNode {
 	protected void reportError(String aMsg, VHDLNode aObj, ASTErrorMode aErrorMode, ErrorReport aReport) throws ZamiaException {
 		reportError(aMsg, aObj.getLocation(), aErrorMode, aReport);
 	}
-
+	
 }
