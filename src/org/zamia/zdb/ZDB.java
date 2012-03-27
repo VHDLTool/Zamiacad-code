@@ -18,9 +18,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.io.RandomAccessFile;
 import java.util.HashMap;
 import java.util.zip.Deflater;
 import java.util.zip.GZIPInputStream;
@@ -73,7 +75,7 @@ public class ZDB {
 
 	public static final boolean ENABLE_STATISTICS = false;
 
-	public static final boolean ENABLE_COMPRESSION = true;
+	public static final boolean ENABLE_COMPRESSION = false;
 
 	public static final boolean ENABLE_LOCKING = true;
 
@@ -88,6 +90,7 @@ public class ZDB {
 	private ZDBPersistentData fPD;
 
 	private File fLockFile, fDataFile, fPDFile, fEHMPagesFile, fOffsetsFile;
+	private RandomAccessFile fData;
 
 	private Object fOwner;
 
@@ -126,6 +129,12 @@ public class ZDB {
 		fPDFile = new File(fDBDir.getAbsolutePath() + File.separator + PD_FILENAME);
 		fLockFile = new File(fDBDir.getAbsolutePath() + File.separator + LOCK_FILENAME);
 		fDataFile = new File(fDBDir.getAbsolutePath() + File.separator + DATA_TABLE_FILENAME);
+		try {
+			fData = new RandomAccessFile(fDataFile, "rw");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			throw new ZDBException("Failed to create data file with message " + e, fDataFile);
+		}
 		fEHMPagesFile = new File(fDBDir.getAbsolutePath() + File.separator + EHM_PAGES_FILENAME);
 		fOffsetsFile = new File(fDBDir.getAbsolutePath() + File.separator + OFFSETS_FILENAME);
 
@@ -452,16 +461,13 @@ public class ZDB {
 			
 			//logger.info ("ZDB: File for %d is '%s'", id, dataFile);
 
-			long offset = fDataFile.length();
+			long offset = fData.length();
 
 			fOffsets.put(id, offset);
 
-			OutputStream out = openOutputFile(fDataFile, true);
-			try {
-				baos.writeTo(out);
-			} finally {
-				out.close();
-			}
+			fData.seek(offset);
+			fData.write(baos.toByteArray());
+			
 		} catch (IOException e) {
 			el.logException(e);
 		}
@@ -535,12 +541,18 @@ public class ZDB {
 		}
 
 		try {
-			ObjectInputStream in = openInputFile(fDataFile, offset);
-			try {
-				obj = in.readObject();
-			} finally {
-				in.close();
-			}
+			fData.seek(offset);
+			obj = (new ObjectInputStream(new InputStream() {
+			    @Override
+			    public int read(byte[] b, int off, int len) throws IOException {
+			        return fData.read(b, off, len);
+			    }
+
+			    @Override
+			    public int read() throws IOException {
+			        return fData.read();
+			    }
+			})).readObject();
 		} catch (IOException e) {
 			logger.error("ZDB: IOException while reading element %s (file: '%s')", aId, fDataFile.getAbsolutePath());
 			el.logException(e);
