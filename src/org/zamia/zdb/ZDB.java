@@ -126,6 +126,7 @@ public class ZDB {
 		fPDFile = new File(fDBDir.getAbsolutePath() + File.separator + PD_FILENAME);
 		fLockFile = new File(fDBDir.getAbsolutePath() + File.separator + LOCK_FILENAME);
 		fDataFile = new File(fDBDir.getAbsolutePath() + File.separator + DATA_TABLE_FILENAME);
+		fDataSize = fDataFile.length();
 		fEHMPagesFile = new File(fDBDir.getAbsolutePath() + File.separator + EHM_PAGES_FILENAME);
 		fOffsetsFile = new File(fDBDir.getAbsolutePath() + File.separator + OFFSETS_FILENAME);
 
@@ -435,6 +436,7 @@ public class ZDB {
 		}
 	}
 
+	long fDataSize;
 	private synchronized void storeOnDisk(ZDBCacheEntry aEntry) {
 
 		long id = aEntry.getId();
@@ -446,24 +448,31 @@ public class ZDB {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
 		try {
-			ObjectOutputStream serializer = new ObjectOutputStream(baos);
+			ObjectOutputStream serializer = new ObjectOutputStream(
+					ENABLE_COMPRESSION ? new LevelGZIPOutputStream(baos, Deflater.BEST_SPEED) : baos);
 			serializer.writeObject(aEntry.getObject());
-			serializer.flush();
+			serializer.close();
 			
 			//logger.info ("ZDB: File for %d is '%s'", id, dataFile);
 
-			long offset = fDataFile.length();
-
+			long offset = 
+					//fDataFile.length();
+					fDataSize;
+			//logger.info ("saving " + baos.size() + " bytes at " + offset);
+			
 			fOffsets.put(id, offset);
 
-			OutputStream out = openOutputFile(fDataFile, true);
+			//OutputStream out = openOutputFile(fDataFile, true);
+			FileOutputStream out = new FileOutputStream(fDataFile, true);
 			try {
 				baos.writeTo(out);
 			} finally {
 				out.close();
 			}
+			fDataSize += baos.size();
 		} catch (IOException e) {
 			el.logException(e);
+			fDataSize = fDataFile.length();
 		}
 
 	}
@@ -477,7 +486,7 @@ public class ZDB {
 	static ObjectInputStream openInputFile(File name, long offset) throws IOException {
 		FileInputStream fis = new FileInputStream(name);
 		fis.skip(offset);
-
+		//logger.info ("opening at " + offset);
 		return new ObjectInputStream(new BufferedInputStream(
 				ENABLE_COMPRESSION ? new GZIPInputStream(fis) : fis));
 		
