@@ -21,7 +21,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.zip.Deflater;
 import java.util.zip.GZIPInputStream;
 
@@ -34,6 +38,7 @@ import org.zamia.util.FileUtils;
 import org.zamia.util.HashMapArray;
 import org.zamia.util.LevelGZIPOutputStream;
 import org.zamia.util.ObjectSize;
+import org.zamia.util.Pair;
 import org.zamia.util.ZHash;
 import org.zamia.util.ehm.EHMIterator;
 import org.zamia.util.ehm.EHMPageManager;
@@ -189,6 +194,8 @@ public class ZDB {
 		} catch (ZDBException e) {
 			el.logException(e);
 		}
+		
+		fDataSize = 0;
 	}
 
 	private void printStats() {
@@ -437,6 +444,7 @@ public class ZDB {
 	}
 
 	long fDataSize;
+	List<Pair<Long, byte[]>> storing = new ArrayList();
 	private synchronized void storeOnDisk(ZDBCacheEntry aEntry) {
 
 		long id = aEntry.getId();
@@ -458,25 +466,62 @@ public class ZDB {
 			long offset = 
 					//fDataFile.length();
 					fDataSize;
-			//logger.info ("saving " + baos.size() + " bytes at " + offset);
+//			logger.info ("saving " + baos.size() + " bytes at " + offset);
 			
 			fOffsets.put(id, offset);
 
-			//OutputStream out = openOutputFile(fDataFile, true);
-			FileOutputStream out = new FileOutputStream(fDataFile, true);
-			try {
-				baos.writeTo(out);
-			} finally {
-				out.close();
+			synchronized (storing) {
+				storing.add(new Pair(offset, baos.toByteArray()));
+				storing.notify();
 			}
 			fDataSize += baos.size();
 		} catch (IOException e) {
 			el.logException(e);
-			fDataSize = fDataFile.length();
 		}
 
 	}
 
+	{
+		Thread saver = new Thread() {
+		
+			public void run() {
+				
+				while (true) {
+					List<Pair<Long, byte[]>> copy = new ArrayList();;
+					synchronized (storing) {
+						while (storing.isEmpty())
+							try {
+								storing.wait();
+							} catch (InterruptedException e) {
+								e.printStackTrace();
+							}
+						copy.addAll(storing); storing.clear();
+					}
+					//OutputStream out = openOutputFile(fDataFile, true);
+					try { 
+						FileOutputStream out = new FileOutputStream(fDataFile, true);
+						try {
+							for (Pair<Long, byte[]> p: copy) {
+								out.write(p.getSecond());
+//								assert(p.getFirst() == fDataFile.length());
+//								logger.info("Thread: saving " + p.getSecond().length + " bytes at " + p.getFirst());
+							}
+						} finally {
+							out.close();
+						}
+					} catch (IOException e) {
+						el.logException(e);
+						fDataSize = fDataFile.length();
+					}
+				}
+	
+			}
+			
+		};
+		
+		saver.start();
+	}
+	
 	static OutputStream openOutputFile(File name, boolean append) throws FileNotFoundException, IOException {
 
 		FileOutputStream f = new FileOutputStream(name, append);
