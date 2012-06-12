@@ -59,7 +59,11 @@ architecture logic of control is
 --      from_reg_source_nez, from_reg_source_eqz);
 --   type pc_source_type is (from_inc4, from_inc8, from_reg_source, 
 --      from_opcode25_0, from_branch, from_lbranch);
-begin
+ signal op_sig, func_sig       : std_logic_vector(5 downto 0);
+begin 
+ 
+	op_sig <= opcode(31 downto 26); 
+	func_sig <= opcode(5 downto 0);	        
 
 control_proc: process(opcode, intr_signal) 
    variable op, func       : std_logic_vector(5 downto 0);

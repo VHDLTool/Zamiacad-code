@@ -54,8 +54,8 @@ architecture logic of tbench is
    signal uart_mem_pause    : std_logic;
    signal uart_dbg          : std_logic_vector(7 downto 0);
 begin  --architecture
-   clk    <= not clk after 75 ns;
-   reset  <= '0' after 1500 ns;
+   clk    <= not clk after 10 ns;
+   reset  <= '0' after (1500/75)*10 ns;
    resetn <= not reset;
 
    --Uncomment the line below to test interrupts

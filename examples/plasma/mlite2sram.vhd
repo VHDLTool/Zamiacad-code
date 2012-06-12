@@ -78,24 +78,7 @@ begin
 	       sram_oe_hi <= '0';
 	       sram_oe_lo <= '0';
 	       
-	       -- check if boot memory is read
-	       case mem_address(31 downto 2) is
-
-                  when "000000000000000000000000000000" => output <= x"00004021"; -- main: move    t0,zero
-                  when "000000000000000000000000000001" => output <= x"00004821"; --       move    t1,zero
-                  when "000000000000000000000000000010" => output <= x"25290001"; --       addiu   t1,t1,1
-                  when "000000000000000000000000000011" => output <= x"3c010000"; -- loop: lui     at,0x0
-                  when "000000000000000000000000000100" => output <= x"ac280024"; --       sw      t0,36(at)
-                  when "000000000000000000000000000101" => output <= x"01095020"; --       add     t2,t0,t1
-                  when "000000000000000000000000000110" => output <= x"01204021"; --       move    t0,t1
-                  when "000000000000000000000000000111" => output <= x"08000003"; --       j       c <loop>
-                  when "000000000000000000000000001000" => output <= x"01404821"; --       move    t1,t2
-                  when "000000000000000000000000001001" => output <= x"00000000"; --       nop
-
-                  -- address not part of boot rom so give back sram content
-                  when others => 
-                     output <= sram_data_hi & sram_data_lo;
-               end case;
+			output <= sram_data_hi & sram_data_lo;
 	       
                -- recognize write cycle
                if mem_write = '1' then

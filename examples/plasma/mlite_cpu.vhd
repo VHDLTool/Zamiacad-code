@@ -87,7 +87,7 @@ end; --entity mlite_cpu
 architecture logic of mlite_cpu is
    --When using a two stage pipeline "sigD <= sig".
    --When using a three stage pipeline "sigD <= sig when (clk'event and clk='1')",
-   --  so sigD is delayed by one clock cycle.
+   --  so sigD is delayed by one clock cycle. 
    signal opcode         : std_logic_vector(31 downto 0);
    signal rs_index       : std_logic_vector(5 downto 0);
    signal rt_index       : std_logic_vector(5 downto 0);
@@ -97,8 +97,8 @@ architecture logic of mlite_cpu is
    signal reg_target     : std_logic_vector(31 downto 0);
    signal reg_dest       : std_logic_vector(31 downto 0);
    signal reg_destD      : std_logic_vector(31 downto 0);
-   signal a_bus          : std_logic_vector(31 downto 0);
-   signal a_busD         : std_logic_vector(31 downto 0);
+   signal a_bus          : std_logic_vector(31 downto 0); 
+   signal a_busD         : std_logic_vector(31 downto 0); 
    signal b_bus          : std_logic_vector(31 downto 0);
    signal b_busD         : std_logic_vector(31 downto 0);
    signal c_bus          : std_logic_vector(31 downto 0);

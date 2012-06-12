@@ -10,6 +10,7 @@
 # variables can be assigned using '='
 
 # local sources
+local none "bugs" 
 
 toplevel PLASMA
 toplevel CPU_TB

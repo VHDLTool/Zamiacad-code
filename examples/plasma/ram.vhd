@@ -35,14 +35,16 @@ architecture logic of ram is
    signal mem_sel           : std_logic;
    signal read_enable       : std_logic;
    signal write_byte_enable : std_logic_vector(3 downto 0);
+   signal debug_addr : natural;
 begin
+	debug_addr <= conv_integer(mem_address(ADDRESS_WIDTH-1 downto 2));
    clk_inv <= not clk;
    mem_sel <= '1' when mem_address(30 downto ADDRESS_WIDTH) = ZERO(30 downto ADDRESS_WIDTH) else
               '0';
    read_enable <= mem_sel and not mem_write;
    write_byte_enable <= mem_byte_sel when mem_sel = '1' else
                         "0000";
-
+ 
    ram_proc: process(clk, mem_byte_sel, mem_write, 
          mem_address, mem_data_w, mem_sel)
       variable mem_size : natural := 2 ** ADDRESS_WIDTH;
@@ -50,8 +52,24 @@ begin
       subtype word is std_logic_vector(mem_data_w'length-1 downto 0);
       type storage_array is
          array(natural range 0 to mem_size/4 - 1) of word;
-      variable storage : storage_array;
       variable index : natural := 0;
+      impure function LOAD return storage_array is
+      	variable STORAGE : storage_array := (others => ZERO); -- needs to be initialized in ZAMIA
+		file load_file : text open read_mode is "code.txt";
+      	variable hex_file_line : line;
+      	
+		begin
+
+         while not endfile(load_file) loop
+            readline(load_file, hex_file_line);
+            hread(hex_file_line, data);
+            storage(index) := data;
+            index := index + 1;
+         end loop;
+      	
+      	return STORAGE;
+      end function;
+      variable storage : storage_array := LOAD;
    begin
       index := conv_integer(mem_address(ADDRESS_WIDTH-1 downto 2));
       data := storage(index);
