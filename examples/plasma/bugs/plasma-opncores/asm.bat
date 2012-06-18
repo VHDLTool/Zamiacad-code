@@ -6,3 +6,4 @@ objdump --disassemble test.axf > test.lst
 
 rem Convert_bin changes test.axf into code.txt which is used by the VHDL.
 CONVERT_BIN = convert_bin
+copy code.txt trunk\vhdl

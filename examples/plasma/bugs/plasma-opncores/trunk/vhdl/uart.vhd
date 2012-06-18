@@ -164,6 +164,7 @@ end process; --uart_proc
                index := conv_integer(data_in(6 downto 0));
                if index /= 10 then
                   c := character'val(index);
+               	report time'image(now) & ", writing " & integer'image(index) & " = " & c;
                   write(hex_file_line, c);
                   line_length := line_length + 1;
                end if;
