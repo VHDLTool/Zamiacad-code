@@ -25,7 +25,7 @@ architecture logic of tbench is
 --   "XILINX_16X";
 
    constant log_file  : string := 
---   "UNUSED";
+   --"UNUSED";
    "output.txt";
 
    signal clk         : std_logic := '1';
@@ -43,11 +43,25 @@ architecture logic of tbench is
    signal byte_we     : std_logic_vector(3 downto 0);
    signal uart_write  : std_logic;
    signal gpioA_in    : std_logic_vector(31 downto 0) := (others => '0');
+   
 begin  --architecture
    --Uncomment the line below to test interrupts
    interrupt <= '1' after 20 us when interrupt = '0' else '0' after 445 ns;
-
-   clk   <= not clk after 50 ns;
+ 
+   --clk   <= not clk after 50 ns; 
+   
+   CLOCK: process
+	variable result : integer;
+   begin
+   	wait for 75 ns;
+   	clk <= not CLK;
+   	if BYTE_WE = "1111" and ADDRESS = 128 then -- the edge is about to rise  
+   		result := conv_integer(data_write(7 downto 0)); -- must be 49 (ascii code '1') 
+   		report "finished with " & integer'image(result) & ", passed=" & boolean'image(result = 49);
+   		wait;
+   	end if; 
+   end process;
+   
    reset <= '0' after 500 ns;
    pause1 <= '1' after 700 ns when pause1 = '0' else '0' after 200 ns;
    pause2 <= '1' after 300 ns when pause2 = '0' else '0' after 200 ns;
