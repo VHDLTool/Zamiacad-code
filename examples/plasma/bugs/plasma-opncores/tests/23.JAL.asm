@@ -13,6 +13,7 @@ entry:
    nop
    SW $t0,512($0)	# end of test
 	j halt
+	nop
 	
 step1:
 	li $t0,'1' # good code

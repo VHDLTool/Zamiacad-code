@@ -39,7 +39,7 @@ use ieee.std_logic_unsigned.all;
 use work.mlite_pack.all;
 
 library UNISIM;
-use UNISIM.vcomponents.all;
+--use UNISIM.vcomponents.all;
 
 entity ram is
    generic(memory_type : string := "DEFAULT";

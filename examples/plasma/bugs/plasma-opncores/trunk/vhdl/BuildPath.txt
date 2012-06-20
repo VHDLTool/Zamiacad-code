@@ -1,2 +1,2 @@
 toplevel TBENCH
-  
+local none "ram_xilinx.vhd"
