@@ -91,7 +91,7 @@ public class IGOperationInvokeSubprogram extends IGOperation {
 		int n = subContainer.getNumLocalItems();
 		for (int i = 0; i < n; i++) {
 
-			IGContainerItem item = subContainer.getLocalItem(i);
+			Object item = subContainer.getLocalItem(i);
 
 			if (!(item instanceof IGObject)) {
 				continue;

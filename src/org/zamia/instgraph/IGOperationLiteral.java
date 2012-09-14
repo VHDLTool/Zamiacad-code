@@ -180,7 +180,6 @@ public class IGOperationLiteral extends IGOperation {
 		return null;
 	}
 
-	@Override
 	public String getId() {
 		switch (fCat) {
 		case STRING:
@@ -188,7 +187,7 @@ public class IGOperationLiteral extends IGOperation {
 		case CHAR:
 			return "" + fChar;
 		}
-		return super.getId();
+		return null; //super.getId();
 	}
 
 	@Override

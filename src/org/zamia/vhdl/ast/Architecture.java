@@ -25,6 +25,7 @@ import org.zamia.instgraph.IGContainerItem;
 import org.zamia.instgraph.IGDesignUnit;
 import org.zamia.instgraph.IGElaborationEnv;
 import org.zamia.instgraph.IGInstantiation;
+import org.zamia.instgraph.IGItem;
 import org.zamia.instgraph.IGLibraryImport;
 import org.zamia.instgraph.IGManager;
 import org.zamia.instgraph.IGModule;
@@ -407,7 +408,7 @@ public class Architecture extends SecondaryUnit {
 			BlockDeclarativeItem decl = getDeclaration(i);
 
 			try {
-				IGContainerItem item = decl.computeIG(null, container, cache);
+				IGItem item = decl.computeIG(null, container, cache);
 				if (item instanceof IGObject) {
 					IGObject obj = (IGObject) item;
 					env.newObject(obj, ASTErrorMode.EXCEPTION, null, decl.getLocation());

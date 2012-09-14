@@ -44,16 +44,6 @@ public class IGPackageImport extends IGContainerItem {
 	}
 
 	@Override
-	public IGItem getChild(int aIdx) {
-		return null;
-	}
-
-	@Override
-	public int getNumChildren() {
-		return 0;
-	}
-
-	@Override
 	public String toString() {
 		if (fAll) {
 			return "USE "+fLibId+"."+fId+".ALL";

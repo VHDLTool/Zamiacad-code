@@ -1233,16 +1233,6 @@ public class IGType extends IGContainerItem {
 		}
 	}
 
-	@Override
-	public IGItem getChild(int aIdx) {
-		return null;
-	}
-
-	@Override
-	public int getNumChildren() {
-		return 0;
-	}
-
 	public boolean isUniversal() {
 		return fUniversal;
 	}

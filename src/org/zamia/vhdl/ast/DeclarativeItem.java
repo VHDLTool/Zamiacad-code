@@ -14,6 +14,7 @@ import org.zamia.ZamiaException;
 import org.zamia.instgraph.IGContainer;
 import org.zamia.instgraph.IGContainerItem;
 import org.zamia.instgraph.IGElaborationEnv;
+import org.zamia.instgraph.IGItem;
 
 
 /**
@@ -36,5 +37,5 @@ public abstract class DeclarativeItem extends VHDLNode {
 		return id;
 	}
 
-	public abstract IGContainerItem computeIG(ArrayList<IGContainerItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aCache) throws ZamiaException;
+	public abstract IGItem computeIG(ArrayList<IGItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aCache) throws ZamiaException;
 }

@@ -22,42 +22,14 @@ import org.zamia.zdb.ZDB;
  */
 
 @SuppressWarnings("serial")
-public class IGOperationTypeQualification extends IGOperation {
-
-	private IGOperation fOp;
+public class IGOperationTypeQualification extends IGUnitaryOperation {
 
 	public IGOperationTypeQualification(IGOperation aOp, IGType aType, SourceLocation aSrc, ZDB aZDB) {
-		super(aType, aSrc, aZDB);
-		fOp = aOp;
+		super(aOp, aType, aSrc, aZDB);
 	}
 
 	@Override
-	public void computeAccessedItems(boolean aLeftSide, IGItem aFilterItem, AccessType aFilterType, int aDepth, HashSetArray<IGItemAccess> aAccessedItems) {
-		fOp.computeAccessedItems(aLeftSide, aFilterItem, aFilterType, aDepth, aAccessedItems);
+	protected void appendCode(boolean aFromInside, IGInterpreterCode aCode) throws ZamiaException {
 	}
 
-	@Override
-	public void generateCode(boolean aFromInside, IGInterpreterCode aCode) throws ZamiaException {
-		fOp.generateCode(aFromInside, aCode);
-		// no code aCode.add(new IGTypeConversionStmt(getType(), computeSourceLocation(), getZDB()));
-	}
-
-	@Override
-	public OIDir getDirection() throws ZamiaException {
-		return fOp.getDirection();
-	}
-
-	@Override
-	public int getNumOperands() {
-		return 1;
-	}
-
-	@Override
-	public IGOperation getOperand(int aIdx) {
-		return fOp;
-	}
-
-	public IGOperation getOperation() {
-		return fOp;
-	}
 }

@@ -24,15 +24,4 @@ public class IGAttribute extends IGContainerItem {
 		// TODO Auto-generated constructor stub
 	}
 	
-	@Override
-	public int getNumChildren() {
-		return 0;
-	}
-
-	@Override
-	public IGItem getChild(int aIdx) {
-		return null;
-	}
-
-
 }

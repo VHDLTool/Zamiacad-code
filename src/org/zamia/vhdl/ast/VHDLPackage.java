@@ -26,6 +26,7 @@ import org.zamia.instgraph.IGContainer;
 import org.zamia.instgraph.IGContainerItem;
 import org.zamia.instgraph.IGDesignUnit;
 import org.zamia.instgraph.IGElaborationEnv;
+import org.zamia.instgraph.IGItem;
 import org.zamia.instgraph.IGManager;
 import org.zamia.instgraph.IGModule;
 import org.zamia.instgraph.IGObject;
@@ -136,7 +137,7 @@ public class VHDLPackage extends PrimaryUnit {
 			//logger.debug ("VHDLPackage: computeIG(): working on header declaration '%s'", decl.getId());
 
 			try {
-				IGContainerItem item = decl.computeIG(null, container, cache);
+				IGItem item = decl.computeIG(null, container, cache);
 
 				if (item instanceof IGObject) {
 					IGObject obj = (IGObject) item;
@@ -195,7 +196,7 @@ public class VHDLPackage extends PrimaryUnit {
 		int nItems = container.getNumLocalItems();
 		for (int i = 0; i < nItems; i++) {
 
-			IGContainerItem item = container.getLocalItem(i);
+			Object item = container.getLocalItem(i);
 
 			if (item instanceof IGType) {
 

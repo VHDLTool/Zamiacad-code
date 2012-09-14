@@ -23,6 +23,7 @@ import org.zamia.analysis.ast.ASTReferencesSearch.ObjectCat;
 import org.zamia.instgraph.IGContainer;
 import org.zamia.instgraph.IGContainerItem;
 import org.zamia.instgraph.IGElaborationEnv;
+import org.zamia.instgraph.IGItem;
 import org.zamia.instgraph.IGObject;
 import org.zamia.instgraph.IGOperation;
 import org.zamia.instgraph.IGOperationAttribute;
@@ -184,7 +185,7 @@ public class GenerateStatement extends ConcurrentStatement {
 			BlockDeclarativeItem decl = fDecls.get(i);
 
 			try {
-				IGContainerItem item = decl.computeIG(null, aContainer, aCache);
+				IGItem item = decl.computeIG(null, aContainer, aCache);
 
 				if (item != null) {
 					if (item instanceof IGObject) {

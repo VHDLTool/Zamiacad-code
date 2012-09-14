@@ -99,7 +99,7 @@ public class IGProcess extends IGConcurrentStatement implements Scope {
 	@Override
 	public IGItem findChild(String aLabel) {
 		IGContainer container = getContainer();
-		ArrayList<IGContainerItem> items = container.findLocalItems(aLabel);
+		ArrayList<IGItem> items = container.findLocalItems(aLabel);
 		if (items == null) {
 			return null;
 		}

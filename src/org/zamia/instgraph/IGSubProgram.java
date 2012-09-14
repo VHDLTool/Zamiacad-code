@@ -48,9 +48,7 @@ public class IGSubProgram extends IGContainerItem {
 		return fBuiltins.get(aId);
 	}
 
-	private long fContainerDBID;
-
-	private long fReturnTypeDBID;
+	private long fReturnTypeDBID, fContainerDBID;
 
 	private IGSequenceOfStatements fCode;
 
@@ -58,18 +56,12 @@ public class IGSubProgram extends IGContainerItem {
 
 	private IGInterpreterCode fInterpreterCode;
 
-	private String fSignature;
-
-	private String fSignature2;
+	private String fSignature, fSignature2;
 
 	public IGSubProgram(long aParentContainerId, IGType aReturnType, String aId, SourceLocation aSrc, ZDB aZDB) {
 		super(aId, aSrc, aZDB);
 
-		if (aReturnType != null) {
-			fReturnTypeDBID = save(aReturnType);
-		} else {
-			fReturnTypeDBID = 0;
-		}
+		fReturnTypeDBID = (aReturnType != null) ? save(aReturnType) : 0 ;
 
 		IGContainer container = (fReturnTypeDBID != 0)
 				? 	new IGContainer(aParentContainerId, aSrc, aZDB) { // it is a function, it has a return value
@@ -104,7 +96,7 @@ public class IGSubProgram extends IGContainerItem {
 		int n = subContainer.getNumLocalItems();
 		for (int i = 0; i < n; i++) {
 
-			IGContainerItem item = subContainer.getLocalItem(i);
+			Object item = subContainer.getLocalItem(i);
 
 			if (!(item instanceof IGObject)) {
 				continue;

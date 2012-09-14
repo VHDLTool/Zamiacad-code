@@ -99,7 +99,7 @@ public class OperationAllocator extends Operation {
 					accessT = new IGType(TypeCat.ACCESS, null, null, null, t, null, false, getLocation(), aEE.getZDB());
 				}
 
-				IGOperation expr = qual.getOperation();
+				IGOperation expr = qual.getOperand();
 
 				res.add(new IGOperationAllocate(expr, accessT, getLocation(), aEE.getZDB()));
 			} else {

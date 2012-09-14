@@ -40,13 +40,4 @@ public class IGLibraryImport extends IGContainerItem {
 		return "IGLibraryImport(id="+getId()+", realId="+fRealId+")";
 	}
 
-	@Override
-	public IGItem getChild(int aIdx) {
-		return null;
-	}
-
-	@Override
-	public int getNumChildren() {
-		return 0;
-	}
 }

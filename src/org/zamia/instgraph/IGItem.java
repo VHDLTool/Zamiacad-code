@@ -193,9 +193,13 @@ public abstract class IGItem implements Serializable, ZDBIIDSaver {
 		aAccessedItems.add(new IGItemAccess(aItem, aAccessType, aDepth, computeSourceLocation()));
 	}
 
-	public abstract int getNumChildren();
+	public int getNumChildren() {
+		return 0;
+	}
 
-	public abstract IGItem getChild(int aIdx);
+	public IGItem getChild(int aIdx) {
+		return null;
+	}
 
 	// utility functions for new postponed error reporting
 	protected void reportError(String aMsg, SourceLocation aLocation, ASTErrorMode aErrorMode, ErrorReport aReport) throws ZamiaException {
@@ -390,6 +394,10 @@ public abstract class IGItem implements Serializable, ZDBIIDSaver {
 
 		return false;
 	}
+	
+	//Multi-inheritance bypass
+	public String getId() { throw new RuntimeException("reserved for implementation"); }; 
+	public void setId(String aId) { throw new RuntimeException("reserved for implementation"); };
 
 	private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException {
 		setZDB(((ZDB.ZDBInputStream)in).getZDB());

@@ -23,6 +23,7 @@ import org.zamia.instgraph.IGContainer;
 import org.zamia.instgraph.IGContainerItem;
 import org.zamia.instgraph.IGDUUID;
 import org.zamia.instgraph.IGElaborationEnv;
+import org.zamia.instgraph.IGItem;
 import org.zamia.instgraph.IGLibraryImport;
 import org.zamia.instgraph.IGManager;
 import org.zamia.instgraph.IGPackage;
@@ -120,7 +121,7 @@ public class Use extends BlockDeclarativeItem {
 	}
 
 	@Override
-	public IGContainerItem computeIG(ArrayList<IGContainerItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aCache) throws ZamiaException {
+	public IGItem computeIG(ArrayList<IGItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aCache) throws ZamiaException {
 		ZamiaProject zprj = aCache.getZamiaProject();
 		ERManager erm = zprj.getERM();
 		DMManager dum = zprj.getDUM();

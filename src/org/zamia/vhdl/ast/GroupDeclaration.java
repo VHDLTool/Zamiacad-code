@@ -21,6 +21,7 @@ import org.zamia.analysis.ast.ASTReferencesSearch.ObjectCat;
 import org.zamia.instgraph.IGContainer;
 import org.zamia.instgraph.IGContainerItem;
 import org.zamia.instgraph.IGElaborationEnv;
+import org.zamia.instgraph.IGItem;
 
 
 /**
@@ -69,7 +70,7 @@ public class GroupDeclaration extends BlockDeclarativeItem {
 	}
 
 	@Override
-	public IGContainerItem computeIG(ArrayList<IGContainerItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aCache) throws ZamiaException {
+	public IGItem computeIG(ArrayList<IGItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aCache) throws ZamiaException {
 		// FIXME: implement
 		throw new ZamiaException("Sorry, not implemented yet.", this);
 	}

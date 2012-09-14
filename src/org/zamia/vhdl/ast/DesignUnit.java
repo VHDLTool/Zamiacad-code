@@ -19,6 +19,7 @@ import org.zamia.ZamiaProject;
 import org.zamia.instgraph.IGContainer;
 import org.zamia.instgraph.IGContainerItem;
 import org.zamia.instgraph.IGElaborationEnv;
+import org.zamia.instgraph.IGItem;
 import org.zamia.util.HashSetArray;
 import org.zamia.zdb.ZDB;
 
@@ -212,7 +213,7 @@ public abstract class DesignUnit extends DeclarativeItem implements IDesignModul
 	}
 
 	@Override
-	public final IGContainerItem computeIG(ArrayList<IGContainerItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aCache) throws ZamiaException {
+	public final IGItem computeIG(ArrayList<IGItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aCache) throws ZamiaException {
 		throw new ZamiaException("Internal error: DesignUnit.computeIG() called");
 	}
 

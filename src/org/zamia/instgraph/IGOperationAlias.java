@@ -25,30 +25,17 @@ import org.zamia.zdb.ZDB;
  */
 
 @SuppressWarnings("serial")
-public class IGOperationAlias extends IGOperation {
+public class IGOperationAlias extends IGUnitaryOperation {
 
-	private IGOperation fOp;
+	private String fId;
 
 	public IGOperationAlias(IGOperation aOp, IGType aType, String aId, SourceLocation aLocation, ZDB aZDB) {
-		super(aType != null ? aType : aOp.getType(), aLocation, aZDB);
-		setId(aId);
-		fOp = aOp;
+		super(aOp, aType != null ? aType : aOp.getType(), aLocation, aZDB);
+		fId = aId;
 	}
 
 	@Override
-	public String toString() {
-		return "IGAlias(id=" + getId() + ", op=" + fOp + ")";
-	}
-
-	@Override
-	public void computeAccessedItems(boolean aLeftSide, IGItem aFilterItem, AccessType aFilterType, int aDepth, HashSetArray<IGItemAccess> aAccessedItems) {
-		fOp.computeAccessedItems(aLeftSide, aFilterItem, aFilterType, aDepth, aAccessedItems);
-	}
-
-	@Override
-	public void generateCode(boolean aFromInside, IGInterpreterCode aCode) throws ZamiaException {
-		fOp.generateCode(aFromInside, aCode);
-
+	protected void appendCode(boolean aFromInside, IGInterpreterCode aCode) throws ZamiaException {
 		IGType t = getType();
 		if (t.getCat() == TypeCat.ARRAY) {
 			aCode.add(new IGAliasOpStmt(t, computeSourceLocation(), getZDB()));
@@ -56,18 +43,13 @@ public class IGOperationAlias extends IGOperation {
 	}
 
 	@Override
-	public OIDir getDirection() throws ZamiaException {
-		return fOp.getDirection();
+	public String getId() {
+		return fId;
 	}
 
 	@Override
-	public int getNumOperands() {
-		return 1;
-	}
-
-	@Override
-	public IGOperation getOperand(int aIdx) {
-		return fOp;
+	public void setId(String aId) {
+		throw new RuntimeException("Alias.setID(name) is not implemented, sorry");
 	}
 
 }

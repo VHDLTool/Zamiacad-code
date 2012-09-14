@@ -101,8 +101,8 @@ public class AliasDeclaration extends BlockDeclarativeItem {
 	}
 
 	@Override
-	public IGContainerItem computeIG(ArrayList<IGContainerItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aEE) throws ZamiaException {
-
+	public IGItem computeIG(ArrayList<IGItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aEE) throws ZamiaException {
+		
 		IGResolveResult result = name.computeIG(null, aContainer, aEE, new IGOperationCache(), ASTErrorMode.EXCEPTION, null);
 
 		int n = result.getNumResults();

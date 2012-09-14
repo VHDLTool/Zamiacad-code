@@ -107,7 +107,7 @@ public class NameExtensionSuffix extends NameExtension {
 		if (aItem instanceof IGPackage) {
 			IGPackage pkg = (IGPackage) aItem;
 			IGContainer container = pkg.getContainer();
-			ArrayList<IGContainerItem> items = container.findLocalItems(suffix.getId());
+			ArrayList<IGItem> items = container.findLocalItems(suffix.getId());
 			if (items == null) {
 				throw new ZamiaException("Item " + suffix + " not found in package " + pkg, this);
 			}
@@ -135,7 +135,7 @@ public class NameExtensionSuffix extends NameExtension {
 			IGPackage pkg = igm.findPackage(duuid.getLibId(), duuid.getId(), getLocation());
 			if (pkg != null) {
 				IGContainer container = pkg.getContainer();
-				ArrayList<IGContainerItem> items = container.findLocalItems(suffix.getId());
+				ArrayList<IGItem> items = container.findLocalItems(suffix.getId());
 				if (items == null) {
 					aReport.append("Item " + suffix + " not found in package " + pkg, getLocation());
 					return;
@@ -160,7 +160,7 @@ public class NameExtensionSuffix extends NameExtension {
 
 					if (module != null) {
 						IGContainer container = module.getContainer();
-						ArrayList<IGContainerItem> items = container.findLocalItems(suffix.getId());
+						ArrayList<IGItem> items = container.findLocalItems(suffix.getId());
 						if (items != null) {
 							int n = items.size();
 							for (int i = 0; i < n; i++) {

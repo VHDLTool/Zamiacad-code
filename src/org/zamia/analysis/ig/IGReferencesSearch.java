@@ -562,7 +562,7 @@ public class IGReferencesSearch {
 			logger.debug("IGObjectReferenceSearch: findLocalDeclarationScope(): container=%s scope=%s", container, scope);
 
 			if (container != null) {
-				ArrayList<IGContainerItem> localItems = container.findLocalItems(object.getId());
+				ArrayList<IGItem> localItems = container.findLocalItems(object.getId());
 
 				logger.debug("IGObjectReferenceSearch: findLocalDeclarationScope(): localItems=%s", localItems);
 

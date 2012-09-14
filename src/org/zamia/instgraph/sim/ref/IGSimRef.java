@@ -373,13 +373,13 @@ public class IGSimRef implements IGISimulator {
 
 		for (Pair<String, IGStaticValue> actualGeneric : actualGenerics) {
 
-			ArrayList<IGContainerItem> localItems = aInstContainer.findLocalItems(actualGeneric.getFirst());
+			ArrayList<IGItem> localItems = aInstContainer.findLocalItems(actualGeneric.getFirst());
 
 			if (localItems.size() > 1) {
 				logger.debug(getClass().getSimpleName() + ": 1 generic item expected for %s, found %s: %s", actualGeneric.getFirst(), localItems.size(), localItems);
 			}
 
-			IGContainerItem item = localItems.get(0);
+			IGItem item = localItems.get(0);
 			if (!(item instanceof IGObject)) {
 				continue;
 			}
@@ -472,7 +472,7 @@ public class IGSimRef implements IGISimulator {
 	private void initObjects(LocalItemFilter aFilter, IGContainer aContainer, IGInterpreterRuntimeEnv aEnv, PathName aPath) throws ZamiaException {
 		int n = aContainer.getNumLocalItems();
 		for (int i = 0; i < n; i++) {
-			IGContainerItem item = aContainer.getLocalItem(i);
+			IGItem item = aContainer.getLocalItem(i);
 
 			if (!(item instanceof IGObject)) {
 				continue;

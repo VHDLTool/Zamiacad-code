@@ -27,7 +27,6 @@ public abstract class IGContainerItem extends IGItem {
 		fId = aId;
 	}
 
-
 	public void setId(String aId) {
 		if (fId != null && !fId.equals(aId)) {
 			System.out.println ("About to rename "+fId+" to "+aId);

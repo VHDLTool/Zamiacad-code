@@ -23,6 +23,7 @@ import org.zamia.analysis.ast.ASTReferencesSearch.ObjectCat;
 import org.zamia.instgraph.IGContainer;
 import org.zamia.instgraph.IGContainerItem;
 import org.zamia.instgraph.IGElaborationEnv;
+import org.zamia.instgraph.IGItem;
 import org.zamia.instgraph.IGRange;
 import org.zamia.instgraph.IGType;
 import org.zamia.instgraph.IGTypeStatic;
@@ -85,7 +86,7 @@ public class TypeDeclaration extends BlockDeclarativeItem {
 	}
 
 	@Override
-	public IGContainerItem computeIG(ArrayList<IGContainerItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aEE) throws ZamiaException {
+	public IGItem computeIG(ArrayList<IGItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aEE) throws ZamiaException {
 
 		IGType type = t.computeIG(aContainer, aEE);
 

@@ -33,14 +33,4 @@ public class IGDUUID extends IGContainerItem {
 		return fDUUID;
 	}
 	
-	@Override
-	public int getNumChildren() {
-		return 0;
-	}
-
-	@Override
-	public IGItem getChild(int aIdx) {
-		return null;
-	}
-
 }

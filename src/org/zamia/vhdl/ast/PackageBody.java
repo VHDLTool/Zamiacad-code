@@ -21,6 +21,7 @@ import org.zamia.instgraph.IGContainer;
 import org.zamia.instgraph.IGContainerItem;
 import org.zamia.instgraph.IGDesignUnit;
 import org.zamia.instgraph.IGElaborationEnv;
+import org.zamia.instgraph.IGItem;
 import org.zamia.instgraph.IGManager;
 import org.zamia.instgraph.IGModule;
 import org.zamia.instgraph.IGObject;
@@ -87,13 +88,13 @@ public class PackageBody extends SecondaryUnit {
 				BlockDeclarativeItem decl = getDeclaration(i);
 				logger.info("PackageBody: Elaborating %s", decl);
 
-				ArrayList<IGContainerItem> specItems = aContainer.findLocalItems(decl.getId());
+				ArrayList<IGItem> specItems = aContainer.findLocalItems(decl.getId());
 				
 				//if (specItem != null) {
 				//	logger.info("PackageBody:  found specification item: %s", specItem);
 				//}
 				
-				IGContainerItem item = decl.computeIG(specItems, container, aCache);
+				IGItem item = decl.computeIG(specItems, container, aCache);
 				if (item instanceof IGObject) {
 					IGObject obj = (IGObject) item;
 					env.newObject(obj, ASTErrorMode.EXCEPTION, null, decl.getLocation());

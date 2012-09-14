@@ -33,14 +33,14 @@ import org.zamia.zdb.ZDB;
  */
 
 @SuppressWarnings("serial")
-public abstract class IGOperation extends IGContainerItem {
+public abstract class IGOperation extends IGItem {
 
 	private long fTypeDBID;
 
 	private transient IGType fType;
 
 	public IGOperation(IGType aType, SourceLocation aSrc, ZDB aZDB) {
-		super(null, aSrc, aZDB);
+		super(aSrc, aZDB);
 
 		//		if (aType == null) {
 		//			logger.error("IGOperation: Internal error: Creating a null=typed operation.");

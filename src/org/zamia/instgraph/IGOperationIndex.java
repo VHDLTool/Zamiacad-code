@@ -23,23 +23,16 @@ import org.zamia.zdb.ZDB;
  * 
  */
 @SuppressWarnings("serial")
-public class IGOperationIndex extends IGOperation {
-
-	private IGOperation fOp;
+public class IGOperationIndex extends IGUnitaryOperation {
 
 	private IGOperation fIdx;
 
 	public IGOperationIndex(IGOperation aIdx, IGOperation aOp, IGType aType, SourceLocation aSrc, ZDB aZDB) {
-		super(aType, aSrc, aZDB);
-
+		super(aOp, aType, aSrc, aZDB);
 		fIdx = aIdx;
-		fOp = aOp;
 	}
 
-	@Override
-	public void generateCode(boolean aFromInside, IGInterpreterCode aCode) throws ZamiaException {
-
-		fOp.generateCode(aFromInside, aCode);
+	protected void appendCode(boolean aFromInside, IGInterpreterCode aCode) throws ZamiaException {
 		fIdx.generateCode(aFromInside, aCode);
 		aCode.add(new IGIndexOpStmt(computeSourceLocation(), getZDB()));
 	}
@@ -51,42 +44,27 @@ public class IGOperationIndex extends IGOperation {
 
 	@Override
 	public IGOperation getOperand(int aIdx) {
-
-		switch (aIdx) {
-		case 0:
-			return fIdx;
-		case 1:
-			return fOp;
-		}
-		return fOp;
-	}
-
-	@Override
-	public OIDir getDirection() throws ZamiaException {
-		return fOp.getDirection();
+		return aIdx == 0 ? fIdx : getOperand();
 	}
 
 	@Override
 	public void computeAccessedItems(boolean aLeftSide, IGItem aFilterItem, AccessType aFilterType, int aDepth, HashSetArray<IGItemAccess> aAccessedItems) {
-		fOp.computeAccessedItems(aLeftSide, aFilterItem, aFilterType, aDepth, aAccessedItems);
+		super.computeAccessedItems(aLeftSide, aFilterItem, aFilterType, aDepth, aAccessedItems);
 		fIdx.computeAccessedItems(false, aFilterItem, aFilterType, aDepth, aAccessedItems);
 	}
 
 	@Override
 	public String toString() {
-		return "IGOperationIndex(obj=" + fOp + ", idx=" + fIdx + ")";
+		return "IGOperationIndex(obj=" + getOperand() + ", idx=" + fIdx + ")";
 	}
 
 	@Override
 	public String toHRString() {
-		return fOp.toHRString() + "[" + fIdx.toHRString() + "]";
+		return getOperand().toHRString() + "[" + fIdx.toHRString() + "]";
 	}
 
 	public IGOperation getIndex() {
 		return fIdx;
 	}
 
-	public IGOperation getOperand() {
-		return fOp;
-	}
 }

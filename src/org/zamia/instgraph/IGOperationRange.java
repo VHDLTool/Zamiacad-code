@@ -25,28 +25,19 @@ import org.zamia.zdb.ZDB;
  * 
  */
 @SuppressWarnings("serial")
-public class IGOperationRange extends IGOperation {
-
-	private IGOperation fOp;
+public class IGOperationRange extends IGUnitaryOperation {
 
 	private IGOperation fRange;
 
 	public IGOperationRange(IGOperation aRange, IGOperation aOp, IGType aType, SourceLocation aSrc, ZDB aZDB) {
-		super(aType, aSrc, aZDB);
-		fOp = aOp;
+		super(aOp, aType, aSrc, aZDB);
 		fRange = aRange;
 	}
 
 	@Override
-	public void generateCode(boolean aFromInside, IGInterpreterCode aCode) throws ZamiaException {
-		fOp.generateCode(aFromInside, aCode);
+	public void appendCode(boolean aFromInside, IGInterpreterCode aCode) throws ZamiaException {
 		fRange.generateCode(aFromInside, aCode);
 		aCode.add(new IGRangeOpStmt(IGRangeOp.APPLY, getType(), computeSourceLocation(), getZDB()));
-	}
-
-	@Override
-	public OIDir getDirection() throws ZamiaException {
-		return fOp.getDirection();
 	}
 
 	@Override
@@ -58,7 +49,7 @@ public class IGOperationRange extends IGOperation {
 	public IGOperation getOperand(int aIdx) {
 		switch (aIdx) {
 		case 0:
-			return fOp;
+			return getOperand();
 		case 1:
 			return fRange;
 		}
@@ -67,20 +58,17 @@ public class IGOperationRange extends IGOperation {
 
 	@Override
 	public void computeAccessedItems(boolean aLeftSide, IGItem aFilterItem, AccessType aFilterType, int aDepth, HashSetArray<IGItemAccess> aAccessedItems) {
-		fOp.computeAccessedItems(aLeftSide, aFilterItem, aFilterType, aDepth, aAccessedItems);
+		getOperand().computeAccessedItems(aLeftSide, aFilterItem, aFilterType, aDepth, aAccessedItems);
 		fRange.computeAccessedItems(false, aFilterItem, aFilterType, aDepth, aAccessedItems);
 	}
 
 	@Override
 	public String toString() {
-		return fOp.toString() + "(" + fRange + ")";
+		return getOperand().toString() + "(" + fRange + ")";
 	}
 
 	public IGOperation getRange() {
 		return fRange;
 	}
 
-	public IGOperation getOperand() {
-		return fOp;
-	}
 }

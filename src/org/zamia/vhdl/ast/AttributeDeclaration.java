@@ -23,6 +23,7 @@ import org.zamia.instgraph.IGAttribute;
 import org.zamia.instgraph.IGContainer;
 import org.zamia.instgraph.IGContainerItem;
 import org.zamia.instgraph.IGElaborationEnv;
+import org.zamia.instgraph.IGItem;
 import org.zamia.instgraph.IGOperationCache;
 import org.zamia.instgraph.IGType;
 
@@ -71,7 +72,7 @@ public class AttributeDeclaration extends BlockDeclarativeItem {
 	}
 
 	@Override
-	public IGContainerItem computeIG(ArrayList<IGContainerItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aEE) throws ZamiaException {
+	public IGItem computeIG(ArrayList<IGItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aEE) throws ZamiaException {
 		IGType type = typeMark.computeIGAsType(aContainer, aEE, new IGOperationCache(), ASTErrorMode.EXCEPTION, null) ;
 		IGAttribute s = new IGAttribute(type, getId(), getLocation(), aEE.getZDB());
 		aContainer.add(s);

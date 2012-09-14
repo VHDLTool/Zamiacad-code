@@ -281,7 +281,7 @@ public class Entity extends PrimaryUnit {
 				try {
 					InterfaceDeclaration interf = (InterfaceDeclaration) fPorts.get(i);
 
-					IGContainerItem igi = interf.computeIG(null, aContainer, aEE);
+					IGItem igi = interf.computeIG(null, aContainer, aEE);
 
 					aContainer.addInterface((IGObject) igi);
 
@@ -303,7 +303,7 @@ public class Entity extends PrimaryUnit {
 		for (int i = 0; i < n; i++) {
 			try {
 				BlockDeclarativeItem decl = getDeclaration(i);
-				IGContainerItem item = decl.computeIG(null, aContainer, aEE);
+				IGItem item = decl.computeIG(null, aContainer, aEE);
 
 				if (item instanceof IGObject) {
 					IGObject obj = (IGObject) item;

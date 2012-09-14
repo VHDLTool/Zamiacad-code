@@ -21,6 +21,7 @@ import org.zamia.analysis.ast.SearchJob;
 import org.zamia.instgraph.IGContainer;
 import org.zamia.instgraph.IGContainerItem;
 import org.zamia.instgraph.IGElaborationEnv;
+import org.zamia.instgraph.IGItem;
 import org.zamia.instgraph.IGObject;
 import org.zamia.instgraph.IGObject.IGObjectCat;
 import org.zamia.instgraph.IGObject.OIDir;
@@ -132,7 +133,7 @@ public class InterfaceDeclaration extends DeclarativeItem {
 	}
 
 	@Override
-	public IGContainerItem computeIG(ArrayList<IGContainerItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aEE) throws ZamiaException {
+	public IGItem computeIG(ArrayList<IGItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aEE) throws ZamiaException {
 
 		IGType t = type.computeIG(aContainer, aEE);
 		IGOperation initialValue = value != null ? value.computeIGOperation(t, aContainer, aEE, new IGOperationCache(), ASTErrorMode.EXCEPTION, null) : null;

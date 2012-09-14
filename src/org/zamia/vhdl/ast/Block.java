@@ -24,6 +24,7 @@ import org.zamia.analysis.ast.ASTReferencesSearch.ObjectCat;
 import org.zamia.instgraph.IGContainer;
 import org.zamia.instgraph.IGContainerItem;
 import org.zamia.instgraph.IGElaborationEnv;
+import org.zamia.instgraph.IGItem;
 import org.zamia.instgraph.IGMapping;
 import org.zamia.instgraph.IGMappings;
 import org.zamia.instgraph.IGObject;
@@ -302,7 +303,7 @@ public class Block extends ConcurrentStatement {
 				try {
 					InterfaceDeclaration interf = (InterfaceDeclaration) fPorts.get(i);
 
-					IGContainerItem igi = interf.computeIG(null, blockContainer, blockEE);
+					IGItem igi = interf.computeIG(null, blockContainer, blockEE);
 
 					blockContainer.addInterface((IGObject) igi);
 
@@ -342,7 +343,7 @@ public class Block extends ConcurrentStatement {
 			BlockDeclarativeItem decl = fDecls.get(i);
 
 			try {
-				IGContainerItem item = decl.computeIG(null, blockContainer, blockEE);
+				IGItem item = decl.computeIG(null, blockContainer, blockEE);
 
 				if (item != null) {
 					if (item instanceof IGObject) {

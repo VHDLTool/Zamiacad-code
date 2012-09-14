@@ -120,7 +120,7 @@ public class IGContainer extends IGItem {
 		return res;
 	}
 
-	public void add(IGContainerItem aItem) throws ZamiaException {
+	public void add(IGItem aItem) throws ZamiaException {
 
 		String id = aItem.getId();
 
@@ -136,7 +136,8 @@ public class IGContainer extends IGItem {
 				fLocalItemMap.put(id, items);
 			}
 
-			long dbid = aItem.store();
+			long dbid = //aItem.store();
+					getZDB().store(aItem);
 
 			//			int n = items.size();
 			//			for (int i = 0; i < n; i++) {
@@ -244,7 +245,7 @@ public class IGContainer extends IGItem {
 			IGContainer pkgContainer = pkg.getContainer();
 
 			if (itemId != null) {
-				ArrayList<IGContainerItem> itemsC = pkgContainer.findLocalItems(aId);
+				ArrayList<IGItem> itemsC = pkgContainer.findLocalItems(aId);
 				if (itemsC != null) {
 					int m = itemsC.size();
 					for (int j = 0; j < m; j++) {
@@ -255,7 +256,7 @@ public class IGContainer extends IGItem {
 			} else {
 				if (pi.isAll()) {
 
-					ArrayList<IGContainerItem> itemsC = pkgContainer.findLocalItems(aId);
+					ArrayList<IGItem> itemsC = pkgContainer.findLocalItems(aId);
 					if (itemsC != null) {
 						int m = itemsC.size();
 						for (int j = 0; j < m; j++) {
@@ -450,8 +451,8 @@ public class IGContainer extends IGItem {
 		return fLocalItems.size();
 	}
 
-	public IGContainerItem getLocalItem(int aIdx) {
-		return (IGContainerItem) getZDB().load(fLocalItems.get(aIdx));
+	public <T> T getLocalItem(int aIdx) {
+		return (T) getZDB().load(fLocalItems.get(aIdx));
 	}
 
 	public int getNumPackageImports() {
@@ -472,7 +473,7 @@ public class IGContainer extends IGItem {
 		return getNumLocalItems();
 	}
 
-	public ArrayList<IGContainerItem> findLocalItems(String aId) {
+	public ArrayList<IGItem> findLocalItems(String aId) {
 
 		ArrayList<Long> itemsL = fLocalItemMap.get(aId);
 		if (itemsL == null) {
@@ -480,10 +481,10 @@ public class IGContainer extends IGItem {
 		}
 
 		int n = itemsL.size();
-		ArrayList<IGContainerItem> items = new ArrayList<IGContainerItem>(n);
+		ArrayList<IGItem> items = new ArrayList<IGItem>(n);
 		for (int i = 0; i < n; i++) {
 			Long dbid = itemsL.get(i);
-			items.add((IGContainerItem) getZDB().load(dbid.longValue()));
+			items.add((IGItem) getZDB().load(dbid.longValue()));
 		}
 		return items;
 	}

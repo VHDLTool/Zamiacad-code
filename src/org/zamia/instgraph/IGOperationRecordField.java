@@ -23,56 +23,27 @@ import org.zamia.zdb.ZDB;
  */
 
 @SuppressWarnings("serial")
-public class IGOperationRecordField extends IGOperation {
+public class IGOperationRecordField extends IGUnitaryOperation {
 
 	private IGRecordField fRF;
 
-	private IGOperation fOp;
-
 	public IGOperationRecordField(IGRecordField aRF, IGOperation aOp, IGType aType, SourceLocation aSrc, ZDB aZDB) {
-		super(aType, aSrc, aZDB);
-
+		super(aOp, aType, aSrc, aZDB);
 		fRF = aRF;
-		fOp = aOp;
 	}
 
 	@Override
-	public void computeAccessedItems(boolean aLeftSide, IGItem aFilterItem, AccessType aFilterType, int aDepth, HashSetArray<IGItemAccess> aAccessedItems) {
-		fOp.computeAccessedItems(aLeftSide, aFilterItem, aFilterType, aDepth, aAccessedItems);
-	}
-
-	@Override
-	public void generateCode(boolean aFromInside, IGInterpreterCode aCode) throws ZamiaException {
-		fOp.generateCode(aFromInside, aCode);
+	protected void appendCode(boolean aFromInside, IGInterpreterCode aCode) throws ZamiaException {
 		aCode.add(new IGRecordFieldOpStmt(fRF, computeSourceLocation(), getZDB()));
-	}
-
-	@Override
-	public OIDir getDirection() throws ZamiaException {
-		return fOp.getDirection();
-	}
-
-	@Override
-	public int getNumOperands() {
-		return 1;
-	}
-
-	@Override
-	public IGOperation getOperand(int aIdx) {
-		return fOp;
-	}
+	}	
 
 	@Override
 	public String toString() {
-		return fOp + "." + fRF.getId();
+		return getOperand() + "." + fRF.getId();
 	}
 
 	public IGRecordField getRecordField() {
 		return fRF;
-	}
-
-	public IGOperation getOperand() {
-		return fOp;
 	}
 
 }

@@ -13,6 +13,7 @@ import org.zamia.ZamiaException;
 import org.zamia.instgraph.IGItemAccess.AccessType;
 import org.zamia.instgraph.IGObject.OIDir;
 import org.zamia.instgraph.interpreter.IGInterpreterCode;
+import org.zamia.instgraph.interpreter.IGStmt;
 import org.zamia.instgraph.interpreter.IGUnaryOpStmt;
 import org.zamia.util.HashSetArray;
 import org.zamia.zdb.ZDB;
@@ -23,58 +24,35 @@ import org.zamia.zdb.ZDB;
  * 
  */
 @SuppressWarnings("serial")
-public class IGOperationUnary extends IGOperation {
+public class IGOperationUnary extends IGUnitaryOperation {
 
 	public enum UnaryOp {
 		NEG, NOT, ABS, BUF
 	};
 
-	private IGOperation fA;
+	private UnaryOp fFunc;
 
-	private UnaryOp fUnaryOp;
-
-	public IGOperationUnary(IGOperation aA, UnaryOp aUnaryOp, IGType aType, SourceLocation aSrc, ZDB aZDB) {
-		super(aType, aSrc, aZDB);
-		fA = aA;
-		fUnaryOp = aUnaryOp;
+	public IGOperationUnary(IGOperation aArg, UnaryOp aFunc, IGType aType, SourceLocation aSrc, ZDB aZDB) {
+		super(aArg, aType, aSrc, aZDB);
+		fFunc = aFunc;
 	}
 
 	@Override
-	public void generateCode(boolean aFromInside, IGInterpreterCode aCode) throws ZamiaException {
-		fA.generateCode(aFromInside, aCode);
-		aCode.add(new IGUnaryOpStmt(fUnaryOp, computeSourceLocation(), getZDB()));
-	}
-
-	@Override
-	public int getNumOperands() {
-		return 1;
-	}
-
-	@Override
-	public IGOperation getOperand(int aIdx) {
-		return fA;
+	protected void appendCode(boolean aFromInside, IGInterpreterCode aCode) throws ZamiaException {
+		aCode.add(new IGUnaryOpStmt(fFunc, computeSourceLocation(), getZDB()));
 	}
 
 	public IGOperation getA() {
-		return fA;
+		return getOperand();
 	}
 
 	public UnaryOp getUnaryOp() {
-		return fUnaryOp;
+		return fFunc;
 	}
 
 	@Override
 	public String toString() {
-		return fUnaryOp + " " + fA.toString();
+		return fFunc + " " + getA().toString();
 	}
 
-	@Override
-	public OIDir getDirection() throws ZamiaException {
-		return fA.getDirection();
-	}
-
-	@Override
-	public void computeAccessedItems(boolean aLeftSide, IGItem aFilterItem, AccessType aFilterType, int aDepth, HashSetArray<IGItemAccess> aAccessedItems) {
-		fA.computeAccessedItems(aLeftSide, aFilterItem, aFilterType, aDepth, aAccessedItems);
-	}
 }

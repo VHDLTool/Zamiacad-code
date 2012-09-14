@@ -132,7 +132,7 @@ public class IGStructure extends IGConcurrentStatement implements Scope {
 			return null;
 		}
 
-		ArrayList<IGContainerItem> items = container.findLocalItems(aLabel);
+		ArrayList<IGItem> items = container.findLocalItems(aLabel);
 		if (items == null) {
 			return null;
 		}

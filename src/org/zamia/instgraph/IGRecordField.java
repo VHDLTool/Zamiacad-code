@@ -31,18 +31,4 @@ public class IGRecordField extends IGContainerItem {
 		return (IGType) getZDB().load(fTypeDBID);
 	}
 
-	@Override
-	public String toString() {
-		return "IGRecordField(id="+getId()+")";
-	}
-
-	@Override
-	public IGItem getChild(int aIdx) {
-		return null;
-	}
-
-	@Override
-	public int getNumChildren() {
-		return 0;
-	}
 }

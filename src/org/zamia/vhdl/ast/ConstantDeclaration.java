@@ -22,6 +22,7 @@ import org.zamia.analysis.ast.ASTReferencesSearch.ObjectCat;
 import org.zamia.instgraph.IGContainer;
 import org.zamia.instgraph.IGContainerItem;
 import org.zamia.instgraph.IGElaborationEnv;
+import org.zamia.instgraph.IGItem;
 import org.zamia.instgraph.IGObject;
 import org.zamia.instgraph.IGOperation;
 import org.zamia.instgraph.IGOperationCache;
@@ -114,7 +115,7 @@ public class ConstantDeclaration extends BlockDeclarativeItem {
 	}
 
 	@Override
-	public IGContainerItem computeIG(ArrayList<IGContainerItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aEE) throws ZamiaException {
+	public IGItem computeIG(ArrayList<IGItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aEE) throws ZamiaException {
 
 		IGType t = fType.computeIG(aContainer, aEE);
 
@@ -141,7 +142,7 @@ public class ConstantDeclaration extends BlockDeclarativeItem {
 
 			int n = aSpecItems.size();
 			for (int i = 0; i < n; i++) {
-				IGContainerItem specItem = aSpecItems.get(i);
+				IGItem specItem = aSpecItems.get(i);
 
 				if (specItem instanceof IGObject) {
 

@@ -22,6 +22,7 @@ import org.zamia.analysis.ast.ASTReferencesSearch.ObjectCat;
 import org.zamia.instgraph.IGContainer;
 import org.zamia.instgraph.IGContainerItem;
 import org.zamia.instgraph.IGElaborationEnv;
+import org.zamia.instgraph.IGItem;
 import org.zamia.instgraph.IGObject;
 import org.zamia.instgraph.IGOperationCache;
 import org.zamia.instgraph.IGSequenceOfStatements;
@@ -203,7 +204,7 @@ public class SubProgram extends BlockDeclarativeItem {
 	}
 
 	@Override
-	public IGContainerItem computeIG(ArrayList<IGContainerItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aEE) throws ZamiaException {
+	public IGItem computeIG(ArrayList<IGItem> aSpecItems, IGContainer aContainer, IGElaborationEnv aEE) throws ZamiaException {
 
 		IGType rt = null;
 		if (returnType != null) {
@@ -220,7 +221,7 @@ public class SubProgram extends BlockDeclarativeItem {
 				try {
 					InterfaceDeclaration interf = (InterfaceDeclaration) interfaces.get(i);
 
-					IGContainerItem igi = interf.computeIG(null, container, aEE);
+					IGItem igi = interf.computeIG(null, container, aEE);
 
 					container.addInterface((IGObject) igi);
 
@@ -247,7 +248,7 @@ public class SubProgram extends BlockDeclarativeItem {
 
 			for (int i = n - 1; i >= 0; i--) {
 
-				IGContainerItem specItem = aSpecItems.get(i);
+				IGItem specItem = aSpecItems.get(i);
 				if (!(specItem instanceof IGSubProgram)) {
 					continue;
 				}
@@ -269,7 +270,7 @@ public class SubProgram extends BlockDeclarativeItem {
 
 		// local header ?
 
-		ArrayList<IGContainerItem> localSpecItems = aContainer.findLocalItems(getId());
+		ArrayList<IGItem> localSpecItems = aContainer.findLocalItems(getId());
 		IGSubProgram matchingLocalSub = null;
 		if (localSpecItems != null) {
 
@@ -277,7 +278,7 @@ public class SubProgram extends BlockDeclarativeItem {
 
 			for (int i = n - 1; i >= 0; i--) {
 
-				IGContainerItem specItem = localSpecItems.get(i);
+				IGItem specItem = localSpecItems.get(i);
 				if (!(specItem instanceof IGSubProgram)) {
 					continue;
 				}

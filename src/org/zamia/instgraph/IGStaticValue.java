@@ -84,6 +84,8 @@ public class IGStaticValue extends IGOperation {
 
 	private boolean fTruthValue;
 
+	private String fId;
+
 	public IGStaticValue(boolean aTruthValue, ZDB aZDB) {
 		super(null, null, aZDB);
 		fIsBuiltinBool = true;
@@ -1365,10 +1367,6 @@ public class IGStaticValue extends IGOperation {
 		return asc ? (num - 1) - (idx - offset) + offset : idx;
 	}
 
-	public String getId() {
-		return fId;
-	}
-
 	@Override
 	public IGItem getChild(int aIdx) {
 		return null;
@@ -1670,4 +1668,18 @@ public class IGStaticValue extends IGOperation {
 			return toHRString();
 		}
 	}
+
+	@Override
+	public void setId(String aId) {
+		if (fId != null && !fId.equals(aId)) {
+			System.out.println ("About to rename "+fId+" to "+aId);
+		}
+		fId = aId;
+	}
+
+	@Override
+	public String getId() {
+		return fId;
+	}
+
 }
