@@ -20,6 +20,6 @@ set CLASSPATH=%CLASSPATH%;%ZAMIA_HOME%share
 :echo classpath is %CLASSPATH%
 
 
-echo This will start python interpreter withing zamia project. You may run a script by zamia_source("your_script.py") or use %~nx0 --help for other options.
-java -Xmx1424m -Xms768m -Xss4m -server org.zamia.cli.Zamia %*
+echo This will start python interpreter within zamia project. You may run a script by zamia_source("your_script.py") or use %~nx0 --help for other options.
+java -Xmx900m -Xms768m -Xss4m -server org.zamia.cli.Zamia %*
 
