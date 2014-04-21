@@ -548,11 +548,11 @@ public class IGStaticValue extends IGOperation {
 			break;
 
 		case INTEGER:
+		case PHYSICAL:
 			builder.setNum(0);
 			break;
 
 		case REAL:
-		case PHYSICAL:
 			builder.setReal(0.0);
 			break;
 

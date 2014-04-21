@@ -103,11 +103,9 @@ public class ZamiaProject {
 
 		registerProject(this);
 
-		logger.debug("ZamiaProject: project %s: Using data directory: %s", fId, fDataPath);
-
 		File dbDir = new File(fDataPath + File.separator + "db" + File.separator + ZHash.encodeZ(fId));
 
-		logger.debug("ZamiaProject: project %s: Using db directory: %s", fId, dbDir.getAbsolutePath());
+		logger.info("ZamiaProject: project %s: Using db directory: %s", fId, dbDir.getAbsolutePath());
 
 		fZDB = new ZDB(dbDir, this);
 

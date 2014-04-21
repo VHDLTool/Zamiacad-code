@@ -1,6 +1,6 @@
-/* 
- * Copyright 2009,2010 by the authors indicated in the @author tags. 
- * All rights reserved. 
+/*
+ * Copyright 2009,2010 by the authors indicated in the @author tags.
+ * All rights reserved.
  * 
  * See the LICENSE file for details.
  * 
@@ -11,14 +11,10 @@ package org.zamia.instgraph.interpreter;
 import org.zamia.ErrorReport;
 import org.zamia.SourceLocation;
 import org.zamia.ZamiaException;
-import org.zamia.instgraph.IGOperation;
 import org.zamia.instgraph.IGOperationAttribute.AttrOp;
-import org.zamia.instgraph.IGOperationLiteral;
-import org.zamia.instgraph.IGRange;
 import org.zamia.instgraph.IGStaticValue;
 import org.zamia.instgraph.IGStaticValueBuilder;
 import org.zamia.instgraph.IGType;
-import org.zamia.instgraph.IGType.TypeCat;
 import org.zamia.instgraph.IGTypeStatic;
 import org.zamia.instgraph.sim.ref.IGFileDriver;
 import org.zamia.instgraph.sim.ref.IGSignalDriver;
@@ -34,11 +30,11 @@ import org.zamia.zdb.ZDB;
 @SuppressWarnings("serial")
 public class IGAttributeStmt extends IGStmt {
 
-	private boolean fHaveArgument;
+	private final boolean fHaveArgument;
 
-	private AttrOp fOp;
+	private final AttrOp fOp;
 
-	private long fResTypeDBID;
+	private final long fResTypeDBID;
 
 	public IGAttributeStmt(IGType aResType, AttrOp aAttrOp, boolean aHaveArgument, SourceLocation aLocation, ZDB aZDB) {
 		super(aLocation, aZDB);
@@ -76,35 +72,31 @@ public class IGAttributeStmt extends IGStmt {
 					IGTypeStatic resType = getResType().computeStaticType(aRuntime, aErrorMode, aReport);
 					String val = null;
 					
-					if (type.isDiscrete()) {
+					switch (type.getCat()) {
+					case INTEGER: val = argument.toDecString(); break;
+					case ENUM:
+						if (type.isCharEnum())
+							val = (argument.isCharLiteral() ? "'" + argument.getId() + "'" : argument.getId()).toLowerCase();
+						
+						else {
+							val = argument.toString().toLowerCase();
 
-						if (type.isInteger()) {
-
-							val = argument.toDecString();
-
-						} else if (type.isEnum()) {
-
-							if (type.isCharEnum())
-								val = (argument.isCharLiteral() ? "'" + argument.getId() + "'" : argument.getId()).toLowerCase();
-							
-							else {
-								val = argument.toString().toLowerCase();
-
-								if (val.startsWith("\\") && val.endsWith("\\")) {
-									// extended identifier => double backslashes
-									val = val.substring(1, val.length() - 1).replace("\\", "\\\\");
-									val = "\\" + val + "\\";
-								} else {
-									val = "'" + val + "'";
-								}
+							if (val.startsWith("\\") && val.endsWith("\\")) {
+								// extended identifier => double backslashes
+								val = val.substring(1, val.length() - 1).replace("\\", "\\\\");
+								val = "\\" + val + "\\";
+							} else {
+								val = "'" + val + "'";
 							}
-							
 						}
-
-					} else if (type.getCat() == TypeCat.PHYSICAL) {
+						break;
+						
+					case PHYSICAL:
+					case REAL:
 						val = argument.toString();
+						break;
 					}
-					
+
 					if (val == null) {
 						throw new ZamiaException("Sorry, not implemented yet: Attribute IMAGE is not supported for " + type, sourceLocation);
 					}
@@ -158,7 +150,7 @@ public class IGAttributeStmt extends IGStmt {
 						throw new ZamiaException("Sorry. not implemented yet: Attribute " + fOp + " for discrete types.", sourceLocation);
 					}
 
-				} 
+				}
 				else
 				{
 					if (!type.isArray()) {
