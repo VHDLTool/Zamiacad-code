@@ -1,12 +1,17 @@
-/* 
- * Copyright 2009,2010 by the authors indicated in the @author tags. 
- * All rights reserved. 
+/*
+ * Copyright 2009,2010 by the authors indicated in the @author tags.
+ * All rights reserved.
  * 
  * See the LICENSE file for details.
  * 
  * Created by Guenter Bartsch on Jul 24, 2009
  */
 package org.zamia.instgraph.interpreter;
+
+import static org.zamia.instgraph.IGObject.OIDir.APPEND;
+import static org.zamia.instgraph.IGObject.OIDir.IN;
+import static org.zamia.instgraph.IGObject.OIDir.NONE;
+import static org.zamia.instgraph.IGObject.OIDir.OUT;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -27,8 +32,6 @@ import org.zamia.instgraph.interpreter.IGStmt.ReturnStatus;
 import org.zamia.instgraph.sim.ref.IGFileDriver;
 import org.zamia.instgraph.sim.ref.IGSimProcess;
 import org.zamia.vhdl.ast.VHDLNode.ASTErrorMode;
-
-import static org.zamia.instgraph.IGObject.OIDir.*;
 
 /**
  * Collection of builtin operation implementations
@@ -178,7 +181,7 @@ public class IGBuiltinOperations {
 		
 			IGTypeStatic timeType = aSub.getReturnType().computeStaticType(aRuntime, aErrorMode, aReport);
 		
-			IGStaticValue nowTime = new IGStaticValueBuilder(timeType, "NOW", aLocation).setNum(now).buildConstant();
+			IGStaticValue nowTime = new IGStaticValue.INT(timeType, "NOW", aLocation, now);
 		
 			aRuntime.push(nowTime);
 		}
@@ -215,7 +218,7 @@ public class IGBuiltinOperations {
 			return ReturnStatus.ERROR;
 		}
 
-		IGStaticValue resValue = new IGStaticValueBuilder(rt, null, aLocation).setNum(res).buildConstant();
+		IGStaticValue resValue = new IGStaticValue.INT(rt, null, aLocation, res);
 
 		aRuntime.push(resValue);
 		return ReturnStatus.CONTINUE;
@@ -277,7 +280,7 @@ public class IGBuiltinOperations {
 			return ReturnStatus.ERROR;
 		}
 
-		IGStaticValue resValue = new IGStaticValueBuilder(rt, null, aLocation).setNum(res).buildConstant();
+		IGStaticValue resValue = new IGStaticValue.INT(rt, null, aLocation, res);
 
 		aRuntime.push(resValue);
 
@@ -826,7 +829,7 @@ public class IGBuiltinOperations {
 			};
 			boolean inRange() {return !(src < offset);}
 			IGStaticValue get() throws ZamiaException {
-				return (inRange()) ? valueA.getValue(src, aLocation) : filler; 
+				return (inRange()) ? valueA.getValue(src, aLocation) : filler;
 			}
 		}
 		
@@ -1132,8 +1135,8 @@ public class IGBuiltinOperations {
 		int total = 0;
 		String typeId = vT.getId();
 
-//		The READ procedures defined for a given type other than CHARACTER and STRING begin by skipping 
-//		leading whitespace characters. A whitespace character is defined as a space, a nonbreaking space, or a 
+//		The READ procedures defined for a given type other than CHARACTER and STRING begin by skipping
+//		leading whitespace characters. A whitespace character is defined as a space, a nonbreaking space, or a
 //		horizontal tabulation character (SP, NBSP, or HT)
 		if (!(typeId.equals("CHARACTER") || typeId.equals("STRING"))) {
 			while (i >= l) {
@@ -1333,7 +1336,7 @@ public class IGBuiltinOperations {
 		IGStaticValue valueL = aRuntime.getObjectValue(intfL);
 
 		// vairables in procedures (as opposed to vars in processes) are not initialized
-		// at sim start, so we can get line eq null at process start. 
+		// at sim start, so we can get line eq null at process start.
 //		if (valueL == null) // Once implicit default initialization was fixed, this is not necessary
 //			valueL = IGFileDriver.newLineBuilder(0, container.findStringType(), aRuntime, aLocation, aErrorMode, aReport).buildConstant();
 
@@ -1361,17 +1364,17 @@ public class IGBuiltinOperations {
 		}
 
 		// Insert the value into provided slot.
-		// Interestinly, we could just insert a single valueV. 
-		//  - - - - - - - - 
+		// Interestinly, we could just insert a single valueV.
+		//  - - - - - - - -
 		// nValueLB.set(1, valueV, aLocation);
 		// ZamiaLogger.getInstance().info(valueV.getStaticType().toString());
-		//  - - - - - - - - 
+		//  - - - - - - - -
 		// It would result in a wired, non-char string but such line can be successfully saved into the file
-		// , e.g. write(line, int); writeline(file, line). However, read, write(line, int); read(line, int), 
+		// , e.g. write(line, int); writeline(file, line). However, read, write(line, int); read(line, int),
 		// fails. So, we have to convert our valueV into separate chars of line len.
 		
-		IGType t1 = lT.getElementType(), t2 = t1.getElementType();	// The line type can be either access or string. In 
-		IGTypeStatic charType = (IGTypeStatic) (t2 == null ? t1 : t2); // the first case, we need to take the type twice 
+		IGType t1 = lT.getElementType(), t2 = t1.getElementType();	// The line type can be either access or string. In
+		IGTypeStatic charType = (IGTypeStatic) (t2 == null ? t1 : t2); // the first case, we need to take the type twice
 		
 		for (int i = len ; i != 0 ; i--) {
 			char c = strV.charAt(len-i);

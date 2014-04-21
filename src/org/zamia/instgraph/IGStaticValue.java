@@ -1,6 +1,6 @@
-/* 
- * Copyright 2009 by the authors indicated in the @author tags. 
- * All rights reserved. 
+/*
+ * Copyright 2009 by the authors indicated in the @author tags.
+ * All rights reserved.
  * 
  * See the LICENSE file for details.
  * 
@@ -33,7 +33,7 @@ import org.zamia.zdb.ZDB;
  * This represents any constant value in the interpreter or ig
  * 
  * @author Guenter Bartsch
- * Oct 2012, Valentin Tihhomirov converted conditional style into polymorphysm, http://codereview.stackexchange.com/questions/18016/replacing-conditional-with-polymorphysm-slows-down-the-performance  
+ * Oct 2012, Valentin Tihhomirov converted conditional style into polymorphysm, http://codereview.stackexchange.com/questions/18016/replacing-conditional-with-polymorphysm-slows-down-the-performance
  */
 
 @SuppressWarnings("serial")
@@ -59,16 +59,29 @@ public class IGStaticValue extends IGOperation {
 		super(aType, null, aZDB);
 	}
 	
+	protected IGStaticValue(IGType aType, SourceLocation aSrc, ZDB aZDB) {
+		super(aType, aSrc, aZDB);
+	}
+	
 	public static class INT extends IGStaticValue {
 		private BigInteger fNum;
 		
 		public INT(IGStaticValueBuilder aBuilder) throws ZamiaException {
-			super(aBuilder);
-			assert getType().isInteger() || getType().isPhysical() : "IGStaticValue.INT<init>: int/physical type expected here instead of " + getType();
-			fNum = aBuilder.getNum();
-			assert fNum != null : "IGStaticValue.INT<init>: int value is not defined in the builder";
+			this(aBuilder.getType(), aBuilder.getId(), aBuilder.getSrc(), aBuilder.getZDB(), aBuilder.getNum());
 		}
 		
+		public INT(IGTypeStatic aType, String aId, SourceLocation aSrc, BigInteger value) {
+			this(aType, aId, aSrc, aType.getZDB(), value);
+		}
+		
+		public INT(IGTypeStatic aType, String aId, SourceLocation aSrc, ZDB aZDB, BigInteger value) {
+			super(aType, aSrc, aZDB);
+			assert getType().isInteger() || getType().isPhysical() : "IGStaticValue.INT<init>: int/physical type expected here instead of " + getType();
+			assert value != null : "IGStaticValue.INT<init>: int value is not defined in the builder";
+			fId = aId;
+			fNum = value;
+		}
+
 		public long getOrd() throws ZamiaException {
 			return fNum.longValue();
 		}
@@ -235,7 +248,7 @@ public class IGStaticValue extends IGOperation {
 			
 			private IGStaticValue fLeft, fRight, fAscending;
 			
-			public Builder(IGStaticValue aPrototype) { 
+			public Builder(IGStaticValue aPrototype) {
 				fType = aPrototype.getStaticType();
 				fLeft = aPrototype.getLeft();
 				fRight = aPrototype.getRight();
@@ -253,7 +266,7 @@ public class IGStaticValue extends IGOperation {
 			super(aType, aType.getZDB());
 			assert aType.isRange() : "IGStaticValue.RANGE: Range type " + aType + " must have RANGE cathegory";
 			assert aAscending != null : "IGStaticValue.RANGE: ascending attribute must not be null";
-			fLeft = aLeft; 
+			fLeft = aLeft;
 			fRight = aRight;
 			fAscending = aAscending;
 		}
@@ -263,7 +276,7 @@ public class IGStaticValue extends IGOperation {
 			return fAscending.isTrue() ? fLeft.toHRString() + " to " + fRight.toHRString() : fLeft.toHRString() + " downto " + fRight.toHRString();
 		}
 		
-		//TODO: get rid of the location. It was used to throw exception on range type check.  
+		//TODO: get rid of the location. It was used to throw exception on range type check.
 		public IGStaticValue getAscending(SourceLocation aLocation) { return fAscending; }
 		public IGStaticValue getAscending() { return fAscending; }
 		public IGStaticValue getLeft(SourceLocation aLocation) { return fLeft; }
@@ -593,15 +606,15 @@ public class IGStaticValue extends IGOperation {
 	 * 
 	 ************************************************/
 
-	//getAscending/Left/Right used getStaticType().isRange() check to throw exception 
+	//getAscending/Left/Right used getStaticType().isRange() check to throw exception
 	// but getRangeLeft/Right/Ascending used getStaticType().isRange() check. What is the difference?
 	private class RangeException extends ZamiaException{
 		RangeException(SourceLocation aLocation) {
-			super("IGStaticValue: This value was not created as range. Its type, " + getType()  
+			super("IGStaticValue: This value was not created as range. Its type, " + getType()
 					+ ", "+(getStaticType().isRange() ? "is" : "is not")+ " range cathegory.", aLocation);
 		}
 	}
-	public IGStaticValue getAscending(SourceLocation aLocation)   throws ZamiaException { 
+	public IGStaticValue getAscending(SourceLocation aLocation)   throws ZamiaException {
 		throw new RangeException(aLocation);
 	}
 
@@ -698,7 +711,7 @@ public class IGStaticValue extends IGOperation {
 				throw new ZamiaException("IGStaticValue: Unsupported operation: " + aOp, aSrc);
 			}
 
-			resValue = new IGStaticValueBuilder(t, null, aSrc).setNum(res).buildConstant();
+			resValue = new IGStaticValue.INT(t, null, aSrc, res);
 
 			break;
 
@@ -827,7 +840,7 @@ public class IGStaticValue extends IGOperation {
 				numR = decR.toBigInteger();
 			}
 
-			resValue = new IGStaticValueBuilder(aResType, null, aSrc).setNum(numR).buildConstant();
+			resValue = new IGStaticValue.INT(aResType, null, aSrc, numR);
 
 			break;
 

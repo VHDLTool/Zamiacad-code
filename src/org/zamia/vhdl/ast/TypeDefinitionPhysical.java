@@ -127,8 +127,8 @@ public class TypeDefinitionPhysical extends TypeDefinition {
 
 			IGTypeStatic abt = new IGTypeStatic(TypeCat.PHYSICAL, null, null, null, null, false, null, aEE.getZDB());
 
-			IGStaticValue siLeft = new IGStaticValueBuilder(abt, null, null).setNum(new BigInteger("-9223372036854775808")).buildConstant();
-			IGStaticValue siRight = new IGStaticValueBuilder(abt, null, null).setNum(new BigInteger("9223372036854775807")).buildConstant();
+			IGStaticValue siLeft = new IGStaticValue.INT(abt, null, null, new BigInteger("-9223372036854775808"));
+			IGStaticValue siRight = new IGStaticValue.INT(abt, null, null, new BigInteger("9223372036854775807"));
 			IGStaticValue siAscending = aContainer.findTrueValue();
 
 			abt.setLeft(siLeft, null);
@@ -160,7 +160,7 @@ public class TypeDefinitionPhysical extends TypeDefinition {
 			int len = fUnits.size();
 			for (int i = 0; i < len; i++) {
 				try {
-					UnitInfo ui = (UnitInfo) fUnits.get(i);
+					UnitInfo ui = fUnits.get(i);
 
 					IGOperation igScale = ui.getLiteral().computeIGOperation(type, aContainer, aEE, new IGOperationCache(), ASTErrorMode.EXCEPTION, null);
 
