@@ -1,10 +1,10 @@
-/* 
- * Copyright 2003-2011 by the authors indicated in the @author tags. 
- * All rights reserved. 
+/*
+ * Copyright 2003-2011 by the authors indicated in the @author tags.
+ * All rights reserved.
  * 
  * See the LICENSE file for details.
  * 
- *  
+ * 
  * Created on Nov 29, 2003
  * 
  */
@@ -14,22 +14,17 @@ package org.zamia.cli;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import jline.ConsoleReader;
 
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.CommandLineParser;
-import org.apache.commons.cli.GnuParser;
-import org.apache.commons.cli.HelpFormatter;
-import org.apache.commons.cli.Option;
-import org.apache.commons.cli.Options;
-import org.apache.commons.cli.ParseException;
 import org.apache.log4j.Level;
 import org.w3c.dom.Node;
-
 import org.zamia.ExceptionLogger;
 import org.zamia.SourceFile;
+import org.zamia.Utils;
 import org.zamia.ZamiaException;
 import org.zamia.ZamiaLogger;
 import org.zamia.ZamiaProject;
@@ -38,6 +33,12 @@ import org.zamia.util.Pair;
 import org.zamia.util.XMLUtils;
 import org.zamia.util.ZamiaTmpDir;
 import org.zamia.zdb.ZDBException;
+
+import com.beust.jcommander.JCommander;
+import com.beust.jcommander.Parameter;
+import com.beust.jcommander.ParameterException;
+
+
 
 /**
  * Zamia main class
@@ -66,20 +67,6 @@ public class Zamia {
 	public final static String INFO1 = "Contact: support@zamia.org";
 
 	public final static String INFO2 = "";
-
-	private String fProjectId = null;
-
-	private String fProjectBasePath;
-
-	private String fScriptFile = null;
-
-	private String fXmlFile = null;
-
-	private boolean fStartShell = true;
-
-	private String fScript = null;
-
-	private String[] fExtraArgs;
 
 	private ZamiaProject fZPrj;
 
@@ -118,6 +105,12 @@ public class Zamia {
 
 			try {
 
+				if (fScript.size() != 0) {
+					logger.info("Running command line script...");
+					for (String script : fScript)
+						fZCJ.eval(script);
+				}
+				
 				if (fScriptFile != null) {
 					File scriptFile = new File(fProjectBasePath, fScriptFile);
 					if (scriptFile.exists()) {
@@ -142,11 +135,6 @@ public class Zamia {
 					}
 				}
 
-				if (fScript != null) {
-					logger.info("Running command line script...");
-					fZCJ.eval(fScript);
-				}
-
 			} catch (Throwable e) {
 				el.logException(e);
 			}
@@ -157,94 +145,43 @@ public class Zamia {
 		}
 	}
 
+    @Parameter(names = "-p", description = "project id (default: dir name)")
+	private String fProjectId;
+
+    @Parameter(names = "-d", description = "project base directory (default: current dir)")
+	private String fProjectBasePath;
+
+    @Parameter(names = "-s", description = "python script to execute", variableArity = true)
+	private List<String> fScript = new ArrayList<>();
+	
+    @Parameter(names = "-f", description = "python script file to execute")
+	private String fScriptFile = null;
+
+    @Parameter(names = "-x", description = "xml script file to execute")
+	private String fXmlFile = null;
+
+	//private String[] fExtraArgs;
+
+//		option.setLongOpt("quit");
+    @Parameter(names = "-q", description = "quit when finished executing script (no shell)")
+	private boolean fQuit = false;
+    
 	private void processArgs(String args[]) {
-		CommandLineParser parser = new GnuParser();
-		Options options = new Options();
 
-		Option option = new Option("p", "project id (default: dir name)");
-		option.setLongOpt("project-id");
-		option.setValueSeparator('=');
-		option.setArgs(1);
-		options.addOption(option);
-
-		option = new Option("f", "python script file to execute");
-		option.setLongOpt("script-file");
-		option.setValueSeparator('=');
-		option.setArgs(1);
-		options.addOption(option);
-
-		option = new Option("d", "project base directory (default: current dir)");
-		option.setLongOpt("project-dir");
-		option.setValueSeparator('=');
-		option.setArgs(1);
-		options.addOption(option);
-
-		option = new Option("x", "xml script file to execute");
-		option.setLongOpt("xml-script-file");
-		option.setValueSeparator('=');
-		option.setArgs(1);
-		options.addOption(option);
-
-		option = new Option("s", "python script to execute");
-		option.setLongOpt("script");
-		option.setValueSeparator('=');
-		option.setArgs(1);
-		options.addOption(option);
-
-		option = new Option("q", "quit when finished executing script (no shell)");
-		option.setLongOpt("quit");
-		options.addOption(option);
-
+		JCommander parser = new JCommander(this);
 		try {
-			CommandLine line = parser.parse(options, args);
-
-			if (line.hasOption("f")) {
-				fScriptFile = line.getOptionValue("f");
-			}
-
-			if (line.hasOption("d")) {
-				fProjectBasePath = line.getOptionValue("d");
-			}
-
-			if (line.hasOption("x")) {
-				fXmlFile = line.getOptionValue("x");
-			}
-
-			if (line.hasOption("s")) {
-				fScript = line.getOptionValue("s");
-			}
-
-			if (line.hasOption("q")) {
-				fStartShell = false;
-			}
-
-			if (line.hasOption("p")) {
-				fProjectId = line.getOptionValue("p");
-			}
-
-			fExtraArgs = line.getArgs();
-
-			if (fExtraArgs.length != 0) {
-				throw new ParseException("Unexpected extra arguments.");
-			}
-
-		} catch (ParseException e) {
-			logger.error("");
-			logger.error("Error while processing command line options: %s", e.toString());
-			logger.error("");
-			String cmdLine = "zamiacad [options]\n\n";
-
-			String footer = "\n";
-			String header = "\n";
-
-			HelpFormatter hf = new HelpFormatter();
-			hf.printHelp(60, cmdLine, header, options, footer, false);
+		    parser.parse(args);
+		} catch (ParameterException pe) {
+		    logger.error("Failed to parse command line, \"" + Utils.concatenate(args) + "\". Error message is \"" + pe.getMessage() + "\"");
+		    StringBuilder sb = new StringBuilder(); parser.usage(sb);
+		    logger.error(sb.toString());
 			System.exit(1);
 		}
+
 	}
 
 	public void run() {
-		if (!fStartShell) {
+		if (fQuit) {
 			return;
 		}
 
