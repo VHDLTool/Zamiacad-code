@@ -158,7 +158,7 @@ public class IGAttributeStmt extends IGStmt {
 					}
 
 					// FIXME
-					throw new ZamiaException("Sorry. not implemented yet.", sourceLocation);
+					throw new ZamiaException("Sorry, attribute " + fOp + " is not implemented (yet) for the " + type.getCat() + " type " + type, sourceLocation);
 				}
 			} else {
 
