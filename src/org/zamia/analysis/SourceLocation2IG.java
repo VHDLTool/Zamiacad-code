@@ -132,15 +132,14 @@ public class SourceLocation2IG {
 		 * otherwise, search upwards until we find a module that matches the DUUID
 		 */
 
-		IGItem moduleItem = igm.findItem(path.getToplevel(), path.getPath());
+		IGItem moduleItem = igm.findItem(path);
 		ToplevelPath modulePath = path;
 
 		if (moduleItem instanceof IGInstantiation && ((IGInstantiation) moduleItem).getChildDUUID().getEntityDUUID().equals(duuid)) {
 
 			logger.debug("IGItemSearch: findNearestItem(): supplied path corresponds to a matching instantiation, path: %s, item: %s", modulePath, moduleItem);
 
-			modulePath = modulePath.descend();
-			moduleItem = igm.findItem(modulePath.getToplevel(), modulePath.getPath());
+			moduleItem = igm.findItem(modulePath = modulePath.descend());
 
 			logger.debug("IGItemSearch: findNearestItem(): null segment appended, path: %s, item: %s", modulePath, moduleItem);
 
@@ -155,8 +154,7 @@ public class SourceLocation2IG {
 					return null;
 				}
 
-				modulePath = modulePath.getNullParent();
-				moduleItem = igm.findItem(modulePath.getToplevel(), modulePath.getPath());
+				moduleItem = igm.findItem(modulePath = modulePath.getNullParent());
 			}
 
 		}

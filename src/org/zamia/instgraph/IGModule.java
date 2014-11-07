@@ -79,6 +79,10 @@ public class IGModule extends IGDesignUnit implements Scope {
 		}
 	}
 
+	public void accept(IGStructureVisitor aVisitor) throws ZamiaException {
+		accept(aVisitor, Integer.MAX_VALUE);
+	}
+	
 	public void accept(IGStructureVisitor aVisitor, int aMaxDepth) throws ZamiaException {
 
 		IGManager igm = getIGM();
@@ -121,11 +125,8 @@ public class IGModule extends IGDesignUnit implements Scope {
 				} else if (stmt instanceof IGStructure) {
 					
 					String label = stmt.getLabel();
-					if (label != null) {
-						stack.push(new VisitJob(path.append(label), (IGStructure) stmt));
-					} else {
-						stack.push(new VisitJob(path, (IGStructure) stmt));
-					}
+					PathName cp = label == null ? path : path.append(label);
+					stack.push(new VisitJob(cp, (IGStructure) stmt));
 				}
 			}
 		}

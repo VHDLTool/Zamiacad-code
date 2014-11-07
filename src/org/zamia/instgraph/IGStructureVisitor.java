@@ -8,6 +8,7 @@
  */
 package org.zamia.instgraph;
 
+import org.zamia.ZamiaException;
 import org.zamia.util.PathName;
 
 /**
@@ -18,6 +19,6 @@ import org.zamia.util.PathName;
 
 public interface IGStructureVisitor {
 
-	public void visit (IGStructure aStructure, PathName aPath);
+	public void visit (IGStructure aStructure, PathName aPath) throws ZamiaException;
 	
 }

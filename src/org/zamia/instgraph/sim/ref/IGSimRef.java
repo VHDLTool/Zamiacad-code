@@ -120,7 +120,7 @@ public class IGSimRef implements IGISimulator {
 
 		fData = new SimData(this);
 
-		IGItem item = fIGM.findItem(fTLP.getToplevel(), fTLP.getPath());
+		IGItem item = fIGM.findItem(fTLP);
 
 		if (!(item instanceof IGModule)) {
 			throw new ZamiaException("Module expected, " + fTLP + " resolved to " + item);

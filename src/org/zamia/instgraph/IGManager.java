@@ -561,6 +561,10 @@ public final class IGManager {
 		return findModule(signature);
 	}
 
+	public IGItem findItem(ToplevelPath aPath) {
+		return findItem(aPath.getToplevel(), aPath.getPath());
+	}
+	
 	public IGItem findItem(Toplevel aTL, PathName aPath) {
 
 		IGItem item = null;

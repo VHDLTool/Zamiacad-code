@@ -223,7 +223,7 @@ public class IGReferencesSearch {
 
 			ToplevelPath path = job.getPath().getParent();
 
-			IGItem item = fIGM.findItem(path.getToplevel(), path.getPath());
+			IGItem item = fIGM.findItem(path);
 
 			logger.debug("IGObjectReferenceSearch: findOriginalDeclarations(): path=%s, item=%s", path, item);
 
@@ -541,7 +541,7 @@ public class IGReferencesSearch {
 
 		while (true) {
 			
-			IGItem item = aIGM.findItem(tlp.getToplevel(), tlp.getPath());
+			IGItem item = aIGM.findItem(tlp);
 
 			logger.debug("IGObjectReferenceSearch: findLocalDeclarationScope(): path=%s corresponds to IGItem %s", tlp, item);
 
