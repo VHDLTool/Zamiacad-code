@@ -387,7 +387,7 @@ public class IGReferencesSearch {
 				// String label = inst.getLabel();
 				// ToplevelPath localPath = path.append(label);
 
-				IGModule module = fIGM.findModule(inst.getSignature());
+				IGModule module = inst.findModule();
 
 				int n = inst.getNumMappings();
 				for (int i = 0; i < n; i++) {

@@ -85,8 +85,6 @@ public class IGModule extends IGDesignUnit implements Scope {
 	
 	public void accept(IGStructureVisitor aVisitor, int aMaxDepth) throws ZamiaException {
 
-		IGManager igm = getIGM();
-
 		ZStack<VisitJob> stack = new ZStack<VisitJob>();
 
 		stack.push(new VisitJob(new PathName(""), fStructure));
@@ -110,9 +108,7 @@ public class IGModule extends IGDesignUnit implements Scope {
 
 					IGInstantiation inst = (IGInstantiation) stmt;
 
-					String signature = inst.getSignature();
-					
-					IGModule module = igm.findModule(signature);
+					IGModule module = inst.findModule();
 					if (module == null) {
 						throw new ZamiaException("IGModule: accept(): ERROR: detected missing module: "+ inst);
 					}
@@ -175,5 +171,36 @@ public class IGModule extends IGDesignUnit implements Scope {
 		
 		fStructure.updateInstantiations(aDeleteNodes, ee, fActualGenerics);
 		storeOrUpdate();
+	}
+
+	/**Returns a child with this module relative path*/
+	public IGItem findItem(PathName aPath) {
+		if (aPath.getNumSegments() > 0) {
+
+			IGItem item = getStructure();
+
+			int n = aPath.getNumSegments();
+			for (int i = 0; i < n; i++) {
+
+				if (!(item instanceof IGConcurrentStatement))
+					return null;
+
+				IGConcurrentStatement cs = (IGConcurrentStatement) item;
+
+				String segment = aPath.getSegment(i);
+
+				IGItem childItem = cs.findChild(segment);
+
+				if (childItem != null) {
+					item = childItem;
+				} else {
+					if (segment != null) {
+						return null;
+					}
+				}
+			}
+			return item;
+		} else
+			return this;
 	}
 }

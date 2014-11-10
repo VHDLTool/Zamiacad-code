@@ -154,9 +154,7 @@ public class NameExtensionSuffix extends NameExtension {
 				Architecture arch = dum.getArchitecture(duuid.getLibId(), duuid.getId(), duuid.getArchId());
 
 				if (arch != null) {
-					String signature = IGInstantiation.computeSignature(arch.getDMUID(), null);
-
-					IGModule module = igm.findModule(signature);
+					IGModule module = igm.findModule(arch.getDMUID());
 
 					if (module != null) {
 						IGContainer container = module.getContainer();

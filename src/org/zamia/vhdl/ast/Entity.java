@@ -140,9 +140,7 @@ public class Entity extends PrimaryUnit {
 
 			duuid = dum.getArchDUUID(duuid);
 
-			String signature = IGInstantiation.computeSignature(duuid, null);
-
-			IGModule module = igm.findModule(signature);
+			IGModule module = igm.findModule(duuid);
 
 			if (module == null) {
 				logger.error("SA: IGModule for %s not found.", duuid);

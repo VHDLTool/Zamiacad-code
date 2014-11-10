@@ -416,7 +416,7 @@ public class IGReferencesSearchNG {
 				// String label = inst.getLabel();
 				// PathName localPath = path.append(label);
 
-				IGModule module = fIGM.findModule(inst.getSignature());
+				IGModule module = inst.findModule();
 
 				int n = inst.getNumMappings();
 				for (int i = 0; i < n; i++) {

@@ -337,7 +337,7 @@ public class IGSimRef implements IGISimulator {
 				IGInstantiation inst = (IGInstantiation) stmt;
 
 				// get inst. module
-				IGModule instModule = fIGM.findModule(inst.getSignature());
+				IGModule instModule = inst.findModule();
 				IGContainer iContainer = instModule.getContainer();
 
 				// prepare environment for inst. module

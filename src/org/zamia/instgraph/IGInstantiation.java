@@ -93,12 +93,15 @@ public class IGInstantiation extends IGConcurrentStatement {
 		return fActualGenerics;
 	}
 
+	/**Referred module signature.*/
+	public IGModule findModule() {
+		return getIGM().findModule(fSignature);
+	}
+
 	@Override
 	public IGItem findChild(String aLabel) {
 		
-		IGManager igm = getIGM();
-		
-		IGModule child = igm.findModule(fSignature);
+		IGModule child = findModule();
 		
 		if (child == null) {
 			return null;

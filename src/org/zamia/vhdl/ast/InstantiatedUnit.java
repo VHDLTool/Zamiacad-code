@@ -143,9 +143,7 @@ public abstract class InstantiatedUnit extends ConcurrentStatement {
 
 		DMUID duuid = aArch.getDMUID();
 
-		String signature = IGInstantiation.computeSignature(duuid, null);
-
-		IGModule module = igm.findModule(signature);
+		IGModule module = igm.findModule(duuid);
 
 		if (module == null) {
 			logger.error("SA: IGModule for %s not found.", duuid);

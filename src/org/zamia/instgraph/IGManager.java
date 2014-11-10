@@ -197,9 +197,7 @@ public final class IGManager {
 
 					long instDBID = inst.getDBID();
 
-					String signature = inst.getSignature();
-
-					IGModule childModule = findModule(signature);
+					IGModule childModule = inst.findModule();
 
 					if (childModule != null) {
 
@@ -532,6 +530,11 @@ public final class IGManager {
 
 		return module;
 	}
+	
+	public IGModule findModule(DMUID dmuid) {
+		String signature = IGInstantiation.computeSignature(dmuid, null);
+		return findModule(signature);
+	}
 
 	public IGModule findModule(String aSignature) {
 
@@ -556,9 +559,7 @@ public final class IGManager {
 		if (duuid == null)
 			return null;
 
-		String signature = IGInstantiation.computeSignature(duuid, null);
-
-		return findModule(signature);
+		return findModule(duuid);
 	}
 
 	public IGItem findItem(ToplevelPath aPath) {
@@ -571,35 +572,7 @@ public final class IGManager {
 
 		IGModule module = findModule(aTL);
 
-		if (module != null && aPath.getNumSegments() > 0) {
-
-			item = module.getStructure();
-
-			int n = aPath.getNumSegments();
-			for (int i = 0; i < n; i++) {
-
-				if (!(item instanceof IGConcurrentStatement))
-					return null;
-
-				IGConcurrentStatement cs = (IGConcurrentStatement) item;
-
-				String segment = aPath.getSegment(i);
-
-				IGItem childItem = cs.findChild(segment);
-
-				if (childItem != null) {
-					item = childItem;
-				} else {
-					if (segment != null) {
-						return null;
-					}
-				}
-			}
-		} else {
-			item = module;
-		}
-
-		return item;
+		return module.findItem(aPath);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -810,9 +783,7 @@ public final class IGManager {
 
 		logger.info("IGManager: Counting nodes in %s", aDUUID);
 
-		String signature = IGInstantiation.computeSignature(aDUUID, null);
-
-		IGModule module = findModule(signature);
+		IGModule module = findModule(aDUUID);
 		if (module == null) {
 			return 0;
 		}
@@ -922,9 +893,7 @@ public final class IGManager {
 
 		logger.info("IGManager: Counting objects in %s", aDUUID);
 
-		String signature = IGInstantiation.computeSignature(aDUUID, null);
-
-		IGModule module = findModule(signature);
+		IGModule module = findModule(aDUUID);
 		if (module == null) {
 			return 0;
 		}
@@ -966,9 +935,7 @@ public final class IGManager {
 
 		logger.info("IGManager: Counting conditions in %s", aDUUID);
 
-		String signature = IGInstantiation.computeSignature(aDUUID, null);
-
-		IGModule module = findModule(signature);
+		IGModule module = findModule(aDUUID);
 		if (module == null) {
 			return null;
 		}

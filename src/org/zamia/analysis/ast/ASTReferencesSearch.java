@@ -197,9 +197,7 @@ public class ASTReferencesSearch {
 
 			Architecture parentArch = (Architecture) parentDU;
 
-			String parentSignature = IGInstantiation.computeSignature(parentDUUID, null);
-
-			IGModule parentModule = fIGM.findModule(parentSignature);
+			IGModule parentModule = fIGM.findModule(parentDUUID);
 
 			if (parentModule == null) {
 				logger.error("SA: ASTReferencesSearch.searchInstantiators(): IGModule for %s not found.", parentDUUID);
@@ -399,9 +397,7 @@ public class ASTReferencesSearch {
 
 			Architecture parentArch = (Architecture) parentDU;
 
-			String parentSignature = IGInstantiation.computeSignature(parentDUUID, null);
-
-			IGModule parentModule = fIGM.findModule(parentSignature);
+			IGModule parentModule = fIGM.findModule(parentDUUID);
 
 			if (parentModule == null) {
 				logger.error("SA: ReferencesSearch.searchInstantiationSites(): IGModule for %s not found.", parentDUUID);
