@@ -4,10 +4,14 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.math.BigInteger;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.zamia.BasicTest.ErrorChecker;
+import org.zamia.instgraph.sim.ref.IGSimRef;
 import org.zamia.util.HashSetArray;
+import org.zamia.util.PathName;
 
 
 /** 
@@ -22,20 +26,20 @@ import org.zamia.util.HashSetArray;
 @RunWith(de.bechte.junit.runners.context.HierarchicalContextRunner.class)
 public class FailedTestsToPass extends BasicTest {
 	
-	private String computePath(String path) {
+	private String failurePath(String path) {
 		return "examples/failedByZamia/" + path;
 	}
 	
 	protected void runFailure(String path, int arg) throws Exception {
-		runTest(computePath(path), arg);
+		runTest(failurePath(path), arg);
 	}
 	
 	protected void runFailure(String path, int arg, int arg2) throws Exception {
-		runTest(computePath(path), arg, arg2);
+		runTest(failurePath(path), arg, arg2);
 	}
 	
 	protected void runFailure(String path, int arg, ErrorChecker errorChecker) throws Exception {
-		runTest(computePath(path), "BuildPath.txt", arg, errorChecker);
+		runTest(failurePath(path), "BuildPath.txt", arg, errorChecker);
 	}
 	
 	@Test
@@ -175,9 +179,9 @@ public class FailedTestsToPass extends BasicTest {
 		runFailure(path, 1);
 		ZamiaProjectBuilder builder = fZPrj.getBuilder();
 		HashSetArray<SourceFile> vhdl = new HashSetArray<>();
-		File incremental = new File(computePath(path + "/incremental.vhdl-"));
-		File original = new File(computePath(path + "/incremental.vhdl")); 
-		File temp = new File(computePath(path + "/temp"));
+		File incremental = new File(failurePath(path + "/incremental.vhdl-"));
+		File original = new File(failurePath(path + "/incremental.vhdl"));
+		File temp = new File(failurePath(path + "/temp"));
 		
 		// Rename 'incremantal' -> 'original' because Zamia won't compile
 		// re-elaborate known design units declared in another source file.
@@ -207,6 +211,12 @@ public class FailedTestsToPass extends BasicTest {
 	@Test
 	public void t16_resolution_function() throws Exception {
 		runFailure("16.resolution_func", 1);
+	}
+	
+	@Test
+	public void t17_resolution_function() throws Exception {
+		//runFailure("17.assign_signal_in_func", 2); // OK
+		runTest(failurePath("17.assign_signal_in_func"), "BuildPath.txt", 2, new ErrorChecker(), 100);
 	}
 	
 }
