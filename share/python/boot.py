@@ -399,18 +399,18 @@ def getUID():
 
   return project.getDUM().getArchDUUID(tl.getDUUID())
 
-def openSim():
-
-  sim = IGSimRef()
-
-  tlDUUID = getUID()
-
+def openSim2(tlDUUID):
   tl = Toplevel(tlDUUID, None)
   tlp = ToplevelPath(tl, PathName(""))
 
+  sim = IGSimRef()
   sim.open(tlp, None, None, project)
-
   return sim
+
+def openSim():
+	return openSim2(getUID())
+
+
 
 def run(sim, ns):
 
