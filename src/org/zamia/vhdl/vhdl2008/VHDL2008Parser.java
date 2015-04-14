@@ -4591,10 +4591,9 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
       ;
     }
     t = jj_consume_token(PROCESS);
-		proc = new SequentialProcess (null, (id1 != null) ? VHDLNode.toLineCol(id1.getStartLine(), id1.getStartCol()) : getLocation(t));
-		proc.setPostponed(isPostponed);
-		if (label != null) proc.setLabel(label);
-
+                proc = new SequentialProcess (null, (id1 != null) ? VHDLNode.toLineCol(id1.getStartLine(), id1.getStartCol()) : getLocation(t));
+                proc.setPostponed(isPostponed);
+                if (label != null) proc.setLabel(label);
     switch (jj_nt.kind) {
     case LPAREN:
       jj_consume_token(LPAREN);
@@ -8965,61 +8964,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     finally { jj_save(139, xla); }
   }
 
-  private boolean jj_3R_389() {
-    if (jj_3R_130()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_282() {
-    if (jj_3R_360()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_270() {
-    if (jj_scan_token(LPAREN)) return true;
-    if (jj_3R_348()) return true;
-    Token xsp;
-    while (true) {
-      xsp = jj_scanpos;
-      if (jj_3R_349()) { jj_scanpos = xsp; break; }
-    }
-    if (jj_scan_token(RPAREN)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_281() {
-    if (jj_3R_359()) return true;
-    return false;
-  }
-
-  private boolean jj_3_118() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(301)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(324)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(325)) return true;
-    }
-    }
-    return false;
-  }
-
-  private boolean jj_3_116() {
-    if (jj_3R_129()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_280() {
-    if (jj_3R_71()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_279() {
-    if (jj_3R_358()) return true;
-    return false;
-  }
-
   private boolean jj_3_117() {
     if (jj_scan_token(PSL_LBRACKET)) return true;
     return false;
@@ -9027,6 +8971,11 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
 
   private boolean jj_3_110() {
     if (jj_3R_126()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_278() {
+    if (jj_3R_357()) return true;
     return false;
   }
 
@@ -9049,11 +8998,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_278() {
-    if (jj_3R_357()) return true;
-    return false;
-  }
-
   private boolean jj_3R_388() {
     if (jj_3R_326()) return true;
     return false;
@@ -9064,13 +9008,13 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_387() {
-    if (jj_3R_325()) return true;
+  private boolean jj_3R_277() {
+    if (jj_3R_356()) return true;
     return false;
   }
 
-  private boolean jj_3R_277() {
-    if (jj_3R_356()) return true;
+  private boolean jj_3R_387() {
+    if (jj_3R_325()) return true;
     return false;
   }
 
@@ -9094,14 +9038,19 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_299() {
+    if (jj_scan_token(based_literal)) return true;
+    return false;
+  }
+
   private boolean jj_3_114() {
     if (jj_3R_125()) return true;
     if (jj_3R_125()) return true;
     return false;
   }
 
-  private boolean jj_3R_299() {
-    if (jj_scan_token(based_literal)) return true;
+  private boolean jj_3R_298() {
+    if (jj_scan_token(decimal_literal)) return true;
     return false;
   }
 
@@ -9122,15 +9071,13 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_298() {
-    if (jj_scan_token(decimal_literal)) return true;
-    return false;
-  }
-
-  private boolean jj_3_112() {
-    if (jj_3R_125()) return true;
-    if (jj_3R_125()) return true;
-    if (jj_3R_126()) return true;
+  private boolean jj_3R_188() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_298()) {
+    jj_scanpos = xsp;
+    if (jj_3R_299()) return true;
+    }
     return false;
   }
 
@@ -9139,13 +9086,10 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_188() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_298()) {
-    jj_scanpos = xsp;
-    if (jj_3R_299()) return true;
-    }
+  private boolean jj_3_112() {
+    if (jj_3R_125()) return true;
+    if (jj_3R_125()) return true;
+    if (jj_3R_126()) return true;
     return false;
   }
 
@@ -9165,13 +9109,13 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_470() {
-    if (jj_3R_386()) return true;
+  private boolean jj_3R_274() {
+    if (jj_3R_353()) return true;
     return false;
   }
 
-  private boolean jj_3R_274() {
-    if (jj_3R_353()) return true;
+  private boolean jj_3R_470() {
+    if (jj_3R_386()) return true;
     return false;
   }
 
@@ -9180,13 +9124,13 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_469() {
-    if (jj_3R_386()) return true;
+  private boolean jj_3R_272() {
+    if (jj_3R_351()) return true;
     return false;
   }
 
-  private boolean jj_3R_272() {
-    if (jj_3R_351()) return true;
+  private boolean jj_3R_469() {
+    if (jj_3R_386()) return true;
     return false;
   }
 
@@ -9257,6 +9201,17 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3_69() {
+    if (jj_3R_102()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_102() {
+    if (jj_3R_188()) return true;
+    if (jj_3R_84()) return true;
+    return false;
+  }
+
   private boolean jj_3R_408() {
     Token xsp;
     xsp = jj_scanpos;
@@ -9279,20 +9234,14 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3_69() {
-    if (jj_3R_102()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_102() {
-    if (jj_3R_188()) return true;
-    if (jj_3R_84()) return true;
-    return false;
-  }
-
   private boolean jj_3R_409() {
     if (jj_scan_token(PSL_COMMA)) return true;
     if (jj_3R_408()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_187() {
+    if (jj_3R_188()) return true;
     return false;
   }
 
@@ -9308,19 +9257,8 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_187() {
-    if (jj_3R_188()) return true;
-    return false;
-  }
-
   private boolean jj_3R_186() {
     if (jj_3R_102()) return true;
-    return false;
-  }
-
-  private boolean jj_3_109() {
-    if (jj_3R_125()) return true;
-    if (jj_3R_125()) return true;
     return false;
   }
 
@@ -9331,6 +9269,12 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     jj_scanpos = xsp;
     if (jj_3R_187()) return true;
     }
+    return false;
+  }
+
+  private boolean jj_3_109() {
+    if (jj_3R_125()) return true;
+    if (jj_3R_125()) return true;
     return false;
   }
 
@@ -9384,6 +9328,11 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_371() {
+    if (jj_scan_token(bit_string_literal)) return true;
+    return false;
+  }
+
   private boolean jj_3_108() {
     if (jj_scan_token(PSL_LPAREN)) return true;
     if (jj_3R_124()) return true;
@@ -9391,19 +9340,14 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_371() {
-    if (jj_scan_token(bit_string_literal)) return true;
+  private boolean jj_3R_369() {
+    if (jj_3R_101()) return true;
     return false;
   }
 
   private boolean jj_3_103() {
     if (jj_scan_token(PSL_EXP)) return true;
     if (jj_3R_121()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_369() {
-    if (jj_3R_101()) return true;
     return false;
   }
 
@@ -9415,6 +9359,11 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
   private boolean jj_3R_318() {
     if (jj_scan_token(PSL_NEW)) return true;
     if (jj_3R_386()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_370() {
+    if (jj_scan_token(character_literal)) return true;
     return false;
   }
 
@@ -9442,11 +9391,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_370() {
-    if (jj_scan_token(character_literal)) return true;
-    return false;
-  }
-
   private boolean jj_3_105() {
     if (jj_scan_token(psl_string_literal)) return true;
     if (jj_scan_token(PSL_LPAREN)) return true;
@@ -9460,13 +9404,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
 
   private boolean jj_3R_231() {
     if (jj_3R_322()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_230() {
-    if (jj_scan_token(PSL_LPAREN)) return true;
-    if (jj_3R_124()) return true;
-    if (jj_scan_token(PSL_RPAREN)) return true;
     return false;
   }
 
@@ -9486,6 +9423,13 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     }
     }
     }
+    return false;
+  }
+
+  private boolean jj_3R_230() {
+    if (jj_scan_token(PSL_LPAREN)) return true;
+    if (jj_3R_124()) return true;
+    if (jj_scan_token(PSL_RPAREN)) return true;
     return false;
   }
 
@@ -9598,6 +9542,12 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_294() {
+    if (jj_scan_token(NEW)) return true;
+    if (jj_3R_366()) return true;
+    return false;
+  }
+
   private boolean jj_3R_316() {
     if (jj_scan_token(PSL_UNION)) return true;
     if (jj_3R_124()) return true;
@@ -9613,12 +9563,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
   private boolean jj_3_102() {
     if (jj_3R_119()) return true;
     if (jj_3R_120()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_294() {
-    if (jj_scan_token(NEW)) return true;
-    if (jj_3R_366()) return true;
     return false;
   }
 
@@ -9685,6 +9629,11 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_185() {
+    if (jj_3R_270()) return true;
+    return false;
+  }
+
   private boolean jj_3R_241() {
     Token xsp;
     xsp = jj_scanpos;
@@ -9709,8 +9658,8 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_185() {
-    if (jj_3R_270()) return true;
+  private boolean jj_3R_184() {
+    if (jj_3R_297()) return true;
     return false;
   }
 
@@ -9723,11 +9672,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
       xsp = jj_scanpos;
       if (jj_3R_241()) { jj_scanpos = xsp; break; }
     }
-    return false;
-  }
-
-  private boolean jj_3R_184() {
-    if (jj_3R_297()) return true;
     return false;
   }
 
@@ -9836,11 +9780,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3_100() {
-    if (jj_3R_118()) return true;
-    return false;
-  }
-
   private boolean jj_3R_482() {
     if (jj_scan_token(SRL)) return true;
     return false;
@@ -9870,6 +9809,11 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
 
   private boolean jj_3R_481() {
     if (jj_scan_token(SLL)) return true;
+    return false;
+  }
+
+  private boolean jj_3_100() {
+    if (jj_3R_118()) return true;
     return false;
   }
 
@@ -9903,6 +9847,14 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_262() {
+    if (jj_3R_91()) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_346()) jj_scanpos = xsp;
+    return false;
+  }
+
   private boolean jj_3R_118() {
     Token xsp;
     xsp = jj_scanpos;
@@ -9928,14 +9880,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
   private boolean jj_3R_324() {
     if (jj_3R_118()) return true;
     if (jj_3R_323()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_262() {
-    if (jj_3R_91()) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_346()) jj_scanpos = xsp;
     return false;
   }
 
@@ -9973,42 +9917,19 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_592() {
-    if (jj_scan_token(PSL_SUFFNONOVERLAP)) return true;
-    if (jj_3R_476()) return true;
-    return false;
-  }
-
   private boolean jj_3R_424() {
     if (jj_scan_token(LO)) return true;
     return false;
   }
 
-  private boolean jj_3R_233() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_scan_token(163)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(164)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(166)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(167)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(168)) {
-    jj_scanpos = xsp;
-    if (jj_scan_token(169)) return true;
-    }
-    }
-    }
-    }
-    }
-    if (jj_3R_232()) return true;
+  private boolean jj_3R_423() {
+    if (jj_scan_token(NEQ)) return true;
     return false;
   }
 
-  private boolean jj_3R_423() {
-    if (jj_scan_token(NEQ)) return true;
+  private boolean jj_3R_592() {
+    if (jj_scan_token(PSL_SUFFNONOVERLAP)) return true;
+    if (jj_3R_476()) return true;
     return false;
   }
 
@@ -10039,6 +9960,29 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_233() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(163)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(164)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(166)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(167)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(168)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(169)) return true;
+    }
+    }
+    }
+    }
+    }
+    if (jj_3R_232()) return true;
+    return false;
+  }
+
   private boolean jj_3R_124() {
     if (jj_3R_232()) return true;
     Token xsp;
@@ -10055,6 +9999,14 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_158() {
+    if (jj_3R_262()) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_263()) jj_scanpos = xsp;
+    return false;
+  }
+
   private boolean jj_3R_222() {
     Token xsp;
     xsp = jj_scanpos;
@@ -10065,14 +10017,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     if (jj_3R_316()) return true;
     }
     }
-    return false;
-  }
-
-  private boolean jj_3R_158() {
-    if (jj_3R_262()) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_263()) jj_scanpos = xsp;
     return false;
   }
 
@@ -10302,16 +10246,16 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_264() {
+    if (jj_scan_token(AND)) return true;
+    return false;
+  }
+
   private boolean jj_3R_571() {
     if (jj_3R_117()) return true;
     Token xsp;
     xsp = jj_scanpos;
     if (jj_3R_586()) jj_scanpos = xsp;
-    return false;
-  }
-
-  private boolean jj_3R_264() {
-    if (jj_scan_token(AND)) return true;
     return false;
   }
 
@@ -10399,12 +10343,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_531() {
-    if (jj_scan_token(PSL_EQ)) return true;
-    if (jj_3R_571()) return true;
-    return false;
-  }
-
   private boolean jj_3R_99() {
     if (jj_scan_token(COMMA)) return true;
     if (jj_3R_85()) return true;
@@ -10417,10 +10355,9 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_530() {
-    if (jj_scan_token(PSL_REPNON)) return true;
+  private boolean jj_3R_531() {
+    if (jj_scan_token(PSL_EQ)) return true;
     if (jj_3R_571()) return true;
-    if (jj_scan_token(PSL_RBRACKET)) return true;
     return false;
   }
 
@@ -10432,6 +10369,13 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
   private boolean jj_3R_414() {
     if (jj_scan_token(COMMA)) return true;
     if (jj_3R_84()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_530() {
+    if (jj_scan_token(PSL_REPNON)) return true;
+    if (jj_3R_571()) return true;
+    if (jj_scan_token(PSL_RBRACKET)) return true;
     return false;
   }
 
@@ -10480,12 +10424,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_506() {
-    if (jj_scan_token(PSL_LAND)) return true;
-    if (jj_3R_453()) return true;
-    return false;
-  }
-
   private boolean jj_3R_98() {
     if (jj_scan_token(COMMA)) return true;
     if (jj_3R_88()) return true;
@@ -10501,6 +10439,12 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     }
     xsp = jj_scanpos;
     if (jj_3R_415()) jj_scanpos = xsp;
+    return false;
+  }
+
+  private boolean jj_3R_506() {
+    if (jj_scan_token(PSL_LAND)) return true;
+    if (jj_3R_453()) return true;
     return false;
   }
 
@@ -10543,6 +10487,18 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_260() {
+    if (jj_scan_token(LBRACKET)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_336()) {
+    jj_scanpos = xsp;
+    if (jj_3R_337()) return true;
+    }
+    if (jj_scan_token(RBRACKET)) return true;
+    return false;
+  }
+
   private boolean jj_3R_454() {
     Token xsp;
     xsp = jj_scanpos;
@@ -10556,18 +10512,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     }
     }
     }
-    return false;
-  }
-
-  private boolean jj_3R_260() {
-    if (jj_scan_token(LBRACKET)) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_336()) {
-    jj_scanpos = xsp;
-    if (jj_3R_337()) return true;
-    }
-    if (jj_scan_token(RBRACKET)) return true;
     return false;
   }
 
@@ -10716,6 +10660,25 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3_53() {
+    if (jj_scan_token(LPAREN)) return true;
+    if (jj_3R_85()) return true;
+    if (jj_scan_token(RPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_342() {
+    if (jj_scan_token(LPAREN)) return true;
+    if (jj_3R_88()) return true;
+    Token xsp;
+    while (true) {
+      xsp = jj_scanpos;
+      if (jj_3R_419()) { jj_scanpos = xsp; break; }
+    }
+    if (jj_scan_token(RPAREN)) return true;
+    return false;
+  }
+
   private boolean jj_3R_582() {
     if (jj_scan_token(PSL_AT)) return true;
     if (jj_3R_117()) return true;
@@ -10733,25 +10696,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     if (jj_scan_token(PSL_LPAREN)) return true;
     if (jj_3R_476()) return true;
     if (jj_scan_token(PSL_RPAREN)) return true;
-    return false;
-  }
-
-  private boolean jj_3_53() {
-    if (jj_scan_token(LPAREN)) return true;
-    if (jj_3R_85()) return true;
-    if (jj_scan_token(RPAREN)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_342() {
-    if (jj_scan_token(LPAREN)) return true;
-    if (jj_3R_88()) return true;
-    Token xsp;
-    while (true) {
-      xsp = jj_scanpos;
-      if (jj_3R_419()) { jj_scanpos = xsp; break; }
-    }
-    if (jj_scan_token(RPAREN)) return true;
     return false;
   }
 
@@ -10824,6 +10768,12 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_341() {
+    if (jj_scan_token(PERIOD)) return true;
+    if (jj_3R_418()) return true;
+    return false;
+  }
+
   private boolean jj_3R_554() {
     if (jj_scan_token(PSL_NEXT_EVENTEXCL)) return true;
     if (jj_scan_token(PSL_LPAREN)) return true;
@@ -10832,23 +10782,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     Token xsp;
     xsp = jj_scanpos;
     if (jj_3R_580()) jj_scanpos = xsp;
-    if (jj_scan_token(PSL_LPAREN)) return true;
-    if (jj_3R_476()) return true;
-    if (jj_scan_token(PSL_RPAREN)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_341() {
-    if (jj_scan_token(PERIOD)) return true;
-    if (jj_3R_418()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_553() {
-    if (jj_scan_token(PSL_NEXT_EEXCL)) return true;
-    if (jj_scan_token(PSL_LBRACKET)) return true;
-    if (jj_3R_129()) return true;
-    if (jj_scan_token(PSL_RBRACKET)) return true;
     if (jj_scan_token(PSL_LPAREN)) return true;
     if (jj_3R_476()) return true;
     if (jj_scan_token(PSL_RPAREN)) return true;
@@ -10864,6 +10797,17 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     if (jj_scan_token(LPAREN)) return true;
     if (jj_3R_85()) return true;
     if (jj_scan_token(RPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_553() {
+    if (jj_scan_token(PSL_NEXT_EEXCL)) return true;
+    if (jj_scan_token(PSL_LBRACKET)) return true;
+    if (jj_3R_129()) return true;
+    if (jj_scan_token(PSL_RBRACKET)) return true;
+    if (jj_scan_token(PSL_LPAREN)) return true;
+    if (jj_3R_476()) return true;
+    if (jj_scan_token(PSL_RPAREN)) return true;
     return false;
   }
 
@@ -10921,6 +10865,12 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3_55() {
+    if (jj_scan_token(TICK)) return true;
+    if (jj_3R_68()) return true;
+    return false;
+  }
+
   private boolean jj_3_96() {
     if (jj_scan_token(PSL_LPAREN)) return true;
     return false;
@@ -10934,12 +10884,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     if (jj_scan_token(PSL_LPAREN)) return true;
     if (jj_3R_476()) return true;
     if (jj_scan_token(PSL_RPAREN)) return true;
-    return false;
-  }
-
-  private boolean jj_3_55() {
-    if (jj_scan_token(TICK)) return true;
-    if (jj_3R_68()) return true;
     return false;
   }
 
@@ -10973,15 +10917,15 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_543() {
-    if (jj_scan_token(PSL_ALWAYS)) return true;
-    if (jj_3R_476()) return true;
-    return false;
-  }
-
   private boolean jj_3R_340() {
     if (jj_scan_token(TICK)) return true;
     if (jj_3R_270()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_543() {
+    if (jj_scan_token(PSL_ALWAYS)) return true;
+    if (jj_3R_476()) return true;
     return false;
   }
 
@@ -11011,6 +10955,15 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_339() {
+    if (jj_scan_token(TICK)) return true;
+    if (jj_3R_68()) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_417()) jj_scanpos = xsp;
+    return false;
+  }
+
   private boolean jj_3_95() {
     Token xsp;
     xsp = jj_scanpos;
@@ -11028,23 +10981,8 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_339() {
-    if (jj_scan_token(TICK)) return true;
-    if (jj_3R_68()) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_417()) jj_scanpos = xsp;
-    return false;
-  }
-
   private boolean jj_3R_568() {
     if (jj_scan_token(PSL_UNTIL_)) return true;
-    if (jj_3R_514()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_567() {
-    if (jj_scan_token(PSL_UNTILEXCL_)) return true;
     if (jj_3R_514()) return true;
     return false;
   }
@@ -11054,9 +10992,24 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_567() {
+    if (jj_scan_token(PSL_UNTILEXCL_)) return true;
+    if (jj_3R_514()) return true;
+    return false;
+  }
+
   private boolean jj_3R_566() {
     if (jj_scan_token(PSL_UNTILEXCL)) return true;
     if (jj_3R_514()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_338() {
+    if (jj_scan_token(TICK)) return true;
+    if (jj_scan_token(RANGE)) return true;
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_416()) jj_scanpos = xsp;
     return false;
   }
 
@@ -11136,15 +11089,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_338() {
-    if (jj_scan_token(TICK)) return true;
-    if (jj_scan_token(RANGE)) return true;
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_416()) jj_scanpos = xsp;
-    return false;
-  }
-
   private boolean jj_3R_564() {
     if (jj_scan_token(PSL_IMPLIFF)) return true;
     if (jj_3R_514()) return true;
@@ -11153,12 +11097,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
 
   private boolean jj_3R_563() {
     if (jj_scan_token(PSL_IMPLIF)) return true;
-    if (jj_3R_514()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_562() {
-    if (jj_scan_token(PSL_OR)) return true;
     if (jj_3R_514()) return true;
     return false;
   }
@@ -11190,6 +11128,12 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_562() {
+    if (jj_scan_token(PSL_OR)) return true;
+    if (jj_3R_514()) return true;
+    return false;
+  }
+
   private boolean jj_3R_561() {
     if (jj_scan_token(PSL_AND)) return true;
     if (jj_3R_514()) return true;
@@ -11215,12 +11159,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_455() {
-    if (jj_scan_token(PSL_COMMA)) return true;
-    if (jj_3R_129()) return true;
-    return false;
-  }
-
   private boolean jj_3_50() {
     if (jj_scan_token(LBRACKET)) return true;
     Token xsp;
@@ -11229,6 +11167,12 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     jj_scanpos = xsp;
     if (jj_scan_token(71)) return true;
     }
+    return false;
+  }
+
+  private boolean jj_3R_455() {
+    if (jj_scan_token(PSL_COMMA)) return true;
+    if (jj_3R_129()) return true;
     return false;
   }
 
@@ -11272,18 +11216,18 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3_10() {
+    if (jj_scan_token(GROUP)) return true;
+    if (jj_3R_68()) return true;
+    if (jj_scan_token(IS)) return true;
+    return false;
+  }
+
   private boolean jj_3R_476() {
     if (jj_3R_514()) return true;
     Token xsp;
     xsp = jj_scanpos;
     if (jj_3R_515()) jj_scanpos = xsp;
-    return false;
-  }
-
-  private boolean jj_3_10() {
-    if (jj_scan_token(GROUP)) return true;
-    if (jj_3R_68()) return true;
-    if (jj_scan_token(IS)) return true;
     return false;
   }
 
@@ -11422,16 +11366,16 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_157() {
+    if (jj_3R_261()) return true;
+    return false;
+  }
+
   private boolean jj_3R_411() {
     Token xsp;
     xsp = jj_scanpos;
     if (jj_3R_475()) jj_scanpos = xsp;
     if (jj_3R_476()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_157() {
-    if (jj_3R_261()) return true;
     return false;
   }
 
@@ -11576,12 +11520,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3_94() {
-    if (jj_scan_token(PROTECTED)) return true;
-    if (jj_scan_token(BODY)) return true;
-    return false;
-  }
-
   private boolean jj_3R_94() {
     Token xsp;
     xsp = jj_scanpos;
@@ -11595,6 +11533,12 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     }
     }
     }
+    return false;
+  }
+
+  private boolean jj_3_94() {
+    if (jj_scan_token(PROTECTED)) return true;
+    if (jj_scan_token(BODY)) return true;
     return false;
   }
 
@@ -11887,14 +11831,14 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_363() {
-    if (jj_scan_token(GROUP)) return true;
-    if (jj_3R_68()) return true;
+  private boolean jj_3_40() {
+    if (jj_3R_84()) return true;
     return false;
   }
 
-  private boolean jj_3_40() {
-    if (jj_3R_84()) return true;
+  private boolean jj_3R_363() {
+    if (jj_scan_token(GROUP)) return true;
+    if (jj_3R_68()) return true;
     return false;
   }
 
@@ -11946,14 +11890,14 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_362() {
-    if (jj_scan_token(GROUP)) return true;
-    if (jj_3R_68()) return true;
+  private boolean jj_3R_444() {
+    if (jj_3R_366()) return true;
     return false;
   }
 
-  private boolean jj_3R_444() {
-    if (jj_3R_366()) return true;
+  private boolean jj_3R_362() {
+    if (jj_scan_token(GROUP)) return true;
+    if (jj_3R_68()) return true;
     return false;
   }
 
@@ -12094,11 +12038,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_524() {
-    if (jj_scan_token(ALL)) return true;
-    return false;
-  }
-
   private boolean jj_3R_93() {
     Token xsp;
     xsp = jj_scanpos;
@@ -12106,6 +12045,11 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     jj_scanpos = xsp;
     if (jj_3R_173()) return true;
     }
+    return false;
+  }
+
+  private boolean jj_3R_524() {
+    if (jj_scan_token(ALL)) return true;
     return false;
   }
 
@@ -12299,15 +12243,15 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_206() {
-    if (jj_3R_68()) return true;
-    if (jj_scan_token(COLON)) return true;
-    return false;
-  }
-
   private boolean jj_3_32() {
     if (jj_3R_84()) return true;
     if (jj_3R_84()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_206() {
+    if (jj_3R_68()) return true;
+    if (jj_scan_token(COLON)) return true;
     return false;
   }
 
@@ -12327,12 +12271,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_208() {
-    if (jj_3R_68()) return true;
-    if (jj_scan_token(COLON)) return true;
-    return false;
-  }
-
   private boolean jj_3R_366() {
     Token xsp;
     xsp = jj_scanpos;
@@ -12340,6 +12278,12 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     if (jj_3R_84()) return true;
     xsp = jj_scanpos;
     if (jj_3R_447()) jj_scanpos = xsp;
+    return false;
+  }
+
+  private boolean jj_3R_208() {
+    if (jj_3R_68()) return true;
+    if (jj_scan_token(COLON)) return true;
     return false;
   }
 
@@ -12434,19 +12378,29 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_198() {
-    if (jj_3R_305()) return true;
+  private boolean jj_3R_434() {
+    if (jj_3R_490()) return true;
     return false;
   }
 
-  private boolean jj_3R_434() {
-    if (jj_3R_490()) return true;
+  private boolean jj_3R_198() {
+    if (jj_3R_305()) return true;
     return false;
   }
 
   private boolean jj_3R_197() {
     if (jj_3R_68()) return true;
     if (jj_scan_token(COLON)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_351() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_434()) {
+    jj_scanpos = xsp;
+    if (jj_3R_435()) return true;
+    }
     return false;
   }
 
@@ -12460,16 +12414,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     if (jj_3R_199()) return true;
     if (jj_scan_token(END)) return true;
     if (jj_scan_token(LOOP)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_351() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_434()) {
-    jj_scanpos = xsp;
-    if (jj_3R_435()) return true;
-    }
     return false;
   }
 
@@ -12491,15 +12435,15 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_196() {
-    if (jj_3R_68()) return true;
-    if (jj_scan_token(COLON)) return true;
-    return false;
-  }
-
   private boolean jj_3R_358() {
     if (jj_scan_token(COMPONENT)) return true;
     if (jj_3R_68()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_196() {
+    if (jj_3R_68()) return true;
+    if (jj_scan_token(COLON)) return true;
     return false;
   }
 
@@ -12839,12 +12783,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_525() {
-    if (jj_3R_68()) return true;
-    if (jj_scan_token(COLON)) return true;
-    return false;
-  }
-
   private boolean jj_3R_69() {
     Token xsp;
     xsp = jj_scanpos;
@@ -12853,6 +12791,12 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     if (jj_3R_139()) jj_scanpos = xsp;
     if (jj_3R_140()) return true;
     if (jj_scan_token(SEMICOLON)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_525() {
+    if (jj_3R_68()) return true;
+    if (jj_scan_token(COLON)) return true;
     return false;
   }
 
@@ -13017,15 +12961,15 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3_74() {
-    if (jj_3R_104()) return true;
-    return false;
-  }
-
   private boolean jj_3_25() {
     if (jj_scan_token(WHEN)) return true;
     if (jj_3R_85()) return true;
     if (jj_scan_token(ELSE)) return true;
+    return false;
+  }
+
+  private boolean jj_3_74() {
+    if (jj_3R_104()) return true;
     return false;
   }
 
@@ -13082,17 +13026,17 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_160() {
+    if (jj_3R_84()) return true;
+    return false;
+  }
+
   private boolean jj_3R_199() {
     Token xsp;
     while (true) {
       xsp = jj_scanpos;
       if (jj_3R_306()) { jj_scanpos = xsp; break; }
     }
-    return false;
-  }
-
-  private boolean jj_3R_160() {
-    if (jj_3R_84()) return true;
     return false;
   }
 
@@ -13289,15 +13233,15 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_249() {
-    if (jj_scan_token(PSL_PIPE)) return true;
-    if (jj_3R_248()) return true;
-    return false;
-  }
-
   private boolean jj_3R_147() {
     if (jj_scan_token(CONFIGURATION)) return true;
     if (jj_3R_84()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_249() {
+    if (jj_scan_token(PSL_PIPE)) return true;
+    if (jj_3R_248()) return true;
     return false;
   }
 
@@ -13421,12 +13365,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_396() {
-    if (jj_scan_token(PSL_RETURN)) return true;
-    if (jj_3R_125()) return true;
-    return false;
-  }
-
   private boolean jj_3R_68() {
     Token xsp;
     xsp = jj_scanpos;
@@ -13434,6 +13372,12 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     jj_scanpos = xsp;
     if (jj_3R_137()) return true;
     }
+    return false;
+  }
+
+  private boolean jj_3R_396() {
+    if (jj_scan_token(PSL_RETURN)) return true;
+    if (jj_3R_125()) return true;
     return false;
   }
 
@@ -13461,13 +13405,18 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_82() {
+    if (jj_3R_151()) return true;
+    return false;
+  }
+
   private boolean jj_3R_587() {
     if (jj_3R_124()) return true;
     return false;
   }
 
-  private boolean jj_3R_82() {
-    if (jj_3R_151()) return true;
+  private boolean jj_3R_480() {
+    if (jj_scan_token(ALL)) return true;
     return false;
   }
 
@@ -13481,8 +13430,8 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_480() {
-    if (jj_scan_token(ALL)) return true;
+  private boolean jj_3R_479() {
+    if (jj_scan_token(string_literal)) return true;
     return false;
   }
 
@@ -13491,11 +13440,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     if (jj_scan_token(PSL_LPAREN)) return true;
     if (jj_3R_125()) return true;
     if (jj_scan_token(PSL_RPAREN)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_479() {
-    if (jj_scan_token(string_literal)) return true;
     return false;
   }
 
@@ -13545,16 +13489,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_135() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_246()) {
-    jj_scanpos = xsp;
-    if (jj_3R_247()) return true;
-    }
-    return false;
-  }
-
   private boolean jj_3R_418() {
     Token xsp;
     xsp = jj_scanpos;
@@ -13571,6 +13505,16 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_135() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_246()) {
+    jj_scanpos = xsp;
+    if (jj_3R_247()) return true;
+    }
+    return false;
+  }
+
   private boolean jj_3R_133() {
     if (jj_scan_token(PSL_COMMA)) return true;
     if (jj_3R_129()) return true;
@@ -13583,6 +13527,11 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3_71() {
+    if (jj_3R_92()) return true;
+    return false;
+  }
+
   private boolean jj_3R_510() {
     Token xsp;
     xsp = jj_scanpos;
@@ -13591,20 +13540,15 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3_71() {
-    if (jj_3R_92()) return true;
+  private boolean jj_3R_150() {
+    if (jj_3R_68()) return true;
+    if (jj_scan_token(COLON)) return true;
     return false;
   }
 
   private boolean jj_3R_511() {
     if (jj_scan_token(PSL_COMMA)) return true;
     if (jj_3R_510()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_150() {
-    if (jj_3R_68()) return true;
-    if (jj_scan_token(COLON)) return true;
     return false;
   }
 
@@ -13642,11 +13586,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_509() {
-    if (jj_3R_123()) return true;
-    return false;
-  }
-
   private boolean jj_3R_517() {
     if (jj_3R_91()) return true;
     Token xsp;
@@ -13655,8 +13594,23 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_509() {
+    if (jj_3R_123()) return true;
+    return false;
+  }
+
   private boolean jj_3R_516() {
     if (jj_scan_token(OTHERS)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_488() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_3R_516()) {
+    jj_scanpos = xsp;
+    if (jj_3R_517()) return true;
+    }
     return false;
   }
 
@@ -13668,13 +13622,10 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_488() {
-    Token xsp;
-    xsp = jj_scanpos;
-    if (jj_3R_516()) {
-    jj_scanpos = xsp;
-    if (jj_3R_517()) return true;
-    }
+  private boolean jj_3_19() {
+    if (jj_3R_68()) return true;
+    if (jj_scan_token(COLON)) return true;
+    if (jj_3R_79()) return true;
     return false;
   }
 
@@ -13700,13 +13651,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     if (jj_scan_token(301)) return true;
     }
     }
-    return false;
-  }
-
-  private boolean jj_3_19() {
-    if (jj_3R_68()) return true;
-    if (jj_scan_token(COLON)) return true;
-    if (jj_3R_79()) return true;
     return false;
   }
 
@@ -13745,25 +13689,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3_125() {
-    if (jj_scan_token(PSL_LPAREN)) return true;
-    if (jj_3R_124()) return true;
-    if (jj_scan_token(PSL_RPAREN)) return true;
-    return false;
-  }
-
-  private boolean jj_3_131() {
-    if (jj_scan_token(PSL_LPAREN)) return true;
-    if (jj_3R_129()) return true;
-    Token xsp;
-    while (true) {
-      xsp = jj_scanpos;
-      if (jj_3R_133()) { jj_scanpos = xsp; break; }
-    }
-    if (jj_scan_token(PSL_LPAREN)) return true;
-    return false;
-  }
-
   private boolean jj_3R_77() {
     Token xsp;
     xsp = jj_scanpos;
@@ -13785,26 +13710,40 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3_125() {
+    if (jj_scan_token(PSL_LPAREN)) return true;
+    if (jj_3R_124()) return true;
+    if (jj_scan_token(PSL_RPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3_131() {
+    if (jj_scan_token(PSL_LPAREN)) return true;
+    if (jj_3R_129()) return true;
+    Token xsp;
+    while (true) {
+      xsp = jj_scanpos;
+      if (jj_3R_133()) { jj_scanpos = xsp; break; }
+    }
+    if (jj_scan_token(PSL_LPAREN)) return true;
+    return false;
+  }
+
   private boolean jj_3R_464() {
     if (jj_scan_token(PSL_COMMA)) return true;
     if (jj_3R_129()) return true;
     return false;
   }
 
-  private boolean jj_3R_144() {
-    if (jj_3R_68()) return true;
-    if (jj_scan_token(COLON)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_132() {
-    if (jj_3R_123()) return true;
-    return false;
-  }
-
   private boolean jj_3R_533() {
     if (jj_scan_token(PIPE)) return true;
     if (jj_3R_488()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_144() {
+    if (jj_3R_68()) return true;
+    if (jj_scan_token(COLON)) return true;
     return false;
   }
 
@@ -13818,28 +13757,13 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3R_132() {
+    if (jj_3R_123()) return true;
+    return false;
+  }
+
   private boolean jj_3_130() {
     if (jj_scan_token(PSL_TICK)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_404() {
-    if (jj_scan_token(PSL_LPAREN)) return true;
-    if (jj_3R_466()) return true;
-    if (jj_scan_token(PSL_RPAREN)) return true;
-    return false;
-  }
-
-  private boolean jj_3_17() {
-    if (jj_3R_69()) return true;
-    return false;
-  }
-
-  private boolean jj_3_129() {
-    if (jj_scan_token(PSL_TICK)) return true;
-    if (jj_scan_token(PSL_LPAREN)) return true;
-    if (jj_3R_124()) return true;
-    if (jj_scan_token(PSL_LPAREN)) return true;
     return false;
   }
 
@@ -13853,9 +13777,29 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3_17() {
+    if (jj_3R_69()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_404() {
+    if (jj_scan_token(PSL_LPAREN)) return true;
+    if (jj_3R_466()) return true;
+    if (jj_scan_token(PSL_RPAREN)) return true;
+    return false;
+  }
+
   private boolean jj_3R_75() {
     if (jj_3R_68()) return true;
     if (jj_scan_token(COLON)) return true;
+    return false;
+  }
+
+  private boolean jj_3_129() {
+    if (jj_scan_token(PSL_TICK)) return true;
+    if (jj_scan_token(PSL_LPAREN)) return true;
+    if (jj_3R_124()) return true;
+    if (jj_scan_token(PSL_LPAREN)) return true;
     return false;
   }
 
@@ -13867,6 +13811,12 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     if (jj_scan_token(95)) jj_scanpos = xsp;
     if (jj_3R_76()) return true;
     if (jj_scan_token(SEMICOLON)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_74() {
+    if (jj_3R_68()) return true;
+    if (jj_scan_token(COLON)) return true;
     return false;
   }
 
@@ -13893,19 +13843,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_74() {
-    if (jj_3R_68()) return true;
-    if (jj_scan_token(COLON)) return true;
-    return false;
-  }
-
-  private boolean jj_3R_462() {
-    if (jj_scan_token(PSL_LPAREN)) return true;
-    if (jj_3R_124()) return true;
-    if (jj_scan_token(PSL_RPAREN)) return true;
-    return false;
-  }
-
   private boolean jj_3_15() {
     Token xsp;
     xsp = jj_scanpos;
@@ -13913,6 +13850,13 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     xsp = jj_scanpos;
     if (jj_scan_token(95)) jj_scanpos = xsp;
     if (jj_scan_token(PROCESS)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_462() {
+    if (jj_scan_token(PSL_LPAREN)) return true;
+    if (jj_3R_124()) return true;
+    if (jj_scan_token(PSL_RPAREN)) return true;
     return false;
   }
 
@@ -13941,15 +13885,15 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3R_401() {
-    if (jj_scan_token(PSL_PERIOD)) return true;
-    if (jj_3R_463()) return true;
-    return false;
-  }
-
   private boolean jj_3R_73() {
     if (jj_3R_68()) return true;
     if (jj_scan_token(COLON)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_401() {
+    if (jj_scan_token(PSL_PERIOD)) return true;
+    if (jj_3R_463()) return true;
     return false;
   }
 
@@ -14101,6 +14045,11 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3_70() {
+    if (jj_3R_92()) return true;
+    return false;
+  }
+
   private boolean jj_3_13() {
     if (jj_scan_token(GROUP)) return true;
     if (jj_3R_68()) return true;
@@ -14108,13 +14057,14 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3_70() {
-    if (jj_3R_92()) return true;
+  private boolean jj_3R_234() {
+    if (jj_3R_123()) return true;
     return false;
   }
 
-  private boolean jj_3R_234() {
-    if (jj_3R_123()) return true;
+  private boolean jj_3R_430() {
+    if (jj_scan_token(PIPE)) return true;
+    if (jj_3R_488()) return true;
     return false;
   }
 
@@ -14134,12 +14084,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
 
   private boolean jj_3R_407() {
     if (jj_3R_125()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_430() {
-    if (jj_scan_token(PIPE)) return true;
-    if (jj_3R_488()) return true;
     return false;
   }
 
@@ -14183,16 +14127,6 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3_119() {
-    if (jj_3R_130()) return true;
-    return false;
-  }
-
-  private boolean jj_3R_244() {
-    if (jj_3R_245()) return true;
-    return false;
-  }
-
   private boolean jj_3R_348() {
     Token xsp;
     xsp = jj_scanpos;
@@ -14206,6 +14140,16 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     }
     xsp = jj_scanpos;
     if (jj_3R_431()) jj_scanpos = xsp;
+    return false;
+  }
+
+  private boolean jj_3_119() {
+    if (jj_3R_130()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_244() {
+    if (jj_3R_245()) return true;
     return false;
   }
 
@@ -14224,6 +14168,11 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
+  private boolean jj_3_12() {
+    if (jj_3R_71()) return true;
+    return false;
+  }
+
   private boolean jj_3R_130() {
     Token xsp;
     xsp = jj_scanpos;
@@ -14234,14 +14183,64 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
     return false;
   }
 
-  private boolean jj_3_12() {
+  private boolean jj_3R_349() {
+    if (jj_scan_token(COMMA)) return true;
+    if (jj_3R_348()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_270() {
+    if (jj_scan_token(LPAREN)) return true;
+    if (jj_3R_348()) return true;
+    Token xsp;
+    while (true) {
+      xsp = jj_scanpos;
+      if (jj_3R_349()) { jj_scanpos = xsp; break; }
+    }
+    if (jj_scan_token(RPAREN)) return true;
+    return false;
+  }
+
+  private boolean jj_3R_282() {
+    if (jj_3R_360()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_389() {
+    if (jj_3R_130()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_281() {
+    if (jj_3R_359()) return true;
+    return false;
+  }
+
+  private boolean jj_3_118() {
+    Token xsp;
+    xsp = jj_scanpos;
+    if (jj_scan_token(301)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(324)) {
+    jj_scanpos = xsp;
+    if (jj_scan_token(325)) return true;
+    }
+    }
+    return false;
+  }
+
+  private boolean jj_3R_280() {
     if (jj_3R_71()) return true;
     return false;
   }
 
-  private boolean jj_3R_349() {
-    if (jj_scan_token(COMMA)) return true;
-    if (jj_3R_348()) return true;
+  private boolean jj_3_116() {
+    if (jj_3R_129()) return true;
+    return false;
+  }
+
+  private boolean jj_3R_279() {
+    if (jj_3R_358()) return true;
     return false;
   }
 
