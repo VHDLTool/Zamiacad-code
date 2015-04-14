@@ -4591,11 +4591,10 @@ public class VHDL2008Parser implements IHDLParser, VHDL2008ParserConstants {
       ;
     }
     t = jj_consume_token(PROCESS);
-                proc = new SequentialProcess (null, getLocation(t));
-                proc.setPostponed(isPostponed);
-                if (label != null)  {
-                        proc.setLabel(label);
-                }
+		proc = new SequentialProcess (null, (id1 != null) ? VHDLNode.toLineCol(id1.getStartLine(), id1.getStartCol()) : getLocation(t));
+		proc.setPostponed(isPostponed);
+		if (label != null) proc.setLabel(label);
+
     switch (jj_nt.kind) {
     case LPAREN:
       jj_consume_token(LPAREN);
