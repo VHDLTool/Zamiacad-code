@@ -100,7 +100,7 @@ public class ZamiaProjectBuilder {
 		// you are free to clean the error once it is resolved and return the condition.
 		//if (aFullBuild || aBPChanged)
 		
-			fullBuild = parseBuildPath(aFullBuild, false);
+		fullBuild = parseBuildPath(aFullBuild, false);
 		
 
 		if (fBuildPathErrs) {
@@ -681,7 +681,6 @@ public class ZamiaProjectBuilder {
 
 		IGManager igm = fZPrj.getIGM();
 
-		int totalUnits = 1000 / bp.getNumToplevels();
 		for (Toplevel toplevel : bp.toplevels()) {
 
 			if (isCanceled()) {
@@ -689,7 +688,7 @@ public class ZamiaProjectBuilder {
 				break;
 			}
 
-			igm.buildIG(toplevel, fMonitor, totalUnits);
+			igm.buildIG(toplevel, fMonitor/*, 1000 / bp.getNumToplevels()*/);
 		}
 
 		double d = System.currentTimeMillis() - startTime;

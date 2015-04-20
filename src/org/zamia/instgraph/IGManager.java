@@ -387,7 +387,7 @@ public final class IGManager {
 		}
 	}
 
-	public IGModule buildIG(Toplevel aTL, IZamiaMonitor aMonitor, int aTotalUnits) {
+	public IGModule buildIG(Toplevel aTL, IZamiaMonitor aMonitor/*, int aTotalUnits*/) {
 
 		IGModule module = null;
 
