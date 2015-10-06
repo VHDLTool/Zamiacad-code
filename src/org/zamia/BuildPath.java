@@ -325,8 +325,8 @@ public class BuildPath implements Serializable {
 		}
 
 		String libId = null;
-		if (fSym == Symbol.IDENTIFIER) {
-			libId = fBuf.toString();
+		if (isId()) {
+			libId = fBuf.toString().toUpperCase();
 		} else if (fSym == Symbol.NOSYMBOL) {
 			libId = null;
 		} else {
@@ -391,106 +391,61 @@ public class BuildPath implements Serializable {
 		}
 	}
 
-	// "toplevel" [libId "."] entityId [ "(" archId ")" ]
-
-	private void toplevelDeclaration() throws ZamiaException, IOException {
-
+	private void ensure(Boolean ok, String errMsg) throws ZamiaException, IOException {
+		if (!ok) throw new ZamiaException(errMsg, getLocation());
+		nextSym();
+	}
+	private void ensure(Symbol expected, String errMsg) throws ZamiaException, IOException {
+		ensure(fSym == expected, errMsg);
+	}
+	
+	private Boolean isId() {return fSym == Symbol.IDENTIFIER || keyWords.containsKey(fBuf.toString()); }
+	private String consumeId(String title) throws ZamiaException, IOException {
+		nextSym(); String res = fBuf.toString(); 
+		ensure(isId(), title + " id expected.");
+		return res.toUpperCase();
+	}
+	
+	// [libId "."] entityId [ "(" archId ")" ]
+	
+	private Toplevel parseToplevel(String title) throws ZamiaException, IOException {
 		int line = this.fLine;
 		int col = this.fCol;
 
 		String libId = "WORK";
 
-		nextSym();
-		if (fSym != Symbol.IDENTIFIER)
-			throw new ZamiaException("Library/Entity id expected.", getLocation());
-		String entityId = fBuf.toString();
-		nextSym();
+		String entityId = consumeId("Library/Entity");
 
 		if (fSym == Symbol.PERIOD) {
-			nextSym();
 			libId = entityId;
-
-			if (fSym != Symbol.IDENTIFIER)
-				throw new ZamiaException("Entity id expected.", getLocation());
-
-			entityId = fBuf.toString();
-			nextSym();
+			entityId = consumeId("Entity");
 		}
 
 		String archId = null;
 
 		if (fSym == Symbol.LPAREN) {
-			nextSym();
-			if (fSym != Symbol.IDENTIFIER)
-				throw new ZamiaException("Architecture id expected.", getLocation());
-			archId = fBuf.toString();
-			nextSym();
-
-			if (fSym != Symbol.RPAREN)
-				throw new ZamiaException(") id expected.", getLocation());
-
-			nextSym();
+			archId = consumeId("Architecture");
+			ensure(Symbol.RPAREN, ") id expected.");
 		}
 
-		logger.debug("toplevel declaration: " + entityId + "(" + archId + ") from library " + libId);
+		logger.debug(title + " declaration: " + entityId + "(" + archId + ") from library " + libId);
 
 		LUType type = archId != null ? LUType.Architecture : LUType.Entity;
 
 		DMUID duuid = new DMUID(type, libId, entityId, archId);
 
-		fToplevels.add(new Toplevel(duuid, new SourceLocation(fSF, line, col)));
+		return new Toplevel(duuid, new SourceLocation(fSF, line, col));
 
+	}
+	
+	// "toplevel" [libId "."] entityId [ "(" archId ")" ]
+	private void toplevelDeclaration() throws ZamiaException, IOException {
+		fToplevels.add(parseToplevel("toplevel"));
 	}
 
 	// "synthesize" [libId "."] entityId [ "(" archId ")" ]
-
 	private void synthesizeDeclaration() throws ZamiaException, IOException {
-
-		int line = this.fLine;
-		int col = this.fCol;
-
-		String libId = "WORK";
-
-		nextSym();
-		if (fSym != Symbol.IDENTIFIER)
-			throw new ZamiaException("Library/Entity id expected.", getLocation());
-		String entityId = fBuf.toString();
-		nextSym();
-
-		if (fSym == Symbol.PERIOD) {
-			nextSym();
-			libId = entityId;
-
-			if (fSym != Symbol.IDENTIFIER)
-				throw new ZamiaException("Entity id expected.", getLocation());
-
-			entityId = fBuf.toString();
-			nextSym();
-		}
-
-		String archId = null;
-
-		if (fSym == Symbol.LPAREN) {
-			nextSym();
-			if (fSym != Symbol.IDENTIFIER)
-				throw new ZamiaException("Architecture id expected.", getLocation());
-			archId = fBuf.toString();
-			nextSym();
-
-			if (fSym != Symbol.RPAREN)
-				throw new ZamiaException(") id expected.", getLocation());
-
-			nextSym();
-		}
-
-		logger.debug("synthesize declaration: " + entityId + "(" + archId + ") from library " + libId);
-
-		LUType type = archId != null ? LUType.Architecture : LUType.Entity;
-
-		DMUID duuid = new DMUID(type, libId, entityId, archId);
-
-		fSynthTLs.add(new Toplevel(duuid, new SourceLocation(fSF, line, col)));
-
+		fSynthTLs.add(parseToplevel("synthesize"));
 	}
 
 	// "local" [ "topdown" | "bottomup" ] [ "list"] (libId | "none") pathPrefix
@@ -531,8 +486,8 @@ public class BuildPath implements Serializable {
 
 		String libId = null;
 
-		if (fSym == Symbol.IDENTIFIER) {
-			libId = fBuf.toString();
+		if (isId()) {
+			libId = fBuf.toString().toUpperCase();
 		} else if (fSym == Symbol.NONE) {
 			libId = null;
 		} else {
@@ -870,7 +825,17 @@ public class BuildPath implements Serializable {
 				break;
 			default:
 				if (Character.isJavaIdentifierPart(fCh)) {
-					identifier();
+					fBuf.setLength(0);
+					while (fICh != -1 && Character.isJavaIdentifierPart(fCh)) {
+						fBuf.append(fCh);
+						getCh();
+					}
+
+					fSym = Symbol.IDENTIFIER;
+					String ids = fBuf.toString();
+					if (keyWords.containsKey(ids)) {
+						fSym = keyWords.get(ids);
+					}
 				} else {
 					logger.error("BuildPath: unknown character '%c' skipped.", fCh);
 					getCh();
@@ -901,21 +866,6 @@ public class BuildPath implements Serializable {
 
 		if (fCh == '"') {
 			getCh();
-		}
-	}
-
-	private void identifier() throws IOException, ZamiaException {
-
-		fBuf.setLength(0);
-		while (fICh != -1 && Character.isJavaIdentifierPart(fCh)) {
-			fBuf.append(fCh);
-			getCh();
-		}
-
-		fSym = Symbol.IDENTIFIER;
-		String ids = fBuf.toString();
-		if (keyWords.containsKey(ids)) {
-			fSym = keyWords.get(ids);
 		}
 	}
 
