@@ -55,7 +55,7 @@ import org.zamia.zdb.ZDBTest;
 		IGSynthTest.class,
 		ReportUtilsTest.class,
 		
-		FailedTestsToPass.class,
+		KnownBugs.class,
 })
 public class StableSuite {
 }
