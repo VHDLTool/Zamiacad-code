@@ -9,29 +9,21 @@
  */
 
 package org.zamia.vhdl.vhdl2008;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.StringReader;
-import java.util.ArrayList;
-import org.zamia.DMManager;
-import org.zamia.ERManager;
-import org.zamia.IHDLParser;
-import org.zamia.SourceFile;
-import org.zamia.SourceLocation;
-import org.zamia.ZamiaException;
-import org.zamia.ZamiaLogger;
-import org.zamia.ZamiaProject;
-import org.zamia.instgraph.IGObject.IGObjectCat;
-import org.zamia.instgraph.IGObject.OIDir;
-import org.zamia.util.HashSetArray;
+import org.zamia.*;
+import org.zamia.zdb.*;
 import org.zamia.vhdl.ast.*;
-import org.zamia.vhdl.ast.EntityAspect.EntityAspectKind;
-import org.zamia.vhdl.ast.OperationCompare.CompareOp;
-import org.zamia.vhdl.ast.OperationLiteral.LiteralCat;
-import org.zamia.vhdl.ast.OperationLogic.LogicOp;
 import org.zamia.vhdl.ast.OperationMath.MathOp;
+import org.zamia.vhdl.ast.OperationCompare.CompareOp;
+import org.zamia.vhdl.ast.OperationLogic.LogicOp;
 import org.zamia.vhdl.ast.OperationShift.ShiftOp;
-import org.zamia.zdb.ZDB;
+import org.zamia.vhdl.ast.OperationLiteral.LiteralCat;
+import org.zamia.vhdl.ast.EntityAspect.EntityAspectKind;
+import org.zamia.instgraph.IGObject.OIDir;
+import org.zamia.util.*;
+import java.util.*;
+import java.io.Reader;
+import java.io.IOException;
+import java.io.StringReader;
 
 /** Token Manager. */
 public class VHDL2008ParserTokenManager implements VHDL2008ParserConstants

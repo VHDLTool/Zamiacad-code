@@ -2,12 +2,13 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: zamiaCAD
 Bundle-SymbolicName: org.zamia.cad;singleton:=true
-Bundle-Version: 0.11.4
-Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-Version: 0.11.3
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-Vendor: zamiaCAD Project
 Bundle-Localization: plugin
 Export-Package: org.python.core,
  org.zamia,
+ org.zamia.altran,
  org.zamia.analysis,
  org.zamia.analysis.ast,
  org.zamia.analysis.ig,
@@ -24,6 +25,7 @@ Export-Package: org.python.core,
  org.zamia.rtl.nodes,
  org.zamia.rtl.sim,
  org.zamia.rtl.symbols,
+ org.zamia.tool.vhdl,
  org.zamia.util,
  org.zamia.vg,
  org.zamia.vhdl.ast,

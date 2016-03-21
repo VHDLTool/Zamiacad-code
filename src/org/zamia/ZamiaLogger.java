@@ -64,7 +64,8 @@ public class ZamiaLogger {
 
 		logger = Logger.getLogger();
 
-		logger.setLevel(level);
+		
+		logger.setLevel(getLoggerLevel());
 
 		fFileName = System.getenv("ZAMIA_LOG");
 
@@ -72,7 +73,6 @@ public class ZamiaLogger {
 			File tmpDir = ZamiaTmpDir.getTmpDir();
 			fFileName = tmpDir.getAbsolutePath() + File.separator + FILENAME;
 		}
-
 		//		String home = System.getProperty("user.home");
 
 		try {
@@ -98,6 +98,35 @@ public class ZamiaLogger {
 		refreshAppenders();
 
 		printHeader();
+	}
+
+	private Level getLoggerLevel() {
+		String levelLogS = System.getenv("ZAMIA_LOG_LEVEL");
+		if (levelLogS == null) {
+			return level;
+		}
+		switch (levelLogS) {
+		case "ALL":
+			return Level.ALL;
+		case "TRACE":
+			return Level.TRACE;
+		case "DEBUG":
+			return Level.DEBUG;
+		case "INFO":
+			return Level.INFO;
+		case "WARN":
+			return Level.WARN;
+		case "ERROR":
+			return Level.ERROR;
+		case "FATAL":
+			return Level.FATAL;
+		case "OFF":
+			return Level.OFF;
+
+		default:
+			return level;
+		}
+		
 	}
 
 	public void refreshAppenders() {

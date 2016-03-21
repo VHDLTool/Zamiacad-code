@@ -79,7 +79,7 @@ public class VHDL2008Parser implements IHDLParser {
 	
     private long getLocation(Token token_) {
     	
-    	return token_ == null ? 0 : VHDLNode.toLineCol(token_.beginLine, token_.beginColumn);
+    	return token_ == null ? 0 : (long) token_.beginLine | ((long) token_.beginColumn) << 32;
     }
     
     private long getLocation () {
@@ -2215,7 +2215,7 @@ TypeDeclaration type_declaration() throws ZamiaException :
 		td = full_type_declaration()
 	| t=<TYPE> id = identifier() <SEMICOLON>
 		{
-			td = new TypeDeclaration(id.getImage(), new TypeDefinitionIncomplete(null, id.getLineCol()), null, id.getLineCol());
+			td = new TypeDeclaration(id.getImage(), new TypeDefinitionIncomplete(null, getLocation(t)), null, getLocation(t));
 		}
 	)
 	
@@ -2231,7 +2231,7 @@ TypeDeclaration full_type_declaration() throws ZamiaException :
 {
 	t=<TYPE> id = identifier() <IS> td = type_definition() <SEMICOLON>
 	
-	{ return new TypeDeclaration (id.getImage(), td, null, id.getLineCol()); }
+	{ return new TypeDeclaration (id.getImage(), td, null, getLocation(t)); }
 }
 
 TypeDeclaration subtype_declaration() throws ZamiaException :
@@ -2242,7 +2242,7 @@ TypeDeclaration subtype_declaration() throws ZamiaException :
 }
 {
 	t=<SUBTYPE> id = identifier() <IS> type = subtype_indication() <SEMICOLON>
-	{ return new TypeDeclaration (id.getImage(), type, null, id.getLineCol()); }
+	{ return new TypeDeclaration (id.getImage(), type, null, getLocation(t)); }
 }
 
 AttributeDeclaration attribute_declaration() throws ZamiaException :
@@ -3231,9 +3231,11 @@ SequentialProcess process_statement() throws ZamiaException :
 	[ id1 = identifier() <COLON> { label = id1.getImage(); } ]
 	[ <POSTPONED> { isPostponed = true; } ] t=<PROCESS> 
 	{ 
-		proc = new SequentialProcess (null, (id1 != null) ? VHDLNode.toLineCol(id1.getStartLine(), id1.getStartCol()) : getLocation(t));
+		proc = new SequentialProcess (null, getLocation(t));
 		proc.setPostponed(isPostponed);
-		if (label != null) proc.setLabel(label);
+		if (label != null)  {
+			proc.setLabel(label);
+		}
 	}
 	[ <LPAREN> l = sensitivity_list() <RPAREN> 
 		{
@@ -3915,7 +3917,7 @@ SubProgram subprogram() throws ZamiaException :
 }
 {
 	( t=<PROCEDURE> id=designator() [ <LPAREN> interfaces=interface_list(InterfaceContext.PROCEDURE, OIDir.IN) <RPAREN> ]
-		{ sub= new SubProgram (id.getImage(), interfaces	, null, false, null, id.getLineCol()); }
+		{ sub= new SubProgram (id.getImage(), interfaces	, null, false, null, getLocation(t)); }
 	| [ <PURE> | <IMPURE> { pure = false; } ] t=<FUNCTION> id=designator()
 		[ <LPAREN> interfaces = interface_list(InterfaceContext.FUNCTION, OIDir.IN) <RPAREN> ]
                 <RETURN> n = name()
@@ -3957,7 +3959,7 @@ AliasDeclaration alias_declaration() throws ZamiaException :
 	[ <COLON> td=subtype_indication() ] <IS> n=name() [ s=signature() ] <SEMICOLON>
 	
 	{
-		return new AliasDeclaration(id.getImage(), td, n, s, id.getLineCol());
+		return new AliasDeclaration(id.getImage(), td, n, s, getLocation(t));
 	}
 }
 

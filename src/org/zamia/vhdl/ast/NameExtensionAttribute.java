@@ -17,17 +17,18 @@ import org.zamia.ZamiaException;
 import org.zamia.ZamiaProject;
 import org.zamia.analysis.ReferenceSearchResult;
 import org.zamia.analysis.ReferenceSite.RefType;
-import org.zamia.analysis.ast.SearchJob;
 import org.zamia.analysis.ast.ASTReferencesSearch.ObjectCat;
+import org.zamia.analysis.ast.SearchJob;
 import org.zamia.instgraph.IGContainer;
 import org.zamia.instgraph.IGElaborationEnv;
 import org.zamia.instgraph.IGItem;
 import org.zamia.instgraph.IGObject;
 import org.zamia.instgraph.IGOperation;
 import org.zamia.instgraph.IGOperationAttribute;
-import org.zamia.instgraph.IGOperationCache;
-import org.zamia.instgraph.IGType;
 import org.zamia.instgraph.IGOperationAttribute.AttrOp;
+import org.zamia.instgraph.IGOperationCache;
+import org.zamia.instgraph.IGOperationObject;
+import org.zamia.instgraph.IGType;
 
 
 /**
@@ -132,6 +133,13 @@ public class NameExtensionAttribute extends NameExtension {
 		IGOperation op = null;
 
 		IGType typeHint = null;
+		
+		// INFO altran: debug prints
+		if (aItem instanceof IGOperation) {
+			System.out.println(((IGOperationObject)aItem).getId());
+			System.out.println(((IGOperationObject)aItem).getObject());
+			System.out.println(((IGOperationObject)aItem).getObject().getId());
+		}
 		if (aItem instanceof IGOperation) {
 			typeHint = ((IGOperation) aItem).getType();
 		} else if (aItem instanceof IGType) {

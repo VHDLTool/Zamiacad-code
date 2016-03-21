@@ -15,6 +15,7 @@ import java.util.HashMap;
 import org.zamia.cli.jython.ZCJInterpreter;
 import org.zamia.instgraph.IGManager;
 import org.zamia.rtl.RTLManager;
+import org.zamia.tool.vhdl.ToolVhdlManager;
 import org.zamia.util.ZHash;
 import org.zamia.util.ZamiaTmpDir;
 import org.zamia.verilog.VerilogParser;
@@ -90,6 +91,8 @@ public class ZamiaProject {
 	private RTLManager fRTLM;
 
 	private ZCJInterpreter fZCJ;
+	
+	private ToolVhdlManager toolVhdlManager;
 
 	private static final String BUILDPATH_OBJ_NAME = "ZPRJ_BuildPath";
 
@@ -110,7 +113,9 @@ public class ZamiaProject {
 		fZDB = new ZDB(dbDir, this);
 
 		fERM = new ERManager(this);
-
+		
+		toolVhdlManager = new ToolVhdlManager();
+		
 		fVHDLParser = new VHDL2008Parser();
 		fVHDLIndexer = new VHDLIndexer();
 		fVerilogParser = new VerilogParser();
@@ -181,7 +186,8 @@ public class ZamiaProject {
 		fDUM.clean();
 		fERM.clean();
 		fBuilder.clean();
-
+		toolVhdlManager.clean();
+		
 		if (fZCJ.hasCommand(ZCJ_CLEAN_CMD)) {
 			try {
 				fZCJ.eval(ZCJ_CLEAN_CMD);
@@ -231,6 +237,10 @@ public class ZamiaProject {
 		return fRTLM;
 	}
 
+	public ToolVhdlManager getToolVhdlMgr(){
+		return toolVhdlManager;
+	}
+	
 	public VHDLIndexer getVHDLIndexer() {
 		return fVHDLIndexer;
 	}

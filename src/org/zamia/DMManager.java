@@ -163,7 +163,7 @@ public class DMManager {
 				}
 
 				if (upToDate) {
-					//logger.info("DMManager: Not running parser for " + aSF + " because we have cached the result.");
+					logger.info("DMManager: Not running parser for " + aSF + " because we have cached the result.");
 					return info;
 				}
 			}
