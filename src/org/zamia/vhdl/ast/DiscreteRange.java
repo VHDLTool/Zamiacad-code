@@ -42,6 +42,10 @@ public class DiscreteRange extends VHDLNode {
 		setRange(range_);
 	}
 
+	public Range getRange() {
+		return range;
+	}
+	
 	private void setRange(Range range_) {
 		range = range_;
 		range.setParent(this);

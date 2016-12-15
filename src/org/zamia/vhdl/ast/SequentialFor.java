@@ -44,6 +44,15 @@ public class SequentialFor extends SequentialLoop {
 		fRange.setParent(this);
 	}
 
+	public Range getRange() {
+		return fRange;
+	}
+	
+	public String getVar() {
+		return fVarId;
+	}
+	
+	
 	@Override
 	public void generateIG(IGSequenceOfStatements aSeq, IGContainer aContainer, IGElaborationEnv aCache) throws ZamiaException {
 

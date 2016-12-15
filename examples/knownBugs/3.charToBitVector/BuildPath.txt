@@ -1,3 +1,0 @@
-toplevel TEST1_LOCAL_LITERAL_NPE
-toplevel TEST2_INST_GENERIC
-
