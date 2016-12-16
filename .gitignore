@@ -16,4 +16,3 @@ examples/erados
 bin
 share/jars/cachedir/packages
 *.bak
-.project
