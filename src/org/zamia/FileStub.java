@@ -53,7 +53,7 @@ public class FileStub {
 		fPath = aPath;
 		fValid = false;
 
-		fCachePath = aFileCachePathStr + File.separator + ZHash.encodeZ(fPath);
+		fCachePath = aFileCachePathStr + "/" + ZHash.encodeZ(fPath);
 	}
 
 	public synchronized void validate() {

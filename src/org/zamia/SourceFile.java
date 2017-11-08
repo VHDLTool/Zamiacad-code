@@ -126,7 +126,7 @@ public class SourceFile implements Comparable, Serializable {
 	public String getAbsolutePath() {
 		if (fFile == null)
 			return fURI;
-		return fFile.getAbsolutePath();
+		return fFile.getAbsolutePath().replace("\\", "/");
 	}
 
 	private int guessFormat() {

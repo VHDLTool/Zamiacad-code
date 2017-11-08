@@ -146,7 +146,7 @@ public class DMManager {
 	public synchronized SFDMInfo compileFile(SourceFile aSF, Reader aReader, String aLibId, int aPriority, boolean aBottomUp, boolean aUseFSCache, boolean aUseDUCache)
 			throws IOException, ZamiaException {
 
-		String filename = aSF.getAbsolutePath();
+		String filename = aSF.getAbsolutePath().replace("\\", "/");
 
 		SFDMInfo info = null;
 		if (aUseDUCache) {
@@ -155,7 +155,7 @@ public class DMManager {
 
 				boolean upToDate = true;
 
-				String path = aSF.getAbsolutePath();
+				String path = aSF.getAbsolutePath().replace("\\", "/");
 				if (path != null) {
 					long ts = FSCache.getInstance().getLastModified(path, aUseFSCache);
 
@@ -223,7 +223,7 @@ public class DMManager {
 
 		int newNErrors = fERM.getNumErrors();
 		if (newNErrors > oldNErrors) {
-			logger.error("DMManager: %d errors found while parsing '%s'", newNErrors - oldNErrors, aSF.getAbsolutePath());
+			logger.error("DMManager: %d errors found while parsing '%s'", newNErrors - oldNErrors, aSF.getAbsolutePath().replace("\\", "/"));
 		}
 
 		if (oldInfo != null) {
@@ -340,7 +340,7 @@ public class DMManager {
 
 	public synchronized SFDMInfo removeStubs(SourceFile aSF) {
 
-		String filename = aSF.getAbsolutePath();
+		String filename = aSF.getAbsolutePath().replace("\\", "/");
 		//logger.debug("DMManager: Removing stubs from '%s'", filename);
 		SFDMInfo info = fSFMap.get(filename);
 
@@ -410,7 +410,7 @@ public class DMManager {
 		DesignModuleStub stub = new DesignModuleStub(aDUUID, aSF, aPriority, aReadonly);
 		fZDB.putIdxObj(STUBS_IDX, uid, stub);
 
-		String filename = aSF.getAbsolutePath();
+		String filename = aSF.getAbsolutePath().replace("\\", "/");
 		SFDMInfo info = fSFMap.get(filename);
 		if (info == null) {
 			info = new SFDMInfo();

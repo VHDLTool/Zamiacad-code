@@ -109,7 +109,7 @@ public class IGSATest {
 
 			IGRSVisualGraphSelectionProvider selectionProvider = new IGRSVisualGraphSelectionProvider();
 
-			String svgFileName = fZPrj.getDataPath() + File.separator + tlp.getToplevel().getDUUID().getUID() + ".svg";
+			String svgFileName = fZPrj.getDataPath() + "/" + tlp.getToplevel().getDUUID().getUID() + ".svg";
 
 			logger.info("IGSynthTest: SVG file name: %s", svgFileName);
 
@@ -132,7 +132,7 @@ public class IGSATest {
 				}
 			}
 
-			String dotFileName = fZPrj.getDataPath() + File.separator + tlp.getToplevel().getDUUID().getUID() + ".dot";
+			String dotFileName = fZPrj.getDataPath() + "/" + tlp.getToplevel().getDUUID().getUID() + ".dot";
 
 			logger.info("IGSynthTest: DOT file name: %s", dotFileName);
 
@@ -222,7 +222,7 @@ public class IGSATest {
 	//
 	//		String homePath = System.getProperty("user.home");
 	//
-	//		SourceFile sf = new SourceFile(new File(homePath + File.separator + "projects/workspace/zamia/examples/leonSOC/lib/gaisler/greth/grethm.vhd"));
+	//		SourceFile sf = new SourceFile(new File(homePath + "/" + "projects/workspace/zamia/examples/leonSOC/lib/gaisler/greth/grethm.vhd"));
 	//
 	//		ReferenceSearchResult result = runIGReferenceSearch(sf, "WORK.LEON3MP(RTL):ETH0.E1.M100", 84, 22, true, true);
 	//		assertNotNull(result);

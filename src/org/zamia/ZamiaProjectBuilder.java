@@ -389,7 +389,7 @@ public class ZamiaProjectBuilder {
 									break;
 								}
 
-								String filename = fPath + File.separator + fn;
+								String filename = fPath + "/" + fn;
 
 								incTodoFiles();
 								fExecutorService.execute(new ProcessFileJob(filename, fLibId, fPriority, fUseFSCache, fBottomUp, fRecursive, fDepth + 1));
@@ -418,7 +418,7 @@ public class ZamiaProjectBuilder {
 									indexer.parse(reader, fLibId, sf, fPriority, fUseFSCache, fBottomUp, fDUM);
 								}
 							} catch (IOException e) {
-								logger.error("ZamiaProjectBuilder: IOException caught while indexing '%s': %s", sf.getAbsolutePath(), e.getMessage());
+								logger.error("ZamiaProjectBuilder: IOException caught while indexing '%s': %s", sf.getAbsolutePath().replace("\\", "/"), e.getMessage());
 								el.logException(e);
 							} catch (ZamiaException e) {
 								el.logZamiaException(e);

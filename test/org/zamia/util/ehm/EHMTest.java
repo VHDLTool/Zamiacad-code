@@ -67,13 +67,13 @@ public class EHMTest {
 	@Test
 	public void testIterators() throws Exception {
 
-		String dirName = System.getProperty("java.io.tmpdir") + File.separator + "EHMTest";
+		String dirName = System.getProperty("java.io.tmpdir") + "/" + "EHMTest";
 
 		File dir = new File(dirName);
 		dir.mkdirs();
 
-		String fileName = dirName + File.separator + "index.pages";
-		String idxName = dirName + File.separator + "test.idx";
+		String fileName = dirName + "/" + "index.pages";
+		String idxName = dirName + "/" + "test.idx";
 
 		File file = new File(fileName);
 		file.delete();
@@ -142,13 +142,13 @@ public class EHMTest {
 	@Test
 	public void test1() throws Exception {
 
-		String dirName = System.getProperty("java.io.tmpdir") + File.separator + "EHMTest";
+		String dirName = System.getProperty("java.io.tmpdir") + "/" + "EHMTest";
 
 		File dir = new File(dirName);
 		dir.mkdirs();
 
-		String fileName = dirName + File.separator + "index.pages";
-		String idxName = dirName + File.separator + "test.idx";
+		String fileName = dirName + "/" + "index.pages";
+		String idxName = dirName + "/" + "test.idx";
 
 		File file = new File(fileName);
 		file.delete();

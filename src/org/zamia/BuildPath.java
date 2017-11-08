@@ -144,16 +144,16 @@ public class BuildPath implements Serializable {
 
 			File f2 = fSF.getFile();
 			if (f2 != null) {
-				fileName = f2.getParent() + File.separator + fileName;
+				fileName = f2.getParent() + "/" + fileName;
 				f = new File(fileName);
 			}
 		}
 
 		if (!f.exists()) {
-			throw new ZamiaException("Include file '" + f.getAbsolutePath() + "' does not exist.", loc);
+			throw new ZamiaException("Include file '" + f.getAbsolutePath().replace("\\", "/") + "' does not exist.", loc);
 		}
 
-		fIncludes.add(f.getAbsolutePath());
+		fIncludes.add(f.getAbsolutePath().replace("\\", "/"));
 
 		BuildPath bp2 = new BuildPath(new SourceFile(f));
 		bp2.parse(fVars, fUseFSCache, fZPrj);
@@ -549,8 +549,8 @@ public class BuildPath implements Serializable {
 		String pathPrefix = evalString(fBuf.toString()).replace('/', File.separatorChar).replace('\\', File.separatorChar);
 		nextSym();
 
-		if (!pathPrefix.endsWith(File.separator))
-			pathPrefix += File.separator;
+		if (!pathPrefix.endsWith("/"))
+			pathPrefix += "/";
 
 		if (!list) {
 
@@ -559,7 +559,7 @@ public class BuildPath implements Serializable {
 			fEntries.add(new BuildPathEntry(pathPrefix, libId, false, Integer.MAX_VALUE, false, !topdown, true, true, location));
 
 		} else {
-			String absPath = fZPrj.fBasePath + File.separator + pathPrefix;
+			String absPath = fZPrj.fBasePath + "/" + pathPrefix;
 			readList(absPath, libId, false, false, topdown, location);
 		}
 	}
@@ -730,7 +730,7 @@ public class BuildPath implements Serializable {
 
 			File fext = new File(fEntry.fPrefix);
 
-			String absPath = fext.getAbsolutePath();
+			String absPath = fext.getAbsolutePath().replace("\\", "/");
 
 			if (!fsCache.exists(absPath, fUseFSCache)) {
 				if (fZPrj != null) {
@@ -749,8 +749,8 @@ public class BuildPath implements Serializable {
 
 			if (fEntry.fIsDirectory) {
 				// make sure path ends with a '/' so prefix detection will work
-				if (!canonicalPrefix.endsWith(File.separator)) {
-					canonicalPrefix = canonicalPrefix + File.separator;
+				if (!canonicalPrefix.endsWith("/")) {
+					canonicalPrefix = canonicalPrefix + "/";
 				}
 			}
 
@@ -940,7 +940,7 @@ public class BuildPath implements Serializable {
 			for (int i = 0; i < n; i++) {
 				BuildPathEntry entry = getEntry(i);
 				if (!entry.fExtern) {
-					String p1 = new File(path).getPath() + File.separator;
+					String p1 = new File(path).getPath() + "/";
 					String p2 = entry.fPrefix;
 					if (p1.startsWith(p2))
 						return entry;
@@ -948,7 +948,7 @@ public class BuildPath implements Serializable {
 			}
 		} else {
 			// FIXME: canonical path?
-			path = aSF.getAbsolutePath();
+			path = aSF.getAbsolutePath().replace("\\", "/");
 
 			int n = getNumEntries();
 			for (int i = 0; i < n; i++) {

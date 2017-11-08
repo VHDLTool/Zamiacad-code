@@ -78,7 +78,7 @@ public class ERManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized ZamiaException getError(SourceFile aSF, int aIdx) {
-		String path = aSF.getAbsolutePath();
+		String path = aSF.getAbsolutePath().replace("\\", "/");
 
 		HashSetArray<Long> errs = (HashSetArray<Long>) fZDB.getIdxObj(ERROR_IDX, path);
 		if (errs == null) {
@@ -110,7 +110,7 @@ public class ERManager {
 
 		SourceFile sf = location.fSF;
 
-		String path = sf.getAbsolutePath();
+		String path = sf.getAbsolutePath().replace("\\", "/");
 
 		fZDB.index(ERROR_IDX, path, dbid);
 
@@ -226,7 +226,7 @@ public class ERManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized void removeErrors(SourceFile aSF) {
-		String path = aSF.getAbsolutePath();
+		String path = aSF.getAbsolutePath().replace("\\", "/");
 
 		boolean changed = false;
 
@@ -262,7 +262,7 @@ public class ERManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized int getNumErrors(SourceFile aSF) {
-		String path = aSF.getAbsolutePath();
+		String path = aSF.getAbsolutePath().replace("\\", "/");
 		HashSetArray<Long> errs = (HashSetArray<Long>) fZDB.getIdxObj(ERROR_IDX, path);
 		if (errs == null)
 			return 0;
@@ -271,7 +271,7 @@ public class ERManager {
 
 	@SuppressWarnings("unchecked")
 	public synchronized void removeErrors(SourceFile aSF, ExCat aCat) {
-		String path = aSF.getAbsolutePath();
+		String path = aSF.getAbsolutePath().replace("\\", "/");
 
 		boolean changed = false;
 
@@ -322,7 +322,7 @@ public class ERManager {
 
 		SourceFile sf = location.fSF;
 
-		String path = sf.getAbsolutePath();
+		String path = sf.getAbsolutePath().replace("\\", "/");
 
 		long dbidErr = fZDB.getIdx(ERROR_IDX, path);
 		HashSetArray<Long> errs = null;
@@ -411,7 +411,7 @@ public class ERManager {
 
 			changedSFs.add(sf);
 
-			String path = sf.getAbsolutePath();
+			String path = sf.getAbsolutePath().replace("\\", "/");
 
 			long errsDBID = fZDB.getIdx(ERROR_IDX, path);
 			HashSetArray<Long> errs = null;

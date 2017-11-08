@@ -28,7 +28,7 @@ public class Builder {
 
 	public final static ExceptionLogger el = ExceptionLogger.getInstance();
 
-	private static String tmpDir = ZamiaTmpDir.getTmpDir().getAbsolutePath() + File.separator + "zamia-test";
+	private static String tmpDir = ZamiaTmpDir.getTmpDir().getAbsolutePath().replace("\\", "/") + "/" + "zamia-test";
 
 	private ZamiaProject fZPrj;
 
@@ -92,7 +92,7 @@ public class Builder {
 	}
 
 	private int compileFile(File aFile) throws IOException, ZamiaException {
-		fDUM.compileFile(new SourceFile(new File(aFile.getAbsolutePath())), null, fWorkLibId, 0, true, false, false);
+		fDUM.compileFile(new SourceFile(new File(aFile.getAbsolutePath().replace("\\", "/"))), null, fWorkLibId, 0, true, false, false);
 
 		//numLines += cr.getNumLines();
 		fNumFiles++;
@@ -112,7 +112,7 @@ public class Builder {
 
 			for (int i = 0; i < n; i++) {
 				fOut.println();
-				fOut.println("***** Error #" + (i + 1) + "/" + n + " in file " + aFile.getAbsolutePath());
+				fOut.println("***** Error #" + (i + 1) + "/" + n + " in file " + aFile.getAbsolutePath().replace("\\", "/"));
 				ZamiaException err = fERM.getError(i);
 				fOut.println(err);
 				fOut.println();

@@ -53,7 +53,7 @@ public class ZamiaProject {
 	public static class FileIterator { 
 		private final String dir;
 		public FileIterator (String aDataPath) {
-			dir = aDataPath;
+			dir = aDataPath.replace("\\", "/");
 		}
 		public File[] getFiles() throws IOException, ZamiaException {
 			return new File(dir).listFiles();
@@ -63,7 +63,7 @@ public class ZamiaProject {
 		 * @throws IOException */
 		public SourceFile toSF(File absoluteLocation) throws ZamiaException, IOException {
 			String lp = new File(dir).toURI().relativize(absoluteLocation.toURI()).getPath();
-			lp = lp.replace("/", File.separator);
+			//lp = lp.replace("/", "/");
 			return new SourceFile(absoluteLocation, lp);
 		}
 		public String toString() { 
@@ -102,13 +102,13 @@ public class ZamiaProject {
 	public ZamiaProject(String aId, FileIterator aBasePath, SourceFile aBuildPath, String aDataPath) throws IOException, ZamiaException, ZDBException {
 		fId = aId;
 		fBasePath = aBasePath;
-		fDataPath = aDataPath != null ? aDataPath : ZamiaTmpDir.getTmpDir().getAbsolutePath();
+		fDataPath = aDataPath != null ? aDataPath : ZamiaTmpDir.getTmpDir().getAbsolutePath().replace("\\", "/");
 
 		registerProject(this);
 
-		File dbDir = new File(fDataPath + File.separator + "db" + File.separator + ZHash.encodeZ(fId));
+		File dbDir = new File(fDataPath + "/" + "db" + "/" + ZHash.encodeZ(fId));
 
-		logger.info("ZamiaProject: project %s: Using db directory: %s", fId, dbDir.getAbsolutePath());
+		logger.info("ZamiaProject: project %s: Using db directory: %s", fId, dbDir.getAbsolutePath().replace("\\", "/"));
 
 		fZDB = new ZDB(dbDir, this);
 
@@ -146,11 +146,11 @@ public class ZamiaProject {
 
 			// run init script
 
-			File initScript = new File(System.getProperty("user.home") + File.separator + ".zamia" + File.separator + "init.py");
+			File initScript = new File(System.getProperty("user.home") + "/" + ".zamia" + "/" + "init.py");
 
 			if (initScript.exists()) {
 				logger.debug("Running init.py from %s", initScript.getAbsoluteFile());
-				fZCJ.evalFile(initScript.getAbsolutePath());
+				fZCJ.evalFile(initScript.getAbsolutePath().replace("\\", "/"));
 			}
 
 			// run project specific init scripts
@@ -179,7 +179,7 @@ public class ZamiaProject {
 	}
 
 	public void clean() throws IOException, ZamiaException {
-		logger.info("Cleaning project '%s'", fBasePath);
+		logger.info("Cleaning project '%s'", fBasePath.dir.replace("\\", "/"));
 		ZamiaProfiler.getInstance().startTimer("Cleaning");
 		fZDB.clear();
 		setBuildPath(new BuildPath(fBuildPath.getSourceFile()));

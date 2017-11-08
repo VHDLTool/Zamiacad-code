@@ -58,16 +58,16 @@ public class XMLUtils {
 			return DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(in);
 
 		} catch (FileNotFoundException e) {
-			logger.info("### ERROR ### XML file not found: " + aFile.getAbsolutePath());
+			logger.info("### ERROR ### XML file not found: " + aFile.getAbsolutePath().replace("\\", "/"));
 			el.logException(e);
 		} catch (SAXException e) {
-			logger.info("### ERROR ### Failed to read XML file '" + aFile.getAbsolutePath() + "': " + e.getMessage());
+			logger.info("### ERROR ### Failed to read XML file '" + aFile.getAbsolutePath().replace("\\", "/") + "': " + e.getMessage());
 			el.logException(e);
 		} catch (ParserConfigurationException e) {
-			logger.info("### ERROR ### Failed to read XML file '" + aFile.getAbsolutePath() + "': " + e.getMessage());
+			logger.info("### ERROR ### Failed to read XML file '" + aFile.getAbsolutePath().replace("\\", "/") + "': " + e.getMessage());
 			el.logException(e);
 		} catch (IOException e) {
-			logger.info("### ERROR ### Failed to read XML file '" + aFile.getAbsolutePath() + "': " + e.getMessage());
+			logger.info("### ERROR ### Failed to read XML file '" + aFile.getAbsolutePath().replace("\\", "/") + "': " + e.getMessage());
 			el.logException(e);
 		} finally {
 			closeSilently(in);
@@ -154,7 +154,7 @@ public class XMLUtils {
 
 			XMLSerializer serializer = new XMLSerializer(writer, format);
 			serializer.serialize(xml);
-			logger.info("Dumped XML document to %s", aFile.getAbsolutePath());
+			logger.info("Dumped XML document to %s", aFile.getAbsolutePath().replace("\\", "/"));
 
 		} catch (IOException e) {
 			throw new ZamiaException("### ERROR ### Failed to write XML to file: " + e.getMessage());

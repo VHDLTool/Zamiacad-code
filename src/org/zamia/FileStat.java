@@ -53,7 +53,7 @@ public class FileStat {
 		fPath = aPath;
 		fValid = false;
 
-		fCachePath = aStatCachePathStr + File.separator + ZHash.encodeZ(fPath);
+		fCachePath = aStatCachePathStr + "/" + ZHash.encodeZ(fPath);
 	}
 
 	public synchronized void validate() {
@@ -203,7 +203,7 @@ public class FileStat {
 			fCanonicalPath = file.getCanonicalPath();
 		} catch (IOException e) {
 			el.logException(e);
-			fCanonicalPath = file.getAbsolutePath();
+			fCanonicalPath = file.getAbsolutePath().replace("\\", "/");
 		}
 
 		if (fExists) {

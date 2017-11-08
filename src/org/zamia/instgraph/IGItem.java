@@ -136,7 +136,7 @@ public abstract class IGItem implements Serializable, ZDBIIDSaver {
 
 	private long getOrCreateSFHID(SourceFile aSF) {
 
-		String path = aSF.getAbsolutePath();
+		String path = aSF.getAbsolutePath().replace("\\", "/");
 
 		long id = fZDB.getIdx("SFIdx", path);
 

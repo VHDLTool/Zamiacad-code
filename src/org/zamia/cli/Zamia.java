@@ -84,9 +84,9 @@ public class Zamia {
 		processArgs(args);
 		
 
-		String projectBuildPath = fProjectBasePath + File.separator + "BuildPath.txt";
+		String projectBuildPath = fProjectBasePath + "/" + "BuildPath.txt";
 
-		String projectDataPath = ZamiaTmpDir.getTmpDir().getAbsolutePath();
+		String projectDataPath = ZamiaTmpDir.getTmpDir().getAbsolutePath().replace("\\", "/");
 
 		logger.info("project id   : %s", fProjectId);
 		logger.info("project base : %s", fProjectBasePath);
@@ -115,7 +115,7 @@ public class Zamia {
 					File scriptFile = new File(fProjectBasePath, fScriptFile);
 					if (scriptFile.exists()) {
 						logger.info("Running script file %s", scriptFile.getAbsoluteFile());
-						fZCJ.evalFile(scriptFile.getAbsolutePath());
+						fZCJ.evalFile(scriptFile.getAbsolutePath().replace("\\", "/"));
 					} else {
 						logger.error("Specified script file %s doesn't exist!", scriptFile.getAbsoluteFile());
 					}
@@ -128,7 +128,7 @@ public class Zamia {
 							fZCJ.setObject("actionXmlFile", xmlFile);
 							fZCJ.setObject("actionRootNode", scriptFile.getSecond());
 							logger.info("Running script file %s from XML file %s", scriptFile.getFirst().getAbsoluteFile(), xmlFile.getAbsoluteFile());
-							fZCJ.evalFile(scriptFile.getFirst().getAbsolutePath());
+							fZCJ.evalFile(scriptFile.getFirst().getAbsolutePath().replace("\\", "/"));
 						}
 					} else {
 						logger.error("Specified XML file %s doesn't exist!", xmlFile.getAbsoluteFile());

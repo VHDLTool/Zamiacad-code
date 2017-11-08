@@ -289,7 +289,7 @@ public class EHMPageManager {
 			}
 
 		} catch (IOException e) {
-			logger.error("EHM: IOException while reading element %s (file: '%s')", aId, fFile.getAbsolutePath());
+			logger.error("EHM: IOException while reading element %s (file: '%s')", aId, fFile.getAbsolutePath().replace("\\", "/"));
 			el.logException(e);
 		} finally {
 			if (in != null) {

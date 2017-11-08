@@ -96,16 +96,16 @@ public class FSCacheTest {
 		File tmpDir = null;
 		int cnt = 0;
 		do {
-			tmpDir = new File(baseDir.getAbsolutePath() + File.separator + "FSCacheTest" + cnt);
+			tmpDir = new File(baseDir.getAbsolutePath().replace("\\", "/") + "/" + "FSCacheTest" + cnt);
 			cnt++;
 		} while (tmpDir.exists());
 
-		fTmpDirStr = tmpDir.getAbsolutePath();
+		fTmpDirStr = tmpDir.getAbsolutePath().replace("\\", "/");
 
-		fNewDir1 = fTmpDirStr + File.separator + "dir1";
-		fNewDir2 = fNewDir1 + File.separator + "dir2";
+		fNewDir1 = fTmpDirStr + "/" + "dir1";
+		fNewDir2 = fNewDir1 + "/" + "dir2";
 
-		String newFile = fNewDir2 + File.separator + "hello.txt";
+		String newFile = fNewDir2 + "/" + "hello.txt";
 
 		createDummyDir(fTmpDirStr);
 		createDummyDir(fNewDir1);
@@ -117,11 +117,11 @@ public class FSCacheTest {
 
 		f.setReadable(false);
 
-		checkList(f.getAbsolutePath(), Native.isWindows() ? true : false);
+		checkList(f.getAbsolutePath().replace("\\", "/"), Native.isWindows() ? true : false);
 
 		f.setReadable(true);
 
-		checkList(f.getAbsolutePath(), true);
+		checkList(f.getAbsolutePath().replace("\\", "/"), true);
 
 		deleteDirRek(tmpDir);
 	}
@@ -138,23 +138,23 @@ public class FSCacheTest {
 		File tmpDir = null;
 		int cnt = 0;
 		do {
-			tmpDir = new File(baseDir.getAbsolutePath() + File.separator + "FSCacheTest" + cnt);
+			tmpDir = new File(baseDir.getAbsolutePath().replace("\\", "/") + "/" + "FSCacheTest" + cnt);
 			cnt++;
 		} while (tmpDir.exists());
 
-		fTmpDirStr = tmpDir.getAbsolutePath();
+		fTmpDirStr = tmpDir.getAbsolutePath().replace("\\", "/");
 
-		fNewDir1 = fTmpDirStr + File.separator + "dir1";
-		fNewDir2 = fTmpDirStr + File.separator + "dir2";
+		fNewDir1 = fTmpDirStr + "/" + "dir1";
+		fNewDir2 = fTmpDirStr + "/" + "dir2";
 
 		fNewFiles = new String[6];
 
-		fNewFiles[0] = fNewDir1 + File.separator + "file1";
-		fNewFiles[1] = fNewDir1 + File.separator + "file2";
-		fNewFiles[2] = fNewDir2 + File.separator + "file1";
-		fNewFiles[3] = fNewDir2 + File.separator + "file2";
-		fNewFiles[4] = fTmpDirStr + File.separator + "file1";
-		fNewFiles[5] = fTmpDirStr + File.separator + "file2";
+		fNewFiles[0] = fNewDir1 + "/" + "file1";
+		fNewFiles[1] = fNewDir1 + "/" + "file2";
+		fNewFiles[2] = fNewDir2 + "/" + "file1";
+		fNewFiles[3] = fNewDir2 + "/" + "file2";
+		fNewFiles[4] = fTmpDirStr + "/" + "file1";
+		fNewFiles[5] = fTmpDirStr + "/" + "file2";
 
 		fFSCache.invalidate(fTmpDirStr);
 
@@ -219,7 +219,7 @@ public class FSCacheTest {
 	private void createDummyDir(String aFileName) throws Exception {
 		File newDir = new File(aFileName);
 		if (!newDir.mkdir()) {
-			fail("Couldn't create '" + newDir.getAbsolutePath() + "'");
+			fail("Couldn't create '" + newDir.getAbsolutePath().replace("\\", "/") + "'");
 		}
 	}
 
@@ -227,7 +227,7 @@ public class FSCacheTest {
 
 		File tmpDir = new File(fTmpDirStr);
 		if (!tmpDir.mkdirs()) {
-			fail("Couldn't create dir '" + tmpDir.getAbsolutePath() + "'");
+			fail("Couldn't create dir '" + tmpDir.getAbsolutePath().replace("\\", "/") + "'");
 		}
 
 		// two dirs
@@ -252,7 +252,7 @@ public class FSCacheTest {
 	 * based on cached stat/file data
 	 */
 
-	private static String tmpDir = ZamiaTmpDir.getTmpDir().getAbsolutePath() + File.separator + "zamia-test";
+	private static String tmpDir = ZamiaTmpDir.getTmpDir().getAbsolutePath().replace("\\", "/") + "/" + "zamia-test";
 
 	private ZamiaProject fZPrj;
 

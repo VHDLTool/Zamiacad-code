@@ -212,7 +212,7 @@ public class VHDLIndexer {
 	public void parse(Reader aReader, String aTargetLib, SourceFile aSF, int aPriority, boolean aUseFSCache, boolean aBottomUp, DMManager aDUM) throws IOException, ZamiaException {
 
 		//if (dump)
-			logger.debug("VHDLIndexer: indexing '%s', target lib : '%s'", aSF.getAbsolutePath(), aTargetLib);
+			logger.debug("VHDLIndexer: indexing '%s', target lib : '%s'", aSF.getAbsolutePath().replace("\\", "/"), aTargetLib);
 
 		if (aReader == null) {
 			logger.error("VHDLIndexer: reader == null!");
@@ -228,7 +228,7 @@ public class VHDLIndexer {
 		fPriority = aPriority;
 		fUseFSCache = aUseFSCache;
 		fBottomUp = aBottomUp;
-		fPath = fSF.getAbsolutePath();
+		fPath = fSF.getAbsolutePath().replace("\\", "/");
 
 		fDUM.removeStubs(fSF);
 

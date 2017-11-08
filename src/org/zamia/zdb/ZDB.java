@@ -128,10 +128,10 @@ public class ZDB {
 
 		fDBDir = aDBDir;
 		fOwner = aOwner;
-		fPDFile = new File(fDBDir.getAbsolutePath() + File.separator + PD_FILENAME);
-		fDataFile = new File(fDBDir.getAbsolutePath() + File.separator + DATA_TABLE_FILENAME);
-		fEHMPagesFile = new File(fDBDir.getAbsolutePath() + File.separator + EHM_PAGES_FILENAME);
-		fOffsetsFile = new File(fDBDir.getAbsolutePath() + File.separator + OFFSETS_FILENAME);
+		fPDFile = new File(fDBDir.getAbsolutePath().replace("\\", "/") + "/" + PD_FILENAME);
+		fDataFile = new File(fDBDir.getAbsolutePath().replace("\\", "/") + "/" + DATA_TABLE_FILENAME);
+		fEHMPagesFile = new File(fDBDir.getAbsolutePath().replace("\\", "/") + "/" + EHM_PAGES_FILENAME);
+		fOffsetsFile = new File(fDBDir.getAbsolutePath().replace("\\", "/") + "/" + OFFSETS_FILENAME);
 
 		if (ENABLE_STATISTICS) {
 			fNumObjectsByClass = new Utils.StatCounter();
@@ -728,7 +728,7 @@ public class ZDB {
 		try {
 			obj = baosToDiskThread.readObject(offset);
 		} catch (IOException e) {
-			logger.error("ZDB: IOException while reading element %s (file: '%s')", aId, fDataFile.getAbsolutePath());
+			logger.error("ZDB: IOException while reading element %s (file: '%s')", aId, fDataFile.getAbsolutePath().replace("\\", "/"));
 			el.logException(e);
 		} catch (ClassNotFoundException e) {
 			el.logException(e);
@@ -772,7 +772,7 @@ public class ZDB {
 
 		if (ehm == null) {
 
-			File file = new File(fDBDir.getAbsolutePath() + File.separator + ZHash.encodeZ(aId) + ".ehm");
+			File file = new File(fDBDir.getAbsolutePath().replace("\\", "/") + "/" + ZHash.encodeZ(aId) + ".ehm");
 
 			ehm = new ExtendibleHashMap(fEHMManager, file);
 
@@ -912,7 +912,7 @@ public class ZDB {
 
 	private void mkdirChecked(File aDir) {
 		if (!aDir.exists() && !aDir.mkdirs()) {
-			logger.error("ZDB: Fatal: Couldn't create dir %s.", aDir.getAbsolutePath());
+			logger.error("ZDB: Fatal: Couldn't create dir %s.", aDir.getAbsolutePath().replace("\\", "/"));
 			System.exit(1);
 		}
 		FileUtils.fixDirPerms(aDir);
@@ -922,13 +922,13 @@ public class ZDB {
 		if (!ENABLE_LOCKING)
 			return;
 
-		File lockFile = new File(fDBDir.getAbsolutePath() + File.separator + LOCK_FILENAME);
+		File lockFile = new File(fDBDir.getAbsolutePath().replace("\\", "/") + "/" + LOCK_FILENAME);
 
 		try {
 			fLock = new RandomAccessFile(lockFile, "rw").getChannel().tryLock();
 		} catch (IOException e) {el.logException(e);}
 		if (fLock == null)
-			throw new ZDBException("ZDB: failed to create a lock file, " + lockFile.getAbsolutePath() + ". Another instance may be running.", lockFile);
+			throw new ZDBException("ZDB: failed to create a lock file, " + lockFile.getAbsolutePath().replace("\\", "/") + ". Another instance may be running.", lockFile);
 		
 	}
 

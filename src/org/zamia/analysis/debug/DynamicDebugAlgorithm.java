@@ -170,7 +170,7 @@ public class DynamicDebugAlgorithm {
 
 	private void copy(String src, String dest) {
 		String base = fZPrj.fBasePath.toString();
-		boolean ok = FileUtils.copy(new File(base + File.separator + src), new File(base + File.separator + dest));
+		boolean ok = FileUtils.copy(new File(base + "/" + src), new File(base + "/" + dest));
 		if (!ok) {
 			logger.info("Failed to copy %s", src);
 		}

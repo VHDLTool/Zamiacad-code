@@ -112,7 +112,7 @@ public class BasicTest {
 
 	
 	protected void runTest(String aTestDir, String aBuildPathName, int aNumNodes, ErrorChecker errChecker) throws Exception {
-		setupTest(aTestDir, aTestDir + File.separator + aBuildPathName);
+		setupTest(aTestDir, aTestDir + "/" + aBuildPathName);
 
 		ZamiaProjectBuilder builder = fZPrj.getBuilder();
 

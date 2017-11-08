@@ -73,7 +73,7 @@ public class IGRefSimTest {
 	}
 
 	private void runTest(String aTestDir, String aBuildPathName, int aNumNodes, int aNanos) throws Exception {
-		setupTest(aTestDir, aTestDir + File.separator + aBuildPathName);
+		setupTest(aTestDir, aTestDir + "/" + aBuildPathName);
 
 		ZamiaProjectBuilder builder = fZPrj.getBuilder();
 

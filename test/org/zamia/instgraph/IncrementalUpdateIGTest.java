@@ -129,7 +129,7 @@ public class IncrementalUpdateIGTest {
 	}
 
 	private void addSource(String aBaseDir, String aLocalPath, HashSetArray<SourceFile> aChanged) {
-		SourceFile sf = new SourceFile(new File(aBaseDir + File.separator + aLocalPath));
+		SourceFile sf = new SourceFile(new File(aBaseDir + "/" + aLocalPath));
 		sf.setLocalPath(aLocalPath);
 		aChanged.add(sf);
 	}

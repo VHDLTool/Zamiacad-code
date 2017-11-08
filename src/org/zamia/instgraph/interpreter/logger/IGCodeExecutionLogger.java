@@ -303,7 +303,7 @@ public abstract class IGCodeExecutionLogger {
 		@Override
 		public int compareTo(CodeItem o) {
 
-			int result = fLoc.fSF.getAbsolutePath().compareTo(o.fLoc.fSF.getAbsolutePath());
+			int result = fLoc.fSF.getAbsolutePath().replace("\\", "/").compareTo(o.fLoc.fSF.getAbsolutePath().replace("\\", "/"));
 			if (result != 0) {
 				return result;
 			}

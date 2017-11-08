@@ -54,7 +54,7 @@ public class SourceLocation implements Serializable, Comparable<SourceLocation> 
 
 	public String toStringAbsolutePath() {
 		if (fSF != null)
-			return fSF.getAbsolutePath() + ":" + fLine + "," + fCol;
+			return fSF.getAbsolutePath().replace("\\", "/") + ":" + fLine + "," + fCol;
 		return "unknown source";
 	}
 
