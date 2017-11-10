@@ -96,7 +96,7 @@ public class FSCacheTest {
 		File tmpDir = null;
 		int cnt = 0;
 		do {
-			tmpDir = new File(baseDir.getAbsolutePath().replace("\\", "/") + "/" + "FSCacheTest" + cnt);
+			tmpDir = new File(baseDir.getAbsolutePath() + "/" + "FSCacheTest" + cnt);
 			cnt++;
 		} while (tmpDir.exists());
 
@@ -138,7 +138,7 @@ public class FSCacheTest {
 		File tmpDir = null;
 		int cnt = 0;
 		do {
-			tmpDir = new File(baseDir.getAbsolutePath().replace("\\", "/") + "/" + "FSCacheTest" + cnt);
+			tmpDir = new File(baseDir.getAbsolutePath() + "/" + "FSCacheTest" + cnt);
 			cnt++;
 		} while (tmpDir.exists());
 

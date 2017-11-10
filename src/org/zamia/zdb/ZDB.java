@@ -128,10 +128,10 @@ public class ZDB {
 
 		fDBDir = aDBDir;
 		fOwner = aOwner;
-		fPDFile = new File(fDBDir.getAbsolutePath().replace("\\", "/") + "/" + PD_FILENAME);
-		fDataFile = new File(fDBDir.getAbsolutePath().replace("\\", "/") + "/" + DATA_TABLE_FILENAME);
-		fEHMPagesFile = new File(fDBDir.getAbsolutePath().replace("\\", "/") + "/" + EHM_PAGES_FILENAME);
-		fOffsetsFile = new File(fDBDir.getAbsolutePath().replace("\\", "/") + "/" + OFFSETS_FILENAME);
+		fPDFile = new File(fDBDir.getAbsolutePath() + "/" + PD_FILENAME);
+		fDataFile = new File(fDBDir.getAbsolutePath() + "/" + DATA_TABLE_FILENAME);
+		fEHMPagesFile = new File(fDBDir.getAbsolutePath() + "/" + EHM_PAGES_FILENAME);
+		fOffsetsFile = new File(fDBDir.getAbsolutePath() + "/" + OFFSETS_FILENAME);
 
 		if (ENABLE_STATISTICS) {
 			fNumObjectsByClass = new Utils.StatCounter();
@@ -772,7 +772,7 @@ public class ZDB {
 
 		if (ehm == null) {
 
-			File file = new File(fDBDir.getAbsolutePath().replace("\\", "/") + "/" + ZHash.encodeZ(aId) + ".ehm");
+			File file = new File(fDBDir.getAbsolutePath() + "/" + ZHash.encodeZ(aId) + ".ehm");
 
 			ehm = new ExtendibleHashMap(fEHMManager, file);
 
@@ -922,7 +922,7 @@ public class ZDB {
 		if (!ENABLE_LOCKING)
 			return;
 
-		File lockFile = new File(fDBDir.getAbsolutePath().replace("\\", "/") + "/" + LOCK_FILENAME);
+		File lockFile = new File(fDBDir.getAbsolutePath() + "/" + LOCK_FILENAME);
 
 		try {
 			fLock = new RandomAccessFile(lockFile, "rw").getChannel().tryLock();

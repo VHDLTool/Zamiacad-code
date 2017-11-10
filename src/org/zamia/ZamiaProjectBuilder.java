@@ -418,7 +418,7 @@ public class ZamiaProjectBuilder {
 									indexer.parse(reader, fLibId, sf, fPriority, fUseFSCache, fBottomUp, fDUM);
 								}
 							} catch (IOException e) {
-								logger.error("ZamiaProjectBuilder: IOException caught while indexing '%s': %s", sf.getAbsolutePath().replace("\\", "/"), e.getMessage());
+								logger.error("ZamiaProjectBuilder: IOException caught while indexing '%s': %s", sf.getAbsolutePath(), e.getMessage());
 								el.logException(e);
 							} catch (ZamiaException e) {
 								el.logZamiaException(e);

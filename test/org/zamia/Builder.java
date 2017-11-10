@@ -92,7 +92,7 @@ public class Builder {
 	}
 
 	private int compileFile(File aFile) throws IOException, ZamiaException {
-		fDUM.compileFile(new SourceFile(new File(aFile.getAbsolutePath().replace("\\", "/"))), null, fWorkLibId, 0, true, false, false);
+		fDUM.compileFile(new SourceFile(new File(aFile.getAbsolutePath())), null, fWorkLibId, 0, true, false, false);
 
 		//numLines += cr.getNumLines();
 		fNumFiles++;

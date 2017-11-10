@@ -225,7 +225,7 @@ public class FSCache {
 		if (uri != null)
 			return true;
 
-		return exists(aSF.getAbsolutePath().replace("\\", "/"), aUseFSCache);
+		return exists(aSF.getAbsolutePath(), aUseFSCache);
 	}
 
 	public String[] list(String aPath, boolean aUseCache) {
@@ -318,20 +318,20 @@ public class FSCache {
 	}
 
 	public static String getDirPath(String aPath) {
-		int pos = aPath.lastIndexOf(File.separatorChar);
+		int pos = aPath.lastIndexOf("/");
 		if (pos < 0) {
 			logger.error("FSCache.getDirPath: Invalid path: '%s'", aPath);
 			return null;
 		}
 		String dirPath = aPath.substring(0, pos);
 		if (dirPath.length() == 0) {
-			dirPath = "" + File.separatorChar;
+			dirPath = "" + "/";
 		}
 		return dirPath;
 	}
 
 	public static String getFilePath(String aPath) {
-		int pos = aPath.lastIndexOf(File.separatorChar);
+		int pos = aPath.lastIndexOf("/");
 		if (pos < 0) {
 			logger.error("FSCache.getFilePath: Invalid path: '%s'", aPath);
 			return null;
@@ -440,7 +440,7 @@ public class FSCache {
 			return new BufferedReader(new InputStreamReader(stream));
 		}
 
-		return openFile(aSF.getAbsolutePath().replace("\\", "/"), aUseCache);
+		return openFile(aSF.getAbsolutePath(), aUseCache);
 	}
 
 	public InputStream openFileStream(String aPath, boolean aUseCache) throws IOException {

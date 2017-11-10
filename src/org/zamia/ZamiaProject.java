@@ -150,7 +150,7 @@ public class ZamiaProject {
 
 			if (initScript.exists()) {
 				logger.debug("Running init.py from %s", initScript.getAbsoluteFile());
-				fZCJ.evalFile(initScript.getAbsolutePath().replace("\\", "/"));
+				fZCJ.evalFile(initScript.getAbsolutePath());
 			}
 
 			// run project specific init scripts
@@ -179,7 +179,7 @@ public class ZamiaProject {
 	}
 
 	public void clean() throws IOException, ZamiaException {
-		logger.info("Cleaning project '%s'", fBasePath.dir.replace("\\", "/"));
+		logger.info("Cleaning project '%s'", fBasePath.dir);
 		ZamiaProfiler.getInstance().startTimer("Cleaning");
 		fZDB.clear();
 		setBuildPath(new BuildPath(fBuildPath.getSourceFile()));

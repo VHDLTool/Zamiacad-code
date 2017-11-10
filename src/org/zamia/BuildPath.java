@@ -546,7 +546,7 @@ public class BuildPath implements Serializable {
 
 		if (fSym != Symbol.STRING)
 			throw new ZamiaException("pathPrefix expected.", getLocation());
-		String pathPrefix = evalString(fBuf.toString()).replace('/', File.separatorChar).replace('\\', File.separatorChar);
+		String pathPrefix = evalString(fBuf.toString()).replace('\\', '/');
 		nextSym();
 
 		if (!pathPrefix.endsWith("/"))
@@ -948,7 +948,7 @@ public class BuildPath implements Serializable {
 			}
 		} else {
 			// FIXME: canonical path?
-			path = aSF.getAbsolutePath().replace("\\", "/");
+			path = aSF.getAbsolutePath();
 
 			int n = getNumEntries();
 			for (int i = 0; i < n; i++) {

@@ -86,7 +86,7 @@ public class SourceFile implements Comparable, Serializable {
 	// properties
 
 	public void setLocalPath(String aLocalPath) {
-		fLocalPath = aLocalPath;
+		fLocalPath = aLocalPath.replace("\\", "/");
 	}
 
 	public String getLocalPath() {

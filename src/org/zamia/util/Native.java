@@ -322,7 +322,7 @@ public class Native {
 			}
 			unpacked = true;
 		}
-		System.load(lib.getAbsolutePath().replace("\\", "/"));
+		System.load(lib.getAbsolutePath());
 		nativeLibraryPath = lib.getAbsolutePath().replace("\\", "/");
 	}
 

@@ -146,7 +146,7 @@ public class DMManager {
 	public synchronized SFDMInfo compileFile(SourceFile aSF, Reader aReader, String aLibId, int aPriority, boolean aBottomUp, boolean aUseFSCache, boolean aUseDUCache)
 			throws IOException, ZamiaException {
 
-		String filename = aSF.getAbsolutePath().replace("\\", "/");
+		String filename = aSF.getAbsolutePath();
 
 		SFDMInfo info = null;
 		if (aUseDUCache) {
@@ -155,7 +155,7 @@ public class DMManager {
 
 				boolean upToDate = true;
 
-				String path = aSF.getAbsolutePath().replace("\\", "/");
+				String path = aSF.getAbsolutePath();
 				if (path != null) {
 					long ts = FSCache.getInstance().getLastModified(path, aUseFSCache);
 
@@ -163,7 +163,13 @@ public class DMManager {
 				}
 
 				if (upToDate) {
-					logger.info("DMManager: Not running parser for " + aSF + " because we have cached the result.");
+					String fileName = "";
+					if(aSF.getLocalPath() != null)
+						fileName = aSF.getLocalPath();
+					else if(aSF.toString() != null)
+						fileName = aSF.toString();
+					fileName = "./" + fileName.replace("(", "").replace(")", "");
+					logger.info("DMManager: Not running parser for " + fileName + " because we have cached the result.");
 					return info;
 				}
 			}
@@ -205,12 +211,22 @@ public class DMManager {
 				}
 
 			}
+			
+			String fileName = "";
+			if(aSF.getLocalPath() != null)
+				fileName = aSF.getLocalPath();
+			else if(aSF.toString() != null)
+				fileName = aSF.toString().replace("(null) ", "");
+			if(fileName.startsWith("/"))
+				fileName = "." + fileName;
+			else
+				fileName = "./" + fileName;
 
 			if (libId == null) {
-				logger.debug("DMManager: Not parsing '%s' because we have a 'none' bp entry.", aSF);
+				logger.debug("DMManager: Not parsing '%s' because we have a 'none' bp entry.", fileName);
 				return new SFDMInfo();
 			}
-			logger.info("DMManager: Parsing '%s' => Library '%s'", aSF, libId);
+			logger.info("DMManager: Parsing '%s' => Library '%s'", fileName, libId);
 
 			duuids = compiler.parse(reader, libId, aSF, priority, aUseFSCache, aBottomUp, fZPrj);
 		} catch (IOException e) {
@@ -223,7 +239,13 @@ public class DMManager {
 
 		int newNErrors = fERM.getNumErrors();
 		if (newNErrors > oldNErrors) {
-			logger.error("DMManager: %d errors found while parsing '%s'", newNErrors - oldNErrors, aSF.getAbsolutePath().replace("\\", "/"));
+			String fileName = "";
+			if(aSF.getLocalPath() != null)
+				fileName = aSF.getLocalPath();
+			else if(aSF.toString() != null)
+				fileName = aSF.toString();
+			fileName = "./" + fileName.replace("(", "").replace(")", "");
+			logger.error("DMManager: %d errors found while parsing '%s'", newNErrors - oldNErrors, fileName);
 		}
 
 		if (oldInfo != null) {
@@ -340,7 +362,7 @@ public class DMManager {
 
 	public synchronized SFDMInfo removeStubs(SourceFile aSF) {
 
-		String filename = aSF.getAbsolutePath().replace("\\", "/");
+		String filename = aSF.getAbsolutePath();
 		//logger.debug("DMManager: Removing stubs from '%s'", filename);
 		SFDMInfo info = fSFMap.get(filename);
 
@@ -410,7 +432,7 @@ public class DMManager {
 		DesignModuleStub stub = new DesignModuleStub(aDUUID, aSF, aPriority, aReadonly);
 		fZDB.putIdxObj(STUBS_IDX, uid, stub);
 
-		String filename = aSF.getAbsolutePath().replace("\\", "/");
+		String filename = aSF.getAbsolutePath();
 		SFDMInfo info = fSFMap.get(filename);
 		if (info == null) {
 			info = new SFDMInfo();

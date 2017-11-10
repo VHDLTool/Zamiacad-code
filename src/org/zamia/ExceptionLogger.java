@@ -97,7 +97,7 @@ public class ExceptionLogger {
 			if (rd == null)
 				return;
 
-			zl.log(level, sf_.getAbsolutePath().replace("\\", "/"));
+			zl.log(level, sf_.getAbsolutePath());
 
 			buf = new BufferedReader(rd);
 

@@ -71,7 +71,7 @@ public class AllSignalsList implements Runnable {
 
 		fDBDir = aDBDir;
 
-		fIdxFile = new File(fDBDir.getAbsolutePath().replace("\\", "/") + "/" + IDX_FILENAME);
+		fIdxFile = new File(fDBDir.getAbsolutePath() + "/" + IDX_FILENAME);
 
 		fLock = new ReentrantLock();
 

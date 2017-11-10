@@ -200,7 +200,7 @@ public class FileStat {
 		fValid = false;
 
 		try {
-			fCanonicalPath = file.getCanonicalPath();
+			fCanonicalPath = file.getCanonicalPath().replace("\\", "/");
 		} catch (IOException e) {
 			el.logException(e);
 			fCanonicalPath = file.getAbsolutePath().replace("\\", "/");

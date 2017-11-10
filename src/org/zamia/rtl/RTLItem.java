@@ -129,7 +129,7 @@ public abstract class RTLItem implements Serializable, ZDBIIDSaver {
 
 	private long getOrCreateSFHID(SourceFile aSF) {
 
-		String path = aSF.getAbsolutePath().replace("\\", "/");
+		String path = aSF.getAbsolutePath();
 
 		long id = fZDB.getIdx("SFIdx", path);
 
