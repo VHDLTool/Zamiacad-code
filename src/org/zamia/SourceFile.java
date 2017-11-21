@@ -92,7 +92,11 @@ public class SourceFile implements Comparable, Serializable {
 	public String getLocalPath() {
 		return fLocalPath;
 	}
-
+	
+	public String getLocalPathWithPointSlash() {
+		return "./" + fLocalPath;
+	}
+	
 	public void setFormat(int aFormat) {
 		fFormat = aFormat;
 	}
