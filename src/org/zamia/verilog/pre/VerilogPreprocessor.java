@@ -185,7 +185,7 @@ public class VerilogPreprocessor implements IPreprocessor {
 			File includeFile = new File(fileName);
 
 			if (!includeFile.isAbsolute()) {
-				includeFile = new File(fCurDir.getAbsolutePath() + File.separator + includeFile.getPath());
+				includeFile = new File(fCurDir.getAbsolutePath() + "/" + includeFile.getPath());
 			}
 
 			SourceFile sf = new SourceFile(includeFile);

@@ -66,7 +66,7 @@ public class IGDumpTest {
 	}
 
 	private void runTest(String aTestDir, String aBuildPathName, int aNumNodes, File aASTDotFile, File aIGDotFile) throws Exception {
-		setupTest(aTestDir, aTestDir + File.separator + aBuildPathName);
+		setupTest(aTestDir, aTestDir + "/" + aBuildPathName);
 
 		ZamiaProjectBuilder builder = fZPrj.getBuilder();
 

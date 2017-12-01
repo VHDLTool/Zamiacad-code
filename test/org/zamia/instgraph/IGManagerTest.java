@@ -51,7 +51,7 @@ public class IGManagerTest {
 	}
 
 	private void runTest(String aTestDir, String aBuildPathName, int aNumObjects) throws Exception {
-		setupTest(aTestDir, aTestDir + File.separator + aBuildPathName);
+		setupTest(aTestDir, aTestDir + "/" + aBuildPathName);
 
 		ZamiaProjectBuilder builder = fZPrj.getBuilder();
 

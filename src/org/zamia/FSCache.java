@@ -100,15 +100,15 @@ public class FSCache {
 		File tmpDir = ZamiaTmpDir.getTmpDir();
 		fixDirPerms(tmpDir);
 
-		fFileCacheDir = new File(ZamiaTmpDir.getTmpDir() + File.separator + "fs_cache" + File.separator + "files");
+		fFileCacheDir = new File(ZamiaTmpDir.getTmpDir() + "/" + "fs_cache" + "/" + "files");
 		fFileCacheDir.mkdirs();
 		fixDirPerms(fFileCacheDir);
-		fFileCacheDirStr = fFileCacheDir.getAbsolutePath();
+		fFileCacheDirStr = fFileCacheDir.getAbsolutePath().replace("\\", "/");
 
-		fStatCacheDir = new File(ZamiaTmpDir.getTmpDir() + File.separator + "fs_cache" + File.separator + "stats");
+		fStatCacheDir = new File(ZamiaTmpDir.getTmpDir() + "/" + "fs_cache" + "/" + "stats");
 		fStatCacheDir.mkdirs();
 		fixDirPerms(fStatCacheDir);
-		fStatCacheDirStr = fStatCacheDir.getAbsolutePath();
+		fStatCacheDirStr = fStatCacheDir.getAbsolutePath().replace("\\", "/");
 
 		fFilesLock = new ReentrantLock();
 		fValidatingFiles = new HashSet<String>();
@@ -253,7 +253,7 @@ public class FSCache {
 			} catch (IOException e) {
 				el.logException(e);
 			}
-			return f.getAbsolutePath();
+			return f.getAbsolutePath().replace("\\", "/");
 		}
 
 		FileStat info = getFileStat(aPath);
@@ -284,7 +284,7 @@ public class FSCache {
 	private FileStat getFileStat(String aPath) {
 
 		File f = new File(cleanupPath(aPath));
-		String path = f.getAbsolutePath();
+		String path = f.getAbsolutePath().replace("\\", "/");
 
 		FileStat info = null;
 
@@ -318,20 +318,20 @@ public class FSCache {
 	}
 
 	public static String getDirPath(String aPath) {
-		int pos = aPath.lastIndexOf(File.separatorChar);
+		int pos = aPath.lastIndexOf("/");
 		if (pos < 0) {
 			logger.error("FSCache.getDirPath: Invalid path: '%s'", aPath);
 			return null;
 		}
 		String dirPath = aPath.substring(0, pos);
 		if (dirPath.length() == 0) {
-			dirPath = "" + File.separatorChar;
+			dirPath = "" + "/";
 		}
 		return dirPath;
 	}
 
 	public static String getFilePath(String aPath) {
-		int pos = aPath.lastIndexOf(File.separatorChar);
+		int pos = aPath.lastIndexOf("/");
 		if (pos < 0) {
 			logger.error("FSCache.getFilePath: Invalid path: '%s'", aPath);
 			return null;
@@ -359,7 +359,7 @@ public class FSCache {
 	private FileStub getFileInfo(String aPath) {
 
 		File f = new File(cleanupPath(aPath));
-		String path = f.getAbsolutePath();
+		String path = f.getAbsolutePath().replace("\\", "/");
 
 		FileStub stub = null;
 
@@ -456,7 +456,7 @@ public class FSCache {
 
 		if (cacheFile.exists()) {
 			if (!cacheFile.delete()) {
-				logger.error("FSCache: Couldn't delete cache file %s", cacheFile.getAbsolutePath());
+				logger.error("FSCache: Couldn't delete cache file %s", cacheFile.getAbsolutePath().replace("\\", "/"));
 			}
 		}
 
@@ -465,7 +465,7 @@ public class FSCache {
 
 	private String getFileCachePath(String aPath) {
 		String cachePath = ZHash.encodeZ(aPath);
-		return fFileCacheDirStr + File.separator + cachePath;
+		return fFileCacheDirStr + "/" + cachePath;
 	}
 
 	public void setCancelWait(boolean aCancelWait) {
@@ -488,7 +488,7 @@ public class FSCache {
 					System.exit(1);
 				}
 				fixDirPerms(fFileCacheDir);
-				fFileCacheDirStr = fFileCacheDir.getAbsolutePath();
+				fFileCacheDirStr = fFileCacheDir.getAbsolutePath().replace("\\", "/");
 
 				FileUtils.deleteDirRecursive(fStatCacheDir);
 
@@ -497,7 +497,7 @@ public class FSCache {
 					System.exit(1);
 				}
 				fixDirPerms(fStatCacheDir);
-				fStatCacheDirStr = fStatCacheDir.getAbsolutePath();
+				fStatCacheDirStr = fStatCacheDir.getAbsolutePath().replace("\\", "/");
 
 			} finally {
 				fStatsLock.unlock();

@@ -28,7 +28,7 @@ public class Builder {
 
 	public final static ExceptionLogger el = ExceptionLogger.getInstance();
 
-	private static String tmpDir = ZamiaTmpDir.getTmpDir().getAbsolutePath() + File.separator + "zamia-test";
+	private static String tmpDir = ZamiaTmpDir.getTmpDir().getAbsolutePath().replace("\\", "/") + "/" + "zamia-test";
 
 	private ZamiaProject fZPrj;
 
@@ -112,7 +112,7 @@ public class Builder {
 
 			for (int i = 0; i < n; i++) {
 				fOut.println();
-				fOut.println("***** Error #" + (i + 1) + "/" + n + " in file " + aFile.getAbsolutePath());
+				fOut.println("***** Error #" + (i + 1) + "/" + n + " in file " + aFile.getAbsolutePath().replace("\\", "/"));
 				ZamiaException err = fERM.getError(i);
 				fOut.println(err);
 				fOut.println();

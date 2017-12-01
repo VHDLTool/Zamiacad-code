@@ -163,7 +163,13 @@ public class DMManager {
 				}
 
 				if (upToDate) {
-					logger.info("DMManager: Not running parser for " + aSF + " because we have cached the result.");
+					String fileName = "";
+					if(aSF.getLocalPath() != null)
+						fileName = aSF.getLocalPath();
+					else if(aSF.toString() != null)
+						fileName = aSF.toString();
+					fileName = "./" + fileName.replace("(", "").replace(")", "");
+					logger.info("DMManager: Not running parser for " + fileName + " because we have cached the result.");
 					return info;
 				}
 			}
@@ -205,12 +211,22 @@ public class DMManager {
 				}
 
 			}
+			
+			String fileName = "";
+			if(aSF.getLocalPath() != null)
+				fileName = aSF.getLocalPath();
+			else if(aSF.toString() != null)
+				fileName = aSF.toString().replace("(null) ", "");
+			if(fileName.startsWith("/"))
+				fileName = "." + fileName;
+			else
+				fileName = "./" + fileName;
 
 			if (libId == null) {
-				logger.debug("DMManager: Not parsing '%s' because we have a 'none' bp entry.", aSF);
+				logger.debug("DMManager: Not parsing '%s' because we have a 'none' bp entry.", fileName);
 				return new SFDMInfo();
 			}
-			logger.info("DMManager: Parsing '%s' => Library '%s'", aSF, libId);
+			logger.info("DMManager: Parsing '%s' => Library '%s'", fileName, libId);
 
 			duuids = compiler.parse(reader, libId, aSF, priority, aUseFSCache, aBottomUp, fZPrj);
 		} catch (IOException e) {
@@ -223,7 +239,13 @@ public class DMManager {
 
 		int newNErrors = fERM.getNumErrors();
 		if (newNErrors > oldNErrors) {
-			logger.error("DMManager: %d errors found while parsing '%s'", newNErrors - oldNErrors, aSF.getAbsolutePath());
+			String fileName = "";
+			if(aSF.getLocalPath() != null)
+				fileName = aSF.getLocalPath();
+			else if(aSF.toString() != null)
+				fileName = aSF.toString();
+			fileName = "./" + fileName.replace("(", "").replace(")", "");
+			logger.error("DMManager: %d errors found while parsing '%s'", newNErrors - oldNErrors, fileName);
 		}
 
 		if (oldInfo != null) {

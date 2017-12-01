@@ -46,7 +46,7 @@ public class ConditionCounterTest {
 
     @SuppressWarnings("ThrowableResultOfMethodCallIgnored")
     private void runTest(String aTestDir, String aBuildPathName, int aNumConditions) throws Exception {
-        setupTest(aTestDir, aTestDir + File.separator + aBuildPathName);
+        setupTest(aTestDir, aTestDir + "/" + aBuildPathName);
 
         ZamiaProjectBuilder builder = fZPrj.getBuilder();
 

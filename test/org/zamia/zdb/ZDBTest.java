@@ -42,7 +42,7 @@ public class ZDBTest {
 
 		File tmpDir = ZamiaTmpDir.getTmpDir();
 
-		File file = new File(tmpDir.getAbsolutePath() + File.separator + "ZDBTest2");
+		File file = new File(tmpDir.getAbsolutePath() + "/" + "ZDBTest2");
 
 		FileUtils.deleteDirRecursive(file);
 
@@ -116,7 +116,7 @@ public class ZDBTest {
 
 		File tmpDir = ZamiaTmpDir.getTmpDir();
 
-		File file = new File(tmpDir.getAbsolutePath() + File.separator + "ZDBTest");
+		File file = new File(tmpDir.getAbsolutePath() + "/" + "ZDBTest");
 
 		fZDB = new ZDB(file, null);
 

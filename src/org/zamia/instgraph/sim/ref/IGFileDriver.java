@@ -118,7 +118,7 @@ public class IGFileDriver extends IGObjectDriver {
 				throw new ZamiaException("Attempt to access a closed file.", aLocation);
 			case IN:
 				String fileName = getFileName(aLocation);
-				throw new ZamiaException("Attempt to write to or flush file \"" + fileName+ "\" which is opened only for reading.", aLocation);
+				throw new ZamiaException("Attempt to write to or flush file \"" + fileName + "\" which is opened only for reading.", aLocation);
 		}
 
 		File file = getFile(aLocation);
@@ -132,9 +132,9 @@ public class IGFileDriver extends IGObjectDriver {
 			writer.newLine();
 
 		} catch (FileNotFoundException e) {
-			throw new ZamiaException("File to write to is not found: " + file.getAbsolutePath(), aLocation);
+			throw new ZamiaException("File to write to is not found: " + file.getAbsolutePath().replace("\\", "/"), aLocation);
 		} catch (IOException e) {
-			throw new ZamiaException("Error while writing to file " + file.getAbsolutePath() + ":\n" + e.getMessage(), aLocation);
+			throw new ZamiaException("Error while writing to file " + file.getAbsolutePath().replace("\\", "/") + ":\n" + e.getMessage(), aLocation);
 		} finally {
 			close(writer);
 		}
@@ -215,9 +215,9 @@ public class IGFileDriver extends IGObjectDriver {
 			line = reader.readLine();
 
 		} catch (FileNotFoundException e) {
-			throw new ZamiaException("File " + aFile.getAbsolutePath() + " not found while executing " + aSub, aLocation);
+			throw new ZamiaException("File " + aFile.getAbsolutePath().replace("\\", "/") + " not found while executing " + aSub, aLocation);
 		} catch (IOException e) {
-			throw new ZamiaException("Error while reading file " + aFile.getAbsolutePath() + ":\n" + e.getMessage(), aLocation);
+			throw new ZamiaException("Error while reading file " + aFile.getAbsolutePath().replace("\\", "/") + ":\n" + e.getMessage(), aLocation);
 		} finally {
 			close(reader);
 		}

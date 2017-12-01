@@ -389,7 +389,7 @@ public class ZamiaProjectBuilder {
 									break;
 								}
 
-								String filename = fPath + File.separator + fn;
+								String filename = fPath + "/" + fn;
 
 								incTodoFiles();
 								fExecutorService.execute(new ProcessFileJob(filename, fLibId, fPriority, fUseFSCache, fBottomUp, fRecursive, fDepth + 1));

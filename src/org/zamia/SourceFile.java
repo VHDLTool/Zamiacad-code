@@ -86,13 +86,17 @@ public class SourceFile implements Comparable, Serializable {
 	// properties
 
 	public void setLocalPath(String aLocalPath) {
-		fLocalPath = aLocalPath;
+		fLocalPath = aLocalPath.replace("\\", "/");
 	}
 
 	public String getLocalPath() {
 		return fLocalPath;
 	}
-
+	
+	public String getLocalPathWithPointSlash() {
+		return "./" + fLocalPath;
+	}
+	
 	public void setFormat(int aFormat) {
 		fFormat = aFormat;
 	}
@@ -126,7 +130,7 @@ public class SourceFile implements Comparable, Serializable {
 	public String getAbsolutePath() {
 		if (fFile == null)
 			return fURI;
-		return fFile.getAbsolutePath();
+		return fFile.getAbsolutePath().replace("\\", "/");
 	}
 
 	private int guessFormat() {

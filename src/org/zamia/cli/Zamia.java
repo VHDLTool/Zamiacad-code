@@ -84,9 +84,9 @@ public class Zamia {
 		processArgs(args);
 		
 
-		String projectBuildPath = fProjectBasePath + File.separator + "BuildPath.txt";
+		String projectBuildPath = fProjectBasePath + "/" + "BuildPath.txt";
 
-		String projectDataPath = ZamiaTmpDir.getTmpDir().getAbsolutePath();
+		String projectDataPath = ZamiaTmpDir.getTmpDir().getAbsolutePath().replace("\\", "/");
 
 		logger.info("project id   : %s", fProjectId);
 		logger.info("project base : %s", fProjectBasePath);

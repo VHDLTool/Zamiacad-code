@@ -55,7 +55,7 @@ public class ExceptionLogger {
 			File file = location.fSF.getFile();
 			if (file != null) {
 				zl.error("");
-				zl.error("Full path: " + file.getAbsolutePath());
+				zl.error("Full path: " + file.getAbsolutePath().replace("\\", "/"));
 				zl.error("");
 			}
 		}

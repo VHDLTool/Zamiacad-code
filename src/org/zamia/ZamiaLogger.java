@@ -71,8 +71,10 @@ public class ZamiaLogger {
 
 		if (fFileName == null) {
 			File tmpDir = ZamiaTmpDir.getTmpDir();
-			fFileName = tmpDir.getAbsolutePath() + File.separator + FILENAME;
-		}
+			fFileName = tmpDir.getAbsolutePath().replace("\\", "/") + "/" + FILENAME;
+		} else
+			fFileName = System.getenv("ZAMIA_LOG").replace("\\", "/");
+		
 		//		String home = System.getProperty("user.home");
 
 		try {

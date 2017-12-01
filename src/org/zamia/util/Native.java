@@ -193,7 +193,7 @@ public class Native {
 				try {
 					Runtime.getRuntime().exec(
 							new String[] { System.getProperty("java.home") + "/bin/java", "-cp", System.getProperty("java.class.path"), getClass().getName(),
-									file.getAbsolutePath(), });
+									file.getAbsolutePath().replace("\\", "/"), });
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -323,7 +323,7 @@ public class Native {
 			unpacked = true;
 		}
 		System.load(lib.getAbsolutePath());
-		nativeLibraryPath = lib.getAbsolutePath();
+		nativeLibraryPath = lib.getAbsolutePath().replace("\\", "/");
 	}
 
 }

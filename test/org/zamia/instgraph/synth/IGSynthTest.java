@@ -75,7 +75,7 @@ public class IGSynthTest {
 	}
 
 	private RTLModule runSynth(String aTestDir, String aBuildPathName, String aSynthUID) throws Exception {
-		setupTest(aTestDir, aTestDir + File.separator + aBuildPathName);
+		setupTest(aTestDir, aTestDir + "/" + aBuildPathName);
 
 		ZamiaProjectBuilder builder = fZPrj.getBuilder();
 
@@ -118,7 +118,7 @@ public class IGSynthTest {
 
 		RTLVisualGraphSelectionProvider selectionProvider = new RTLVisualGraphSelectionProvider();
 
-		String svgFileName = fZPrj.getDataPath() + File.separator + aSynthUID + ".svg";
+		String svgFileName = fZPrj.getDataPath() + "/" + aSynthUID + ".svg";
 
 		logger.info("IGSynthTest: SVG file name: %s", svgFileName);
 

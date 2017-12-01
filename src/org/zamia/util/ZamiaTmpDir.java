@@ -43,7 +43,7 @@ public class ZamiaTmpDir {
 			if (tmpDir.exists() || tmpDir.mkdirs()) {
 				return tmpDir;
 			} else {
-				System.err.printf("ZamiaProject: ZAMIA_DATA_DIR environment variable set, but cannot create or use %s\n", tmpDir.getAbsolutePath());
+				System.err.printf("ZamiaProject: ZAMIA_DATA_DIR environment variable set, but cannot create or use %s\n", tmpDir.getAbsolutePath().replace("\\", "/"));
 				System.exit(1);
 			}
 		}
@@ -64,7 +64,7 @@ public class ZamiaTmpDir {
 		 * 3rd attempt: <tmp>/<username>/zamia
 		 */
 
-		tmpDir = new File(System.getProperty("java.io.tmpdir") + File.separator + username + File.separator + "zamia");
+		tmpDir = new File(System.getProperty("java.io.tmpdir") + "/" + username + "/" + "zamia");
 		if (!tmpDir.exists() && !tmpDir.mkdirs()) {
 			System.err.println("Failed to create tmp dir " + tmpDir);
 			System.exit(1);
